@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as Http;
-import 'package:rafroid/model/Subject.dart';
+import 'package:rafroid/model/Event.dart';
 
 class Network {
 
-  Future<List<Subject>> fetchSubjects() async {
-    List<Subject> subjects = new List<Subject>();
+  Future<List<Event>> fetchEvents() async {
+    List<Event> events = new List<Event>();
 
-    var response = new JsonDecoder().convert((await Http.get('http://www.ecloga.org/subjects.json')).body);
+    var response = new JsonDecoder().convert((await Http.get('http://www.ecloga.org/events.json')).body);
 
-  	for(var subject in response) {
-      subjects.add(new Subject.fromJson(subject));
+  	for(var event in response) {
+      events.add(new Event.fromJson(event));
     }
 
-  	return subjects;
+  	return events;
   }
 }

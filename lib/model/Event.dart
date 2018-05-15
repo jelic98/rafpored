@@ -2,22 +2,22 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:rafroid/Theme.dart' as Theme;
 
-class Subject {
+class Event {
 
   static const String dateFormat = "dd.MM";
   static const String timeFormat = "HH:mm";
 
   final String id;
-  final String name;
+  final String subject;
   final String professor;
   final List<dynamic> classrooms;
   final DateTime dateFrom;
   final DateTime dateTo;
   final EventType type;
 
-  Subject({
+  Event({
 	  this.id,
-	  this.name,
+	  this.subject,
 	  this.professor,
 	  this.classrooms,
 	  this.dateFrom,
@@ -25,10 +25,10 @@ class Subject {
 	  this.type
   });
 
-  factory Subject.fromJson(Map<String, dynamic> response) {
-    return new Subject(
+  factory Event.fromJson(Map<String, dynamic> response) {
+    return new Event(
       id: response["id"],
-      name: response["name"],
+      subject: response["subject"],
       professor: response["professor"],
       classrooms: response["classrooms"],
       dateFrom: DateTime.parse(response["dateFrom"]),

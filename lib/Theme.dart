@@ -5,9 +5,11 @@ class Colors {
   const Colors();
 
   static const Color barTitle = const Color(0xFFFFFFFF);
-  static const Color barIcon = const Color(0xFF0984E3);
+  static const Color barIcon = const Color(0xFFF5F6FA);
   static const Color barGradientStart = const Color(0xFF0984E3);
   static const Color barGradientEnd = const Color(0xFF74B9FF);
+
+  static const Color button = const Color(0xFF0984E3);
 
   static const Color cardExam = const Color(0xFFEB3B5A);	
   static const Color cardColloquium = const Color(0xFFFA983A);	
@@ -17,10 +19,10 @@ class Colors {
   
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFaded = const Color(0x99FFFFFF);
-  
-  static const Color smallIcon = const Color(0x99FFFFFF);
 
-  static const Color divider = const Color(0xFF0984E3);
+  static const Color inputHint = const Color(0x66000000);
+
+  static const Color smallIcon = const Color(0x99FFFFFF);
 }
 
 class Dimens {
@@ -29,6 +31,21 @@ class Dimens {
 
   static const barHeight = 60.0;
 
+  static const elevation = 5.0;
+
+  static const logoRadius = 48.0;
+
+  static const formPadding = 32.0;
+
+  static const inputRadius = 30.0;
+  static const inputPadding = EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0);
+
+  static const buttonRadius = 30.0;
+  static const buttonPadding = EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0);
+
+  static const listPadding = 8.0;
+  static const listItemExtent = 160.0;
+
   static const cardRadius = 8.0;
   static const cardPadding = 16.0;
   static const cardMargin = 8.0;
@@ -36,9 +53,9 @@ class Dimens {
   static const smallIconSize = 14.0;
   static const smallIconSpacing = 4.0;
 
-  static const dividerWidth = 72.0;
-  static const dividerHeight = 1.0;
-  static const dividerSpacing = 8.0;
+  static const dividerSmall = 16.0;
+  static const dividerBig = 32.0;
+  static const dividerLarge = 72.0;
 }
 
 class TextStyles {
@@ -64,5 +81,12 @@ class TextStyles {
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w300,
     fontSize: 12.0
+  );
+
+  static const TextStyle inputHint = const TextStyle(
+      color: Colors.inputHint,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w300,
+      fontSize: 12.0
   );
 }

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafroid/Theme.dart' as Theme;
-import 'package:rafroid/Routes.dart';
 
-class HomeBar extends StatelessWidget {
-
-  final String title;
-
-  HomeBar(this.title);
+class DetailsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +15,8 @@ class HomeBar extends StatelessWidget {
       height: statusbarHeight + Theme.Dimens.barHeight,
       child: new Row(
         children: <Widget>[
-          new IconButton(
-              onPressed: () => Routes.navigate(context, '/login', true, Transition.exit),
-              icon: new Icon(Icons.exit_to_app),
-              color: Theme.Colors.barIcon,
-          ),
-          new Center(
-            child: new Text(
-              title,
-              style: Theme.TextStyles.barTitle,
-            ),
+          new BackButton(
+              color: Theme.Colors.barIcon
           ),
         ],
       ),
