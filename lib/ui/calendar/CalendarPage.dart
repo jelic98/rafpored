@@ -9,7 +9,7 @@ class CalendarPage extends StatelessWidget {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          new CalendarBar(),
+          new CalendarBar("Rafpored"),
           new CalendarBody(),
         ],
       ),

@@ -4,8 +4,8 @@ import 'package:rafroid/Theme.dart' as Theme;
 
 class Event {
 
-  static const String dateFormat = "dd.MM";
-  static const String timeFormat = "HH:mm";
+  static const String _dateFormat = "dd.MM";
+  static const String _timeFormat = "HH:mm";
 
   final String id;
   final String subject;
@@ -53,15 +53,15 @@ class Event {
 
   Map<String, String> getDateFrom() {
 	return {
-	  "date" : new DateFormat(dateFormat).format(dateFrom),
-	  "time" : new DateFormat(timeFormat).format(dateFrom)
+	  "date" : new DateFormat(_dateFormat).format(dateFrom),
+	  "time" : new DateFormat(_timeFormat).format(dateFrom)
     };
   }
 
   Map<String, String> getDateTo() {
 	return {
-	  "date" : new DateFormat(dateFormat).format(dateTo),
-	  "time" : new DateFormat(timeFormat).format(dateTo)
+	  "date" : new DateFormat(_dateFormat).format(dateTo),
+	  "time" : new DateFormat(_timeFormat).format(dateTo)
     };
   }
 

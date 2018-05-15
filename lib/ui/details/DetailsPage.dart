@@ -4,9 +4,9 @@ import 'package:rafroid/ui/details/DetailsBody.dart';
 
 class DetailsPage extends StatelessWidget {
 
-  final id;
+  final String _id;
 
-  DetailsPage(this.id);
+  DetailsPage(this._id);
 
   @override
   Widget build(BuildContext context) {

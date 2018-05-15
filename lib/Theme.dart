@@ -5,7 +5,7 @@ class Colors {
   const Colors();
 
   static const Color barTitle = const Color(0xFFFFFFFF);
-  static const Color barIcon = const Color(0xFFF5F6FA);
+  static const Color barIcon = const Color(0xFFFFFFFF);
   static const Color barGradientStart = const Color(0xFF0984E3);
   static const Color barGradientEnd = const Color(0xFF74B9FF);
 
@@ -21,6 +21,8 @@ class Colors {
   static const Color textFaded = const Color(0x99FFFFFF);
 
   static const Color inputHint = const Color(0x66000000);
+
+  static const Color snackbarText = const Color(0xFFFFFFFF);
 
   static const Color smallIcon = const Color(0x99FFFFFF);
 }
@@ -88,5 +90,12 @@ class TextStyles {
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
       fontSize: 12.0
+  );
+
+  static const TextStyle snackbar = const TextStyle(
+      color: Colors.snackbarText,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w300,
+      fontSize: 14.0
   );
 }

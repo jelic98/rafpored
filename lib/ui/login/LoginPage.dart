@@ -5,9 +5,9 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Center(
-        child: new LoginBody(),
+    return Scaffold(
+      body: Center(
+        child: LoginBody(),
       ),
     );
   }

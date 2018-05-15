@@ -10,8 +10,8 @@ class LoginBody extends StatefulWidget {
 
 class _LoginBodyState extends State<LoginBody> {
 
-  final TextEditingController _usernameController = new TextEditingController();
-  final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +76,14 @@ class _LoginBodyState extends State<LoginBody> {
     String password = _passwordController.text;
 
     if(username.isEmpty || password.isEmpty) {
+      Scaffold
+          .of(context)
+          .showSnackBar(SnackBar(
+            content: Text("Popunite neophodna polja", style: Theme.TextStyles.snackbar))
+          );
       return;
     }
 
-    Routes.navigate(context, '/home', true, Transition.start)
+    Routes.navigate(context, '/home', true, Transition.start);
   }
 }

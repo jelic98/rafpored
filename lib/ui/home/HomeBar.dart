@@ -4,16 +4,16 @@ import 'package:rafroid/Routes.dart';
 
 class HomeBar extends StatelessWidget {
 
-  final String title;
+  final String _title;
 
-  HomeBar(this.title);
+  HomeBar(this._title);
 
   @override
   Widget build(BuildContext context) {
     final double statusbarHeight = MediaQuery
-      .of(context)
-      .padding
-      .top;
+        .of(context)
+        .padding
+        .top;
 
     return new Container(
       padding: new EdgeInsets.only(top: statusbarHeight),
@@ -21,13 +21,13 @@ class HomeBar extends StatelessWidget {
       child: new Row(
         children: <Widget>[
           new IconButton(
-              onPressed: () => Routes.navigate(context, '/login', true, Transition.exit),
-              icon: new Icon(Icons.exit_to_app),
-              color: Theme.Colors.barIcon,
+            onPressed: () => Routes.navigate(context, '/login', true, Transition.exit),
+            icon: new Icon(Icons.exit_to_app),
+            color: Theme.Colors.barIcon,
           ),
           new Center(
             child: new Text(
-              title,
+              _title,
               style: Theme.TextStyles.barTitle,
             ),
           ),
