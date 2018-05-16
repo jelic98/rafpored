@@ -40,6 +40,8 @@ class Dimens {
 
   const Dimens();
 
+  static const PiHalf = 1.5707963268;
+
   static const barHeight = 60.0;
 
   static const bgBlur = 4.0;

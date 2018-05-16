@@ -37,7 +37,7 @@ class _DetailsBodyState extends State<DetailsBody> {
     return Container(
       margin: EdgeInsets.only(top: Styles.Dimens.cardMargin, bottom: Styles.Dimens.cardMargin),
       child: MaterialButton(
-          onPressed: () => Routes.navigate(context, "/details", false, Transition.start, bundle: [event]),
+          onPressed: () => Routes.navigate(context, "/details", false, bundle: [event]),
           child: Material(
             borderRadius: BorderRadius.circular(Styles.Dimens.cardRadius),
             color: event.getColor(),

@@ -1,4 +1,5 @@
 import 'package:fluro/fluro.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:rafroid/ui/login/login_page.dart';
 import 'package:rafroid/ui/list/list_page.dart';
@@ -16,12 +17,14 @@ class Routes {
         "/login",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+              SharedPreferences.getInstance().then((prefs) => prefs.remove("password"));
+
               return LoginPage();
             })
     );
 
     _router.define(
-        "/home",
+        "/list",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
               return ListPage();
@@ -45,17 +48,13 @@ class Routes {
     );
   }
 
-  static void navigate(BuildContext context, String route, bool replace, Transition type, {dynamic bundle}) {
+  static void navigate(BuildContext context, String route, bool replace, {dynamic bundle}) {
     _bundle = bundle;
     _router.navigateTo(
         context,
         route,
         replace: replace,
-        transition: (type == Transition.start) ? TransitionType.inFromRight : TransitionType.inFromLeft,
+        transition: TransitionType.fadeIn,
     );
   }
-}
-
-enum Transition {
-  start, exit
 }

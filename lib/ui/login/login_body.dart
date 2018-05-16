@@ -19,8 +19,7 @@ class _LoginBodyState extends State<LoginBody> {
   void initState() {
     super.initState();
 
-    SharedPreferences.getInstance()
-        .then((prefs) => _usernameController.text = prefs.getString("username") ?? "");
+    SharedPreferences.getInstance().then((prefs) => _loadCredentials(prefs));
   }
 
   @override
@@ -82,11 +81,25 @@ class _LoginBodyState extends State<LoginBody> {
     );
   }
 
-  _login() async {
-    String username = _usernameController.text;
-    String password = _passwordController.text;
+  _loadCredentials(SharedPreferences prefs) {
+    String username = prefs.getString("username") ?? "";
+    String password = prefs.getString("password") ?? "";
 
-    if(username.isEmpty || password.isEmpty) {
+    _usernameController.text = prefs.getString("username");
+    _passwordController.text = prefs.getString("password");
+
+    if(username.isNotEmpty && password.isNotEmpty) {
+      _login();
+    }
+  }
+
+  _saveCredentials(SharedPreferences prefs) {
+    prefs.setString("username", _usernameController.text);
+    prefs.setString("password", _passwordController.text);
+  }
+
+  _login() async {
+    if(_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
       Scaffold
           .of(context)
           .showSnackBar(SnackBar(
@@ -97,11 +110,8 @@ class _LoginBodyState extends State<LoginBody> {
       return;
     }
 
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences.getInstance().then((prefs) => _saveCredentials(prefs));
 
-    prefs.setString("username", username);
-    prefs.setString("password", password);
-
-    Routes.navigate(context, "/home", true, Transition.start);
+    Routes.navigate(context, "/list", true);
   }
 }

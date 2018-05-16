@@ -19,14 +19,21 @@ class DetailsBar extends StatelessWidget {
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + Styles.Dimens.barHeight,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           BackButton(
             color: Styles.Colors.barIcon,
           ),
-          Center(
-            child: Text(
-              _title,
-              style: Styles.TextStyles.barTitle,
+          Text(
+            _title,
+            style: Styles.TextStyles.barTitle,
+          ),
+          Opacity(
+            // I'm here only to center title
+            opacity: 0.0,
+            child: IconButton(
+              onPressed: null,
+              icon: Icon(Icons.android),
             ),
           ),
         ],

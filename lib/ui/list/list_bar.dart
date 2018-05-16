@@ -19,17 +19,21 @@ class ListBar extends StatelessWidget {
       padding: EdgeInsets.only(top: statusbarHeight),
       height: statusbarHeight + Styles.Dimens.barHeight,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            onPressed: () => Routes.navigate(context, "/login", true, Transition.exit),
-            icon: Icon(Icons.exit_to_app),
+            onPressed: () => Routes.navigate(context, "/login", true),
+            icon: Icon(Icons.lock),
             color: Styles.Colors.barIcon,
           ),
-          Center(
-            child: Text(
-              _title,
-              style: Styles.TextStyles.barTitle,
-            ),
+          Text(
+            _title,
+            style: Styles.TextStyles.barTitle,
+          ),
+          IconButton(
+            onPressed: () => Routes.navigate(context, "/calendar", true),
+            icon: Icon(Icons.calendar_today),
+            color: Styles.Colors.barIcon,
           ),
         ],
       ),

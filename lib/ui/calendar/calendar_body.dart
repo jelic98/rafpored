@@ -21,8 +21,7 @@ class _CalendarBodyState extends State<CalendarBody> {
 
   String _currentMonth;
 
-  SmallCalendarPagerController _smallCalendarPagerController;
-  SmallCalendarDataController _smallCalendarDataController;
+  SmallCalendarPagerController _calendarController = SmallCalendarPagerController();
 
   @override
   void initState() {
@@ -42,13 +41,11 @@ class _CalendarBodyState extends State<CalendarBody> {
 
     DateTime currentMonth = DateTime.now();
 
-    _smallCalendarPagerController = SmallCalendarPagerController(
+    _calendarController = SmallCalendarPagerController(
       initialMonth: currentMonth,
       minimumMonth: DateTime(currentMonth.year - 1, currentMonth.month),
       maximumMonth: DateTime(currentMonth.year + 1, currentMonth.month),
     );
-
-    _smallCalendarDataController = SmallCalendarDataController();
 
     _updateCurrentMonth(currentMonth);
   }
@@ -71,7 +68,7 @@ class _CalendarBodyState extends State<CalendarBody> {
                 hasTick1Callback: _examTickCallback,
                 hasTick2Callback: _colloquiumTickCallback,
                 hasTick3Callback: _lectureTickCallback,
-                controller: _smallCalendarDataController,
+                controller: SmallCalendarDataController(),
                 child: SmallCalendarStyle(
                   dayStyle: DayStyle(
                     showTicks: true,
@@ -84,7 +81,7 @@ class _CalendarBodyState extends State<CalendarBody> {
                     backgroundColor: Styles.Colors.calendarHeader,
                   ),
                   child: SmallCalendarPager(
-                    controller: _smallCalendarPagerController,
+                    controller: _calendarController,
                     onMonthChanged: (month) => _updateCurrentMonth(month),
                     pageBuilder: (BuildContext context, DateTime month) {
                       return SmallCalendar(
@@ -146,7 +143,7 @@ class _CalendarBodyState extends State<CalendarBody> {
     String key = _getKey(date);
 
     if(_events.containsKey(key)) {
-      Routes.navigate(context, "/details", false, Transition.start, bundle: _events[key]);
+      Routes.navigate(context, "/details", false, bundle: _events[key]);
     }
   }
 
