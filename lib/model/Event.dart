@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:rafroid/Theme.dart' as Theme;
+import 'package:rafroid/styles.dart' as Styles;
 
 class Event {
 
@@ -15,6 +15,8 @@ class Event {
   final DateTime dateTo;
   final EventType type;
 
+  String _notes;
+
   Event({
 	  this.id,
 	  this.subject,
@@ -26,57 +28,75 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> response) {
-    return new Event(
-      id: response["id"],
-      subject: response["subject"],
-      professor: response["professor"],
-      classrooms: response["classrooms"],
-      dateFrom: DateTime.parse(response["dateFrom"]),
-      dateTo: DateTime.parse(response["dateTo"]),
-      type: (response["type"] == "exam") ? EventType.exam : EventType.colloquium
+    Event event =  Event(
+        id: response["id"],
+        subject: response["subject"],
+        professor: response["professor"],
+        classrooms: response["classrooms"],
+        dateFrom: DateTime.parse(response["dateFrom"]),
+        dateTo: DateTime.parse(response["dateTo"]),
+        type: (response["type"] == "exam") ? EventType.exam
+            : (response["type"] == "colloquium") ?
+            EventType.colloquium : EventType.lecture
     );
+
+    event.notes = response["notes"];
+
+    return event;
+  }
+
+  String get notes {
+    if(_notes == null || _notes.trim().isEmpty) {
+      return "Nema napomena";
+    }else {
+      return _notes;
+    }
+  }
+
+  set notes(String notes) {
+    _notes = notes;
   }
 
   String getClassrooms() {
-    var buffer = new StringBuffer();
+    var buffer = StringBuffer();
 
-	for(int i = 0; i < classrooms.length; i++) {
-	  if(i > 0) {
+	  for(int i = 0; i < classrooms.length; i++) {
+	    if(i > 0) {
         buffer.write(", ");
-	  }
+	    }
 	  
-	  buffer.write(classrooms[i]);
-	}
+	    buffer.write(classrooms[i]);
+	  }
 
-	return buffer.toString();
+	  return buffer.toString();
   }
 
   Map<String, String> getDateFrom() {
-	return {
-	  "date" : new DateFormat(_dateFormat).format(dateFrom),
-	  "time" : new DateFormat(_timeFormat).format(dateFrom)
+	  return {
+	    "date" : DateFormat(_dateFormat).format(dateFrom),
+	    "time" : DateFormat(_timeFormat).format(dateFrom)
     };
   }
 
   Map<String, String> getDateTo() {
-	return {
-	  "date" : new DateFormat(_dateFormat).format(dateTo),
-	  "time" : new DateFormat(_timeFormat).format(dateTo)
+	  return {
+	    "date" : DateFormat(_dateFormat).format(dateTo),
+	    "time" : DateFormat(_timeFormat).format(dateTo)
     };
   }
 
   Color getColor() {
-	switch(type) {
+    switch(type) {
       case EventType.exam:
-  		return Theme.Colors.cardExam;
+        return Styles.Colors.eventExam;
       case EventType.colloquium:
-  		return Theme.Colors.cardColloquium;
-	  default:
-  		return Theme.Colors.cardDefault;
+        return Styles.Colors.eventColloquium;
+      default:
+        return Styles.Colors.eventLecture;
     }
   }
 }
 
 enum EventType {
-  exam, colloquium
+  exam, colloquium, lecture
 }

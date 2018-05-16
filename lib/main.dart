@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/Routes.dart';
-import 'package:rafroid/ui/calendar/CalendarPage.dart';
+import 'package:rafroid/routes.dart';
+import 'package:rafroid/ui/calendar/calendar_page.dart';
+import 'package:rafroid/ui/list/list_page.dart';
+import 'package:rafroid/ui/login/login_page.dart';
 
 void main() {
   Routes.initRoutes();
-  runApp(new MaterialApp(
+  runApp(MaterialApp(
     title: "Rafpored",
-    home: new CalendarPage(),
+    home: LoginPage(),
   ));
 }
