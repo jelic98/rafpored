@@ -12,7 +12,7 @@ class Routes {
 
   static dynamic _bundle;
 
-  static void initRoutes() {
+  static initRoutes() {
     _router.define(
         "/login",
         handler: Handler(
@@ -27,7 +27,7 @@ class Routes {
         "/list",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-              return ListPage();
+              return ListPage(_bundle);
             })
     );
 
@@ -48,7 +48,7 @@ class Routes {
     );
   }
 
-  static void navigate(BuildContext context, String route, bool replace, {dynamic bundle}) {
+  static navigate(BuildContext context, String route, bool replace, {dynamic bundle}) {
     _bundle = bundle;
     _router.navigateTo(
         context,

@@ -4,7 +4,7 @@ import 'package:rafroid/ui/calendar/calendar_page.dart';
 import 'package:rafroid/ui/list/list_page.dart';
 import 'package:rafroid/ui/login/login_page.dart';
 
-void main() {
+main() {
   Routes.initRoutes();
   runApp(MaterialApp(
     title: "Rafpored",

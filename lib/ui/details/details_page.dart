@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/styles.dart' as Styles;
+import 'package:rafroid/res.dart' as Res;
 import 'package:rafroid/ui/details/details_bar.dart';
 import 'package:rafroid/ui/details/details_body.dart';
 import 'package:rafroid/model/event.dart';
 
 class DetailsPage extends StatelessWidget {
 
-  final List<Event> _events;
+  final Event _event;
 
-  DetailsPage(this._events);
+  DetailsPage(this._event);
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Styles.Colors.pageBackground,
-      body: Column(
-        children: <Widget>[
-          DetailsBar("Rafpored"),
-          DetailsBody(_events),
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) =>
+      Scaffold(
+        backgroundColor: _event.getColor(),
+        body: Column(
+          children: <Widget>[
+            DetailsBar("Rafpored"),
+            DetailsBody(_event),
+          ],
+        ),
+      );
 }

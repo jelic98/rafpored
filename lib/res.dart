@@ -15,7 +15,7 @@ class Colors {
   static const Color eventColloquium = const Color(0xFFFA983A);
   static const Color eventLecture = const Color(0xFF6A89CC);
 
-  static const Color pageBackground = const Color(0xFFF5F6FA);
+  static const Color pageBackground = const Color(0xFFFFFFFF);
   
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFullDark = const Color(0x99000000);
@@ -30,7 +30,7 @@ class Colors {
   static const Color snackbar = const Color(0xFF0984E3);
   static const Color snackbarText = const Color(0xFFFFFFFF);
 
-  static const Color calendarHeader = const Color(0xFFFFFFFF);
+  static const Color calendarHeader = const Color(0xFFF1F2F6);
   static const Color calendarToday = const Color(0xFF74B9FF);
 
   static const Color smallIcon = const Color(0x99FFFFFF);
@@ -59,7 +59,6 @@ class Dimens {
   static const buttonPadding = EdgeInsets.all(10.0);
 
   static const listPadding = 8.0;
-  static const listItemExtent = 160.0;
 
   static const cardRadius = 8.0;
   static const cardPadding = 16.0;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/styles.dart' as Styles;
+import 'package:rafroid/res.dart' as Res;
 import 'package:rafroid/routes.dart';
 
 class DetailsBar extends StatelessWidget {
@@ -17,16 +17,16 @@ class DetailsBar extends StatelessWidget {
 
     return Container(
       padding: EdgeInsets.only(top: statusbarHeight),
-      height: statusbarHeight + Styles.Dimens.barHeight,
+      height: statusbarHeight + Res.Dimens.barHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           BackButton(
-            color: Styles.Colors.barIcon,
+            color: Res.Colors.barIcon,
           ),
           Text(
             _title,
-            style: Styles.TextStyles.barTitle,
+            style: Res.TextStyles.barTitle,
           ),
           Opacity(
             // I'm here only to center title
@@ -40,7 +40,7 @@ class DetailsBar extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Styles.Colors.barGradientStart, Styles.Colors.barGradientEnd],
+          colors: [Res.Colors.barGradientStart, Res.Colors.barGradientEnd],
         ),
       ),
     );

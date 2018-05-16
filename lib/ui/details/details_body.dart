@@ -1,116 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/styles.dart' as Styles;
+import 'package:rafroid/res.dart' as Res;
 import 'package:rafroid/routes.dart';
 import 'package:rafroid/model/event.dart';
 
 class DetailsBody extends StatefulWidget {
 
-  final List<Event> _events;
+  final Event _event;
 
-  DetailsBody(this._events);
+  DetailsBody(this._event);
 
   @override
-  _DetailsBodyState createState() => _DetailsBodyState(_events);
+  _DetailsBodyState createState() => _DetailsBodyState(_event);
 }
 
 class _DetailsBodyState extends State<DetailsBody> {
 
-  final List<Event> _events;
+  final Event _event;
 
-  _DetailsBodyState(this._events);
+  _DetailsBodyState(this._event);
 
   @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: Container(
-          child: ListView.builder(
-            padding: EdgeInsets.only(top: Styles.Dimens.listPadding, bottom: Styles.Dimens.listPadding),
-            itemExtent: Styles.Dimens.listItemExtent,
-            itemCount: _events.length,
-            itemBuilder: (context, index) => _getListRow(_events[index]),
-        )
-      ),
-    );
-  }
-
-  Widget _getListRow(Event event) {
-    return Container(
-      margin: EdgeInsets.only(top: Styles.Dimens.cardMargin, bottom: Styles.Dimens.cardMargin),
-      child: MaterialButton(
-          onPressed: () => Routes.navigate(context, "/details", false, bundle: [event]),
-          child: Material(
-            borderRadius: BorderRadius.circular(Styles.Dimens.cardRadius),
-            color: event.getColor(),
-            elevation: Styles.Dimens.elevation,
-            child: Container(
-              margin: EdgeInsets.all(Styles.Dimens.cardPadding),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context) =>
+      Container(
+        child: Container(
+          margin: EdgeInsets.all(Res.Dimens.cardPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(_event.subject, style: Res.TextStyles.textFull)),
+              FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(_event.professor, style: Res.TextStyles.textFaded)),
+              Container(height: Res.Dimens.dividerSmall),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(event.subject, style: Styles.TextStyles.textFull)),
-                  FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(event.professor, style: Styles.TextStyles.textFaded)),
-                  Container(height: Styles.Dimens.dividerSmall),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            size: Styles.Dimens.smallIconSize,
-                            color: Styles.Colors.smallIcon,
-                          ),
-                          Container(width: Styles.Dimens.smallIconSpacing),
-                          Text(
-                              event.getClassrooms(),
-                              style: Styles.TextStyles.textFaded
-                          ),
-                        ],
+                      Icon(
+                        Icons.location_on,
+                        size: Res.Dimens.smallIconSize,
+                        color: Res.Colors.smallIcon,
                       ),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                              Icons.calendar_today,
-                              size: Styles.Dimens.smallIconSize,
-                              color: Styles.Colors.smallIcon
-                          ),
-                          Container(width: Styles.Dimens.smallIconSpacing),
-                          Text(
-                              event.getDateFrom()["date"],
-                              style: Styles.TextStyles.textFaded
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                              Icons.access_time,
-                              size: Styles.Dimens.smallIconSize,
-                              color: Styles.Colors.smallIcon
-                          ),
-                          Container(width: Styles.Dimens.smallIconSpacing),
-                          Text(
-                              event.getDateFrom()["time"],
-                              style: Styles.TextStyles.textFaded
-                          ),
-                        ],
+                      Container(width: Res.Dimens.smallIconSpacing),
+                      Text(
+                          _event.getClassrooms(),
+                          style: Res.TextStyles.textFaded
                       ),
                     ],
                   ),
-                  Container(height: Styles.Dimens.dividerSmall),
-                  Text(
-                      event.notes,
-                      style: Styles.TextStyles.textFaded
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                          Icons.calendar_today,
+                          size: Res.Dimens.smallIconSize,
+                          color: Res.Colors.smallIcon
+                      ),
+                      Container(width: Res.Dimens.smallIconSpacing),
+                      Text(
+                          _event.getDateFrom()["date"],
+                          style: Res.TextStyles.textFaded
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                          Icons.access_time,
+                          size: Res.Dimens.smallIconSize,
+                          color: Res.Colors.smallIcon
+                      ),
+                      Container(width: Res.Dimens.smallIconSpacing),
+                      Text(
+                          _event.getDateFrom()["time"],
+                          style: Res.TextStyles.textFaded
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          )
-      ),
-    );
-  }
+              Container(height: Res.Dimens.dividerSmall),
+              Text(
+                  _event.notes,
+                  style: Res.TextStyles.textFaded
+              ),
+            ],
+          ),
+        ),
+      );
 }

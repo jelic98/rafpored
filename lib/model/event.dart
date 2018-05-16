@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:rafroid/styles.dart' as Styles;
+import 'package:rafroid/res.dart' as Res;
 
 class Event {
 
@@ -45,17 +45,10 @@ class Event {
     return event;
   }
 
-  String get notes {
-    if(_notes == null || _notes.trim().isEmpty) {
-      return "Nema napomena";
-    }else {
-      return _notes;
-    }
-  }
+  String get notes => (_notes == null || _notes.trim().isEmpty)
+          ? "Nema napomena" : _notes;
 
-  set notes(String notes) {
-    _notes = notes;
-  }
+  set notes(String notes) => _notes = notes;
 
   String getClassrooms() {
     var buffer = StringBuffer();
@@ -71,28 +64,24 @@ class Event {
 	  return buffer.toString();
   }
 
-  Map<String, String> getDateFrom() {
-	  return {
-	    "date" : DateFormat(_dateFormat).format(dateFrom),
-	    "time" : DateFormat(_timeFormat).format(dateFrom)
-    };
-  }
+  Map<String, String> getDateFrom() => {
+      "date" : DateFormat(_dateFormat).format(dateFrom),
+      "time" : DateFormat(_timeFormat).format(dateFrom)
+  };
 
-  Map<String, String> getDateTo() {
-	  return {
-	    "date" : DateFormat(_dateFormat).format(dateTo),
-	    "time" : DateFormat(_timeFormat).format(dateTo)
-    };
-  }
+  Map<String, String> getDateTo() => {
+    "date" : DateFormat(_dateFormat).format(dateTo),
+    "time" : DateFormat(_timeFormat).format(dateTo)
+  };
 
   Color getColor() {
     switch(type) {
       case EventType.exam:
-        return Styles.Colors.eventExam;
+        return Res.Colors.eventExam;
       case EventType.colloquium:
-        return Styles.Colors.eventColloquium;
+        return Res.Colors.eventColloquium;
       default:
-        return Styles.Colors.eventLecture;
+        return Res.Colors.eventLecture;
     }
   }
 }
