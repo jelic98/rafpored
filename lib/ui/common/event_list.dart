@@ -15,10 +15,10 @@ class EventList extends StatelessWidget {
         padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
         itemCount: _events.length,
         shrinkWrap: true,
-        itemBuilder: (context, index) => _getListRow(context, _events[index]),
+        itemBuilder: (context, index) => _buildRow(context, _events[index]),
       );
 
-  Widget _getListRow(BuildContext context, Event event) =>
+  Widget _buildRow(BuildContext context, Event event) =>
       Container(
         margin: EdgeInsets.only(top: Res.Dimens.cardMargin, bottom: Res.Dimens.cardMargin),
         child: MaterialButton(

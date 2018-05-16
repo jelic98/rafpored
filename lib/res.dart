@@ -21,6 +21,8 @@ class Colors {
   static const Color textFullDark = const Color(0x99000000);
   static const Color textFaded = const Color(0x99FFFFFF);
 
+  static const Color logoBorder = const Color(0xFFFFFFFF);
+
   static const Color inputFill = const Color(0x55FFFFFF);
   static const Color inputText = const Color(0xFF000000);
   static const Color inputHint = const Color(0x99000000);
@@ -40,17 +42,16 @@ class Dimens {
 
   const Dimens();
 
-  static const PiHalf = 1.5707963268;
-
   static const barHeight = 60.0;
 
   static const bgBlur = 4.0;
 
   static const elevation = 8.0;
 
-  static const logoRadius = 48.0;
-
   static const formPadding = 32.0;
+
+  static const logoSize = 110.0;
+  static const logoPadding = 5.0;
 
   static const inputRadius = 30.0;
   static const inputPadding = EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0);
