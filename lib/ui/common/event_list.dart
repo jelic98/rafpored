@@ -3,19 +3,29 @@ import 'package:rafroid/res.dart' as Res;
 import 'package:rafroid/routes.dart';
 import 'package:rafroid/model/event.dart';
 
-class EventList extends StatelessWidget {
+class EventList extends StatefulWidget {
 
-  final List<Event> _events;
+  final List<Event> events;
 
-  EventList(this._events);
+  EventList(this.events);
+
+  @override
+  EventListState createState() => EventListState(events);
+}
+
+class EventListState extends State<EventList> {
+
+  List<Event> events;
+
+  EventListState(this.events);
 
   @override
   Widget build(BuildContext context) =>
       ListView.builder(
         padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
-        itemCount: _events.length,
+        itemCount: events.length,
         shrinkWrap: true,
-        itemBuilder: (context, index) => _buildRow(context, _events[index]),
+        itemBuilder: (context, index) => _buildRow(context, events[index]),
       );
 
   Widget _buildRow(BuildContext context, Event event) =>
@@ -26,7 +36,7 @@ class EventList extends StatelessWidget {
             child: Material(
               borderRadius: BorderRadius.circular(Res.Dimens.cardRadius),
               color: event.getColor(),
-              elevation: Res.Dimens.elevation,
+              elevation: Res.Dimens.cardElevation,
               child: Container(
                 margin: EdgeInsets.all(Res.Dimens.cardPadding),
                 child: Column(

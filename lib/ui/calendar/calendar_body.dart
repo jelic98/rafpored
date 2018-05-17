@@ -27,7 +27,7 @@ class _CalendarBodyState extends State<CalendarBody> {
   void initState() {
     super.initState();
 
-    Network().fetchEvents().asStream().forEach((list) {
+    Network.fetchEvents().asStream().forEach((list) {
       for(Event event in list) {
         String key = _getKey(event.dateFrom);
 
@@ -124,10 +124,8 @@ class _CalendarBodyState extends State<CalendarBody> {
     return false;
   }
 
-  _updateCurrentMonth(DateTime date)
-    => setState(() {
-      _currentMonth = "${DateFormat("MMMM yyyy").format(date)}";
-    });
+  _updateCurrentMonth(DateTime date) =>
+      setState(() => _currentMonth = "${DateFormat("MMMM yyyy").format(date)}");
 
   String _getKey(DateTime date) => DateFormat(_dateFormat).format(date);
 

@@ -6,10 +6,9 @@ class Colors {
 
   static const Color barTitle = const Color(0xFFFFFFFF);
   static const Color barIcon = const Color(0xFFFFFFFF);
-  static const Color barGradientStart = const Color(0xFF0984E3);
-  static const Color barGradientEnd = const Color(0xFF74B9FF);
 
-  static const Color button = const Color(0xFF0984E3);
+  static const Color primaryLight = const Color(0xFF74B9FF);
+  static const Color primaryDark = const Color(0xFF0984E3);
 
   static const Color eventExam = const Color(0xFFEB3B5A);
   static const Color eventColloquium = const Color(0xFFFA983A);
@@ -20,8 +19,6 @@ class Colors {
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFullDark = const Color(0x99000000);
   static const Color textFaded = const Color(0x99FFFFFF);
-
-  static const Color logoBorder = const Color(0xFFFFFFFF);
 
   static const Color inputFill = const Color(0x55FFFFFF);
   static const Color inputText = const Color(0xFF000000);
@@ -46,7 +43,9 @@ class Dimens {
 
   static const bgBlur = 4.0;
 
-  static const elevation = 8.0;
+  static const barElevation = 10.0;
+  static const buttonElevation = 7.0;
+  static const cardElevation = 7.0;
 
   static const formPadding = 32.0;
 

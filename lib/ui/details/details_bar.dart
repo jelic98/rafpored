@@ -15,32 +15,35 @@ class DetailsBar extends StatelessWidget {
         .padding
         .top;
 
-    return Container(
-      padding: EdgeInsets.only(top: statusbarHeight),
-      height: statusbarHeight + Res.Dimens.barHeight,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          BackButton(
-            color: Res.Colors.barIcon,
-          ),
-          Text(
-            _title,
-            style: Res.TextStyles.barTitle,
-          ),
-          Opacity(
-            // I'm here only to center title
-            opacity: 0.0,
-            child: IconButton(
-              onPressed: null,
-              icon: Icon(Icons.android),
+    return Material(
+      elevation: Res.Dimens.barElevation,
+      child:Container(
+        padding: EdgeInsets.only(top: statusbarHeight),
+        height: statusbarHeight + Res.Dimens.barHeight,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            BackButton(
+              color: Res.Colors.barIcon,
             ),
+            Text(
+              _title,
+              style: Res.TextStyles.barTitle,
+            ),
+            Opacity(
+              // I'm here only to center title
+              opacity: 0.0,
+              child: IconButton(
+                onPressed: null,
+                icon: Icon(Icons.android),
+              ),
+            ),
+          ],
+        ),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Res.Colors.primaryDark, Res.Colors.primaryLight],
           ),
-        ],
-      ),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Res.Colors.barGradientStart, Res.Colors.barGradientEnd],
         ),
       ),
     );

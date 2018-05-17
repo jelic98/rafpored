@@ -56,9 +56,9 @@ class _LoginBodyState extends State<LoginBody>
 
   @override
   void dispose() {
-    super.dispose();
-
     _animation.controller.dispose();
+
+    super.dispose();
   }
 
   _saveCredentials(SharedPreferences prefs) {
@@ -90,12 +90,8 @@ class _LoginBodyState extends State<LoginBody>
             child: Container(
               width: Res.Dimens.logoSize,
               height: Res.Dimens.logoSize,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Res.Colors.logoBorder),
-              ),
-              padding: EdgeInsets.all(Res.Dimens.logoPadding),
               child: CircleAvatar(
+                backgroundColor: Colors.transparent,
                 child: Image(
                   image: AssetImage("assets/img/logo.png"),
                 ),
@@ -144,11 +140,11 @@ class _LoginBodyState extends State<LoginBody>
             opacity: _animation.buttonFade,
             child: Material(
               borderRadius: BorderRadius.circular(Res.Dimens.buttonRadius),
-              elevation: Res.Dimens.elevation,
+              elevation: Res.Dimens.buttonElevation,
               child: MaterialButton(
                   padding: Res.Dimens.buttonPadding,
                   onPressed: () => _login(),
-                  color: Res.Colors.button,
+                  color: Res.Colors.primaryDark,
                   child: Text("Prijava", style: Res.TextStyles.textFull)
               ),
             ),
