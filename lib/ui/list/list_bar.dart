@@ -17,7 +17,7 @@ class ListBar extends StatelessWidget {
 
     return Material(
       elevation: Res.Dimens.barElevation,
-      child:Container(
+      child: Container(
         padding: EdgeInsets.only(top: statusbarHeight),
         height: statusbarHeight + Res.Dimens.barHeight,
         child: Row(

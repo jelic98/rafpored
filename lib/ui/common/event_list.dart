@@ -17,7 +17,9 @@ class EventListState extends State<EventList> {
 
   List<Event> events;
 
-  EventListState(this.events);
+  EventListState(List<Event> events) {
+    this.events = (events == null) ? List<Event>() : events;
+  }
 
   @override
   Widget build(BuildContext context) =>

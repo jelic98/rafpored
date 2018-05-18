@@ -3,9 +3,10 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:small_calendar/small_calendar.dart';
 import 'package:rafroid/res.dart' as Res;
-import 'package:rafroid/network.dart';
 import 'package:rafroid/model/event.dart';
 import 'package:rafroid/ui/common/event_list.dart';
+import 'package:rafroid/event_fetcher.dart';
+import 'package:rafroid/on_events_fetched_listener.dart';
 
 class CalendarBody extends StatefulWidget {
 
@@ -13,7 +14,7 @@ class CalendarBody extends StatefulWidget {
   _CalendarBodyState createState() => _CalendarBodyState();
 }
 
-class _CalendarBodyState extends State<CalendarBody> {
+class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedListener {
 
   static final String _dateFormat = "dd-MM-yyyy";
 
@@ -27,17 +28,7 @@ class _CalendarBodyState extends State<CalendarBody> {
   void initState() {
     super.initState();
 
-    Network.fetchEvents().asStream().forEach((list) {
-      for(Event event in list) {
-        String key = _getKey(event.dateFrom);
-
-        if(_events.containsKey(key)) {
-          _events[key].add(event);
-        }else {
-          _events[key] = [event];
-        }
-      }
-    });
+    EventFetcher.fetchEvents(this);
 
     DateTime currentMonth = DateTime.now();
 
@@ -58,7 +49,7 @@ class _CalendarBodyState extends State<CalendarBody> {
           Text(_currentMonth, style: Res.TextStyles.textFullDark),
           Container(height: Res.Dimens.dividerSmall),
           Container(
-            height: 300.0,
+            height: MediaQuery.of(context).size.height * 0.5,
             child: SmallCalendarData(
               firstWeekday: DateTime.monday,
               isTodayCallback: _isTodayCallback,
@@ -138,5 +129,18 @@ class _CalendarBodyState extends State<CalendarBody> {
           builder: (context) => EventList(_events[key]),
       );
     }
+  }
+
+  @override
+  onEventsFetched(List<Event> events) {
+    setState(() => events.forEach((event) {
+        String key = _getKey(event.dateFrom);
+
+        if(_events.containsKey(key)) {
+          _events[key].add(event);
+        }else {
+          _events[key] = [event];
+        }
+    }));
   }
 }
