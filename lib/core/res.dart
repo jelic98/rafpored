@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Colors {
-  
+
   const Colors();
 
   static const Color barTitle = const Color(0xFFFFFFFF);
@@ -15,7 +15,7 @@ class Colors {
   static const Color eventLecture = const Color(0xFF6A89CC);
 
   static const Color pageBackground = const Color(0xFFFFFFFF);
-  
+
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFullDark = const Color(0x99000000);
   static const Color textFaded = const Color(0x99FFFFFF);
@@ -131,4 +131,21 @@ class TextStyles {
       fontWeight: FontWeight.w300,
       fontSize: 14.0
   );
+}
+
+class Strings {
+
+  const Strings();
+
+  static const String app_name = "Rafpored";
+
+  static const String input_username = "Korisničko ime";
+  static const String input_password = "Lozinka";
+
+  static const String action_login = "Prijava";
+
+  static const String alert_wait = "Molimo sačekajte";
+  static const String alert_required_fields = "Popunite neophodna polja";
+  static const String alert_no_items = "Nema stavki";
+  static const String alert_no_notes = "Nema napomena";
 }

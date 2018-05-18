@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
+import 'package:rafroid/core/res.dart' as Res;
 
 class Event {
 
@@ -46,7 +46,7 @@ class Event {
   }
 
   String get notes => (_notes == null || _notes.trim().isEmpty)
-          ? "Nema napomena" : _notes;
+          ? Res.Strings.alert_no_notes : _notes;
 
   set notes(String notes) => _notes = notes;
 

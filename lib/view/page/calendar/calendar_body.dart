@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:rafroid/core/res.dart' as Res;
 import 'package:small_calendar/small_calendar.dart';
-import 'package:rafroid/res.dart' as Res;
 import 'package:rafroid/model/event.dart';
-import 'package:rafroid/ui/common/event_list.dart';
-import 'package:rafroid/event_fetcher.dart';
-import 'package:rafroid/on_events_fetched_listener.dart';
+import 'package:rafroid/view/common/event_list.dart';
+import 'package:rafroid/network/event_fetcher.dart';
+import 'package:rafroid/network/on_events_fetched_listener.dart';
 
 class CalendarBody extends StatefulWidget {
 
@@ -16,7 +16,7 @@ class CalendarBody extends StatefulWidget {
 
 class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedListener {
 
-  static final String _dateFormat = "dd-MM-yyyy";
+  static final String _keyFormat = "dd-MM-yyyy";
 
   Map<String, List<Event>> _events = {};
 
@@ -118,7 +118,7 @@ class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedL
   _updateCurrentMonth(DateTime date) =>
       setState(() => _currentMonth = "${DateFormat("MMMM yyyy").format(date)}");
 
-  String _getKey(DateTime date) => DateFormat(_dateFormat).format(date);
+  String _getKey(DateTime date) => DateFormat(_keyFormat).format(date);
 
   _showList(DateTime date) {
     String key = _getKey(date);

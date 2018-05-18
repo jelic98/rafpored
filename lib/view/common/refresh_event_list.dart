@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
+import 'package:rafroid/core/res.dart' as Res;
 import 'package:rafroid/model/event.dart';
-import 'package:rafroid/ui/common/event_list.dart';
-import 'package:rafroid/event_fetcher.dart';
-import 'package:rafroid/on_events_fetched_listener.dart';
+import 'package:rafroid/view/common/event_list.dart';
+import 'package:rafroid/network/event_fetcher.dart';
+import 'package:rafroid/network/on_events_fetched_listener.dart';
 
 class RefreshEventList extends EventList {
 
@@ -32,7 +32,7 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
       RefreshIndicator(
         color: Res.Colors.primaryLight,
         onRefresh: _handleRefresh,
-        child: (_content == null) ? super.build(context) : _content,
+        child: _content ?? super.build(context),
       );
 
   @override
@@ -42,7 +42,7 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
 
       if(events.isEmpty) {
         _content = Center(
-          child: Text("Nema stavki", style: Res.TextStyles.listPlaceholder),
+          child: Text(Res.Strings.alert_no_items, style: Res.TextStyles.listPlaceholder),
         );
       }else {
         _content = super.build(context);

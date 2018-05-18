@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as Http;
 import 'package:rafroid/model/event.dart';
-import 'package:rafroid/on_events_fetched_listener.dart';
+import 'package:rafroid/core/config.dart';
+import 'package:rafroid/network/on_events_fetched_listener.dart';
 
 class EventFetcher {
 
@@ -13,7 +14,7 @@ class EventFetcher {
   static Future<List<Event>> _asyncFetch() async {
     List<Event> events = List<Event>();
 
-    var response = JsonDecoder().convert((await Http.get('http://www.ecloga.org/events.json')).body);
+    var response = JsonDecoder().convert((await Http.get(Config.getApiUrl("events.json"))).body);
 
     for(var event in response) {
       events.add(Event.fromJson(event));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
-import 'package:rafroid/ui/calendar/calendar_bar.dart';
-import 'package:rafroid/ui/calendar/calendar_body.dart';
+import 'package:rafroid/core/res.dart' as Res;
+import 'package:rafroid/view/page/calendar/calendar_bar.dart';
+import 'package:rafroid/view/page/calendar/calendar_body.dart';
 
 class CalendarPage extends StatelessWidget {
 
@@ -11,7 +11,7 @@ class CalendarPage extends StatelessWidget {
         backgroundColor: Res.Colors.pageBackground,
         body: Column(
           children: <Widget>[
-            CalendarBar("Rafpored"),
+            CalendarBar(Res.Strings.app_name),
             CalendarBody(),
           ],
         ),

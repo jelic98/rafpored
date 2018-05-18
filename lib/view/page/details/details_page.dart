@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
-import 'package:rafroid/ui/details/details_bar.dart';
-import 'package:rafroid/ui/details/details_body.dart';
+import 'package:rafroid/core/res.dart' as Res;
+import 'package:rafroid/view/page/details/details_bar.dart';
+import 'package:rafroid/view/page/details/details_body.dart';
 import 'package:rafroid/model/event.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -16,7 +16,7 @@ class DetailsPage extends StatelessWidget {
         backgroundColor: _event.getColor(),
         body: Column(
           children: <Widget>[
-            DetailsBar("Rafpored"),
+            DetailsBar(Res.Strings.app_name),
             DetailsBody(_event),
           ],
         ),

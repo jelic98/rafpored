@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
-import 'package:rafroid/routes.dart';
+import 'package:rafroid/core/res.dart' as Res;
+import 'package:rafroid/core/routes.dart';
 
 class DetailsBar extends StatelessWidget {
 

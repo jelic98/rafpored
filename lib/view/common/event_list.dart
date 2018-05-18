@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/res.dart' as Res;
-import 'package:rafroid/routes.dart';
+import 'package:rafroid/core/res.dart' as Res;
+import 'package:rafroid/core/routes.dart';
 import 'package:rafroid/model/event.dart';
 
 class EventList extends StatefulWidget {
@@ -18,7 +18,7 @@ class EventListState extends State<EventList> {
   List<Event> events;
 
   EventListState(List<Event> events) {
-    this.events = (events == null) ? List<Event>() : events;
+    this.events = events ?? List<Event>();
   }
 
   @override
