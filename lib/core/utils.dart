@@ -15,12 +15,4 @@ class Utils {
         content: Text(message, style: Res.TextStyles.snackbar)
     ));
   }
-
-  static Future<Widget> firstPage() async {
-    String username;
-
-    await SharedPreferences.getInstance().then((prefs) => username = prefs.getString("username") ?? "");
-
-    return (username.isEmpty) ? LoginPage() : ListPage();
-  }
 }
