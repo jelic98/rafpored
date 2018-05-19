@@ -22,13 +22,24 @@ class EventListState extends State<EventList> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      ListView.builder(
+  Widget build(BuildContext context) {
+    if(MediaQuery.of(context).orientation == Orientation.portrait || events.length == 1) {
+      return ListView.builder(
         padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
-        itemCount: events.length,
         shrinkWrap: true,
+        itemCount: events.length,
         itemBuilder: (context, index) => _buildRow(context, events[index]),
       );
+    }else {
+      return GridView.count(
+        padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
+        shrinkWrap: true,
+        crossAxisCount: 2,
+        childAspectRatio: 2.2,
+        children: events.map((event) => _buildRow(context, event)).toList(),
+      );
+    }
+  }
 
   Widget _buildRow(BuildContext context, Event event) =>
       Container(

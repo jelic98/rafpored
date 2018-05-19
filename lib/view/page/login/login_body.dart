@@ -57,7 +57,10 @@ class _LoginBodyState extends State<LoginBody>
                 ),
               ),
             ),
-            Container(height: Res.Dimens.dividerLarge),
+            Container(
+                height: (MediaQuery.of(context).orientation == Orientation.portrait)
+                    ?  Res.Dimens.dividerLarge : 0.0
+            ),
             SlideTransition(
               position: _animation.usernameSlide,
               child: TextFormField(
