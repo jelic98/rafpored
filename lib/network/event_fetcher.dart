@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as Http;
-import 'package:rafroid/model/event.dart';
-import 'package:rafroid/core/config.dart';
-import 'package:rafroid/network/on_events_fetched_listener.dart';
+import 'package:rafpored/model/event.dart';
+import 'package:rafpored/core/config.dart';
+import 'package:rafpored/network/on_events_fetched_listener.dart';
 
 class EventFetcher {
 

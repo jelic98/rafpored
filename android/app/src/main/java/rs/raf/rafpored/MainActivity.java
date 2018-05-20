@@ -1,4 +1,4 @@
-package com.example.rafroid;
+package rs.raf.rafpored;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

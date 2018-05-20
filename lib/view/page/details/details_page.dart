@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/core/res.dart' as Res;
-import 'package:rafroid/view/page/details/details_bar.dart';
-import 'package:rafroid/view/page/details/details_body.dart';
-import 'package:rafroid/model/event.dart';
+import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/view/page/details/details_bar.dart';
+import 'package:rafpored/view/page/details/details_body.dart';
+import 'package:rafpored/model/event.dart';
 
 class DetailsPage extends StatelessWidget {
 

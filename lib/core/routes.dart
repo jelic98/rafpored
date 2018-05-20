@@ -1,10 +1,10 @@
 import 'package:fluro/fluro.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:rafroid/view/page/login/login_page.dart';
-import 'package:rafroid/view/page/list/list_page.dart';
-import 'package:rafroid/view/page/calendar/calendar_page.dart';
-import 'package:rafroid/view/page/details/details_page.dart';
+import 'package:rafpored/view/page/login/login_page.dart';
+import 'package:rafpored/view/page/list/list_page.dart';
+import 'package:rafpored/view/page/calendar/calendar_page.dart';
+import 'package:rafpored/view/page/details/details_page.dart';
 
 class Routes {
 

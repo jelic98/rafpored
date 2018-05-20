@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/core/res.dart' as Res;
-import 'package:rafroid/view/page/calendar/calendar_bar.dart';
-import 'package:rafroid/view/page/calendar/calendar_body.dart';
+import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/view/page/calendar/calendar_bar.dart';
+import 'package:rafpored/view/page/calendar/calendar_body.dart';
 
 class CalendarPage extends StatelessWidget {
 

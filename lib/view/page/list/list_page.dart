@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rafroid/core/res.dart' as Res;
-import 'package:rafroid/view/page/list/list_bar.dart';
-import 'package:rafroid/view/page/list/list_body.dart' as ListBody;
+import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/view/page/list/list_bar.dart';
+import 'package:rafpored/view/page/list/list_body.dart' as ListBody;
 
 class ListPage extends StatelessWidget {
 

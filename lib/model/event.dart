@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:rafroid/core/res.dart' as Res;
+import 'package:rafpored/core/res.dart' as Res;
 
 class Event {
 

@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:rafroid/core/res.dart' as Res;
-import 'package:rafroid/model/event.dart';
-import 'package:rafroid/view/common/event_list.dart';
-import 'package:rafroid/network/event_fetcher.dart';
-import 'package:rafroid/network/on_events_fetched_listener.dart';
+import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/model/event.dart';
+import 'package:rafpored/view/common/event_list.dart';
+import 'package:rafpored/network/event_fetcher.dart';
+import 'package:rafpored/network/on_events_fetched_listener.dart';
 
 class RefreshEventList extends EventList {
 
