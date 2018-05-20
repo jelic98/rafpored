@@ -4,7 +4,7 @@ import 'package:rafpored/core/res.dart' as Res;
 
 class Event {
 
-  static const String _dateFormat = "dd.MM";
+  static const String _dateFormat = "E dd.MM";
   static const String _timeFormat = "HH:mm";
 
   final String id;

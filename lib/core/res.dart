@@ -58,11 +58,11 @@ class Dimens {
   static const buttonRadius = 30.0;
   static const buttonPadding = EdgeInsets.all(10.0);
 
-  static const listPadding = 8.0;
+  static const listPadding = 16.0;
 
   static const cardRadius = 8.0;
   static const cardPadding = 16.0;
-  static const cardMargin = 8.0;
+  static const cardMargin = 16.0;
 
   static const smallIconSize = 14.0;
   static const smallIconSpacing = 4.0;
