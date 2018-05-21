@@ -16,7 +16,7 @@ class DetailsPage extends StatelessWidget {
         backgroundColor: _event.getColor(),
         body: Column(
           children: <Widget>[
-            DetailsBar(Res.Strings.app_name),
+            DetailsBar(Res.Strings.appName),
             DetailsBody(_event),
           ],
         ),

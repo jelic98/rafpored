@@ -137,15 +137,15 @@ class Strings {
 
   const Strings();
 
-  static const String app_name = "Rafpored";
+  static const String appName = "Rafpored";
 
-  static const String input_username = "Korisničko ime";
-  static const String input_password = "Lozinka";
+  static const String inputUsername = "Korisničko ime";
+  static const String inputPassword = "Lozinka";
 
-  static const String action_login = "Prijava";
+  static const String actionLogin = "Prijava";
 
-  static const String alert_wait = "Molimo sačekajte";
-  static const String alert_required_fields = "Popunite neophodna polja";
-  static const String alert_no_items = "Nema stavki";
-  static const String alert_no_notes = "Nema napomena";
+  static const String alertWait = "Molimo sačekajte";
+  static const String alertRequiredFields = "Popunite neophodna polja";
+  static const String alertNoItems = "Nema stavki";
+  static const String alertNoNotes = "Nema napomena";
 }

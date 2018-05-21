@@ -46,7 +46,7 @@ class Event {
   }
 
   String get notes => (_notes == null || _notes.trim().isEmpty)
-          ? Res.Strings.alert_no_notes : _notes;
+          ? Res.Strings.alertNoNotes : _notes;
 
   set notes(String notes) => _notes = notes;
 

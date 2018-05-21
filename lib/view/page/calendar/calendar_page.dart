@@ -11,7 +11,7 @@ class CalendarPage extends StatelessWidget {
         backgroundColor: Res.Colors.pageBackground,
         body: Column(
           children: <Widget>[
-            CalendarBar(Res.Strings.app_name),
+            CalendarBar(Res.Strings.appName),
             CalendarBody(),
           ],
         ),

@@ -22,7 +22,7 @@ android {
     }
     signingConfigs {
         release {
-            keyAlias 'ParkirajMe'
+            keyAlias 'Rafpored'
             keyPassword 'Hq68jWGJZm'
             storeFile file('/Users/Lazar/FlutterProjects/rafpored/keystore.jks')
             storePassword 'Hq68jWGJZm'

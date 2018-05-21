@@ -11,7 +11,7 @@ class ListPage extends StatelessWidget {
         backgroundColor: Res.Colors.pageBackground,
         body: Column(
           children: <Widget>[
-            ListBar(Res.Strings.app_name),
+            ListBar(Res.Strings.appName),
             ListBody.ListBody(),
           ],
         ),

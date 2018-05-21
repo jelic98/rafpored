@@ -42,7 +42,7 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
 
       if(events.isEmpty) {
         _content = Center(
-          child: Text(Res.Strings.alert_no_items, style: Res.TextStyles.listPlaceholder),
+          child: Text(Res.Strings.alertNoItems, style: Res.TextStyles.listPlaceholder),
         );
       }else {
         _content = super.build(context);

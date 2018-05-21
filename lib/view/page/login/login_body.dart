@@ -68,7 +68,7 @@ class _LoginBodyState extends State<LoginBody>
                 controller: _usernameController,
                 style: Res.TextStyles.inputText,
                 decoration: InputDecoration(
-                  hintText: Res.Strings.input_username,
+                  hintText: Res.Strings.inputUsername,
                   hintStyle: Res.TextStyles.inputHint,
                   prefixIcon: Icon(Icons.account_box),
                   contentPadding: Res.Dimens.inputPadding,
@@ -87,7 +87,7 @@ class _LoginBodyState extends State<LoginBody>
                 controller: _passwordController,
                 style: Res.TextStyles.inputText,
                 decoration: InputDecoration(
-                  hintText: Res.Strings.input_password,
+                  hintText: Res.Strings.inputPassword,
                   hintStyle: Res.TextStyles.inputHint,
                   prefixIcon: Icon(Icons.lock),
                   contentPadding: Res.Dimens.inputPadding,
@@ -107,7 +107,7 @@ class _LoginBodyState extends State<LoginBody>
                     padding: Res.Dimens.buttonPadding,
                     onPressed: () => _login(),
                     color: Res.Colors.primaryDark,
-                    child: Text(Res.Strings.action_login, style: Res.TextStyles.textFull)
+                    child: Text(Res.Strings.actionLogin, style: Res.TextStyles.textFull)
                 ),
               ),
             ),
@@ -141,11 +141,11 @@ class _LoginBodyState extends State<LoginBody>
 
   _login() async {
     if(_usernameController.text.isEmpty || _passwordController.text.isEmpty) {
-      Utils.showMessage(context, Res.Strings.alert_required_fields);
+      Utils.showMessage(context, Res.Strings.alertRequiredFields);
       return;
     }
 
-    Utils.showMessage(context, Res.Strings.alert_wait);
+    Utils.showMessage(context, Res.Strings.alertWait);
 
     Future.delayed(Duration(milliseconds: 2000)).then((_) {
       _prefs.then((prefs) => _saveCredentials(prefs));

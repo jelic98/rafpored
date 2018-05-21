@@ -6,7 +6,7 @@ import 'package:rafpored/view/page/login/login_page.dart';
 main() {
   Routes.initRoutes();
   runApp(MaterialApp(
-    title: Res.Strings.app_name,
+    title: Res.Strings.appName,
     home: LoginPage(),
   ));
 }
