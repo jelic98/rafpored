@@ -26,7 +26,7 @@ class _DetailsBodyState extends State<DetailsBody> {
         child: Hero(
           tag: "hero-event-" + _event.id,
           child: Material(
-            color: _event.getColor(),
+            color: _event.type.color,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

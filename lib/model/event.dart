@@ -71,17 +71,6 @@ class Event {
 
   String getTimeEnd() => DateFormat(_timeFormat).format(timeStart);
 
-  Color getColor() {
-    switch(type) {
-      case EventType.exam:
-        return Res.Colors.eventExam;
-      case EventType.colloquium:
-        return Res.Colors.eventColloquium;
-      default:
-        return Res.Colors.eventLecture;
-    }
-  }
-
   // Factory methods
 
   static EventType _getType(String type) {
@@ -133,10 +122,11 @@ class Event {
 class EventType {
 
   final String name;
+  final Color color;
 
-  const EventType(this.name);
+  const EventType(this.name, this.color);
 
-  static const EventType exam = const EventType("Ispit");
-  static const EventType colloquium = const EventType("Kolokvijum");
-  static const EventType lecture = const EventType("Predavanje");
+  static const EventType exam = const EventType("Ispit", Res.Colors.eventExam);
+  static const EventType colloquium = const EventType("Kolokvijum", Res.Colors.eventColloquium);
+  static const EventType lecture = const EventType("Predavanje", Res.Colors.eventLecture);
 }

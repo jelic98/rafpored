@@ -6,7 +6,6 @@ import 'package:rafpored/model/event.dart';
 class EventList extends StatefulWidget {
 
   List<Event> events;
-
   EventListState _state;
 
   EventList(this.events) {
@@ -61,7 +60,7 @@ class EventListState extends State<EventList> {
           tag: "hero-event-" + event.id,
           child: Material(
             borderRadius: BorderRadius.circular(Res.Dimens.cardRadius),
-            color: event.getColor(),
+            color: event.type.color,
             elevation: Res.Dimens.cardElevation,
             child: MaterialButton(
               onPressed: () => Routes.navigate(context, "/details", false, bundle: event),
@@ -136,6 +135,8 @@ class EventListState extends State<EventList> {
       );
 
   setEvents(List<Event> events) {
-    // todo setState(() => this.events = events);
+    setState(() {
+
+    });
   }
 }
