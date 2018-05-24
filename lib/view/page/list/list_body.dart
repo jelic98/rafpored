@@ -10,20 +10,16 @@ import 'package:rafpored/view/common/filter_listener.dart';
 
 class ListBody extends StatefulWidget implements FilterListener {
 
-  _ListBodyState _state;
-   EventExtractor _extractor;
-
-  ListBody() {
-    _state = _ListBodyState();
-  }
+  RefreshEventList _eventList;
+  EventExtractor _extractor;
 
   @override
-  _ListBodyState createState() => _state;
+  _ListBodyState createState() => _ListBodyState(_eventList = RefreshEventList(null));
 
   @override
   onFilterShown(Filter filter) {
     if(_extractor == null) {
-      _extractor = EventExtractor(_state.events);
+      _extractor = EventExtractor(_eventList.events);
     }
 
     filter.eventTypes = _extractor.getEventTypes();
@@ -35,7 +31,7 @@ class ListBody extends StatefulWidget implements FilterListener {
 
   @override
   onFiltered(FilterCriteria criteria) {
-    List<Event> events = _state.events;
+    List<Event> events = _eventList.events;
 
     events.removeWhere((event) =>
         (criteria.eventType != null && event.type != criteria.eventType) ||
@@ -44,28 +40,22 @@ class ListBody extends StatefulWidget implements FilterListener {
         (criteria.classroom != null && event.classroom != criteria.classroom) ||
         (criteria.group != null && !event.groups.contains(criteria.group)));
 
-    _state.eventList.state.onEventsFetched(events);
+    _eventList.onEventsFetched(events);
   }
 }
 
-class _ListBodyState extends State<ListBody> implements OnEventsFetchedListener {
+class _ListBodyState extends State<ListBody> {
 
-  List<Event> events;
-  RefreshEventList eventList;
+  final RefreshEventList _eventList;
+
+  _ListBodyState(this._eventList);
 
   @override
   Widget build(BuildContext context) {
-    eventList = RefreshEventList(null, this);
-
     return Flexible(
       child: Container(
-        child: eventList,
+        child: _eventList,
       ),
     );
-  }
-
-  @override
-  onEventsFetched(List<Event> events) {
-    this.events = events;
   }
 }

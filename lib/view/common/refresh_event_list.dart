@@ -8,21 +8,20 @@ import 'package:rafpored/network/on_events_fetched_listener.dart';
 
 class RefreshEventList extends EventList implements OnEventsFetchedListener {
 
-  final OnEventsFetchedListener listener;
-  _RefreshEventListState state;
+  _RefreshEventListState _state;
 
-  RefreshEventList(List<Event> events, this.listener) : super(events);
+  RefreshEventList(List<Event> events) : super(events);
 
   @override
   EventListState createState() {
-    state = _RefreshEventListState(super.events, this);
+    _state = _RefreshEventListState(super.events, this);
 
-    return state;
+    return _state;
   }
 
   @override
   onEventsFetched(List<Event> events) {
-    listener.onEventsFetched(events);
+    _state.onEventsFetched(events);
   }
 }
 
@@ -54,9 +53,9 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
         super.events = events;
       });
 
-      _content = super.build(context);
+      list.events = events;
 
-      list.onEventsFetched(events);
+      _content = super.build(context);
   }
 
   _getEvents() {
