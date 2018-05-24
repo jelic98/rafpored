@@ -17,25 +17,28 @@ class CalendarBar extends StatelessWidget {
 
     return Material(
       elevation: Res.Dimens.barElevation,
-      child:Container(
+      child: Container(
         padding: EdgeInsets.only(top: statusbarHeight),
         height: statusbarHeight + Res.Dimens.barHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              onPressed: () => Routes.navigate(context, "/login", true),
-              icon: Icon(Icons.lock),
+              onPressed: () => Routes.navigate(context, "/list", true),
+              icon: Icon(Icons.view_list),
               color: Res.Colors.barIcon,
             ),
             Text(
               _title,
               style: Res.TextStyles.barTitle,
             ),
-            IconButton(
-              onPressed: () => Routes.navigate(context, "/list", true),
-              icon: Icon(Icons.view_list),
-              color: Res.Colors.barIcon,
+            Opacity(
+              // I'm here only to center the title
+              opacity: 0.0,
+              child: IconButton(
+                onPressed: () => null,
+                icon: Icon(Icons.android),
+              ),
             ),
           ],
         ),

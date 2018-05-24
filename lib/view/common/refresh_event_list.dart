@@ -6,19 +6,27 @@ import 'package:rafpored/view/common/event_list.dart';
 import 'package:rafpored/network/event_fetcher.dart';
 import 'package:rafpored/network/on_events_fetched_listener.dart';
 
-class RefreshEventList extends EventList {
+class RefreshEventList extends EventList implements OnEventsFetchedListener {
 
-  RefreshEventList(List<Event> events) : super(events);
+  final OnEventsFetchedListener listener;
+
+  RefreshEventList(List<Event> events, this.listener) : super(events);
 
   @override
-  EventListState createState() => _RefreshEventListState(super.events);
+  EventListState createState() => _RefreshEventListState(super.events, this);
+
+  @override
+  onEventsFetched(List<Event> events) {
+    listener.onEventsFetched(events);
+  }
 }
 
 class _RefreshEventListState extends EventListState implements OnEventsFetchedListener {
 
+  RefreshEventList list;
   Widget _content;
 
-  _RefreshEventListState(List<Event> events) : super(events);
+  _RefreshEventListState(List<Event> events, this.list) : super(events);
 
   @override
   void initState() {
@@ -39,6 +47,8 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
   onEventsFetched(List<Event> events) {
     setState(() {
       super.events = events;
+
+      list.onEventsFetched(events);
 
       if(events.isEmpty) {
         _content = Center(

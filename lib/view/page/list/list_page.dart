@@ -6,14 +6,17 @@ import 'package:rafpored/view/page/list/list_body.dart' as ListBody;
 class ListPage extends StatelessWidget {
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
-        backgroundColor: Res.Colors.pageBackground,
-        body: Column(
-          children: <Widget>[
-            ListBar(Res.Strings.appName),
-            ListBody.ListBody(),
-          ],
-        ),
-      );
+  Widget build(BuildContext context) {
+    ListBody.ListBody body = ListBody.ListBody();
+
+    return Scaffold(
+      backgroundColor: Res.Colors.pageBackground,
+      body: Column(
+        children: <Widget>[
+          ListBar(Res.Strings.appName, body),
+          body
+        ],
+      ),
+    );
+  }
 }

@@ -18,15 +18,16 @@ class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedL
 
   static final String _keyFormat = "dd-MM-yyyy";
 
-  Map<String, List<Event>> _events = {};
-
   String _currentMonth;
+  Map<String, List<Event>> _events;
 
   SmallCalendarPagerController _calendarController = SmallCalendarPagerController();
 
   @override
   void initState() {
     super.initState();
+
+    _events = {};
 
     EventFetcher.fetchEvents(this);
 
@@ -134,13 +135,13 @@ class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedL
   @override
   onEventsFetched(List<Event> events) {
     setState(() => events.forEach((event) {
-        String key = _getKey(event.dateFrom);
+      String key = _getKey(event.date);
 
-        if(_events.containsKey(key)) {
-          _events[key].add(event);
-        }else {
-          _events[key] = [event];
-        }
+      if(_events.containsKey(key)) {
+        _events[key].add(event);
+      }else {
+        _events[key] = [event];
+      }
     }));
   }
 }

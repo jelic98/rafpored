@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/core/routes.dart';
+import 'package:rafpored/view/common/filter.dart';
 
 class ListBar extends StatelessWidget {
 
   final String _title;
+  final Filter _filter;
 
-  ListBar(this._title);
+  ListBar(this._title, listener) : _filter = Filter(listener);
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class ListBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-              onPressed: () => Routes.navigate(context, "/login", true),
-              icon: Icon(Icons.lock),
+              onPressed: () => Routes.navigate(context, "/calendar", true),
+              icon: Icon(Icons.event),
               color: Res.Colors.barIcon,
             ),
             Text(
@@ -33,8 +35,8 @@ class ListBar extends StatelessWidget {
               style: Res.TextStyles.barTitle,
             ),
             IconButton(
-              onPressed: () => Routes.navigate(context, "/calendar", true),
-              icon: Icon(Icons.calendar_today),
+              onPressed: () => buildFilters(context),
+              icon: Icon(Icons.search),
               color: Res.Colors.barIcon,
             ),
           ],
@@ -45,6 +47,15 @@ class ListBar extends StatelessWidget {
           ),
         ),
       )
+    );
+  }
+
+  buildFilters(BuildContext context) {
+    _filter.listener.onFilterShown(_filter);
+
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (context) => _filter,
     );
   }
 }

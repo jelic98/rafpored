@@ -31,10 +31,10 @@ class DetailsBar extends StatelessWidget {
               style: Res.TextStyles.barTitle,
             ),
             Opacity(
-              // I'm here only to center title
+              // I'm here only to center the title
               opacity: 0.0,
               child: IconButton(
-                onPressed: null,
+                onPressed: () => null,
                 icon: Icon(Icons.android),
               ),
             ),

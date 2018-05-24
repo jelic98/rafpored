@@ -3,6 +3,6 @@ class Config {
   const Config();
 
   static getApiUrl(String path) {
-    return "http://www.ecloga.org/" + path;
+    return "https://rfidis.raf.edu.rs/" + path;
   }
 }

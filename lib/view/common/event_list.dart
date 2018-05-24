@@ -5,12 +5,21 @@ import 'package:rafpored/model/event.dart';
 
 class EventList extends StatefulWidget {
 
-  final List<Event> events;
+  List<Event> events;
 
-  EventList(this.events);
+  EventListState _state;
+
+  EventList(this.events) {
+    _state = EventListState(events);
+  }
 
   @override
-  EventListState createState() => EventListState(events);
+  EventListState createState() => _state;
+
+  setEvents(List<Event> events) {
+    this.events = events;
+    _state.setEvents(events);
+  }
 }
 
 class EventListState extends State<EventList> {
@@ -83,7 +92,7 @@ class EventListState extends State<EventList> {
                             ),
                             Container(width: Res.Dimens.smallIconSpacing),
                             Text(
-                              event.getClassrooms(),
+                              event.classroom,
                               style: Res.TextStyles.textFaded,
                             ),
                           ],
@@ -91,13 +100,13 @@ class EventListState extends State<EventList> {
                         Row(
                           children: <Widget>[
                             Icon(
-                              Icons.calendar_today,
+                              Icons.event,
                               size: Res.Dimens.smallIconSize,
                               color: Res.Colors.smallIcon,
                             ),
                             Container(width: Res.Dimens.smallIconSpacing),
                             Text(
-                              event.getDateFrom()["date"],
+                              event.getDate(),
                               style: Res.TextStyles.textFaded,
                             ),
                           ],
@@ -111,7 +120,7 @@ class EventListState extends State<EventList> {
                             ),
                             Container(width: Res.Dimens.smallIconSpacing),
                             Text(
-                              event.getDateFrom()["time"],
+                              event.getTimeStart(),
                               style: Res.TextStyles.textFaded,
                             ),
                           ],
@@ -125,4 +134,8 @@ class EventListState extends State<EventList> {
           ),
         ),
       );
+
+  setEvents(List<Event> events) {
+    // todo setState(() => this.events = events);
+  }
 }

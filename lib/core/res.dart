@@ -12,17 +12,17 @@ class Colors {
 
   static const Color eventExam = const Color(0xFFEB3B5A);
   static const Color eventColloquium = const Color(0xFFFA983A);
-  static const Color eventLecture = const Color(0xFF6A89CC);
+  static const Color eventLecture = const Color(0xFF2ED573);
 
   static const Color pageBackground = const Color(0xFFFFFFFF);
 
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFullDark = const Color(0x99000000);
-  static const Color textFaded = const Color(0x99FFFFFF);
+  static const Color textFaded = const Color(0xBBFFFFFF);
 
   static const Color inputFill = const Color(0x55FFFFFF);
   static const Color inputText = const Color(0xFF000000);
-  static const Color inputHint = const Color(0x99000000);
+  static const Color inputHint = const Color(0x66000000);
 
   static const Color listPlaceholder = const Color(0x99000000);
 
@@ -33,6 +33,8 @@ class Colors {
   static const Color calendarToday = const Color(0xFF74B9FF);
 
   static const Color smallIcon = const Color(0x99FFFFFF);
+
+  static const Color filterIcon = const Color(0xFF0984E3);
 }
 
 class Dimens {
@@ -44,19 +46,9 @@ class Dimens {
   static const bgBlur = 4.0;
 
   static const barElevation = 10.0;
-  static const buttonElevation = 7.0;
   static const cardElevation = 7.0;
 
-  static const formPadding = 32.0;
-
-  static const logoSize = 110.0;
-  static const logoPadding = 5.0;
-
-  static const inputRadius = 30.0;
-  static const inputPadding = EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0);
-
-  static const buttonRadius = 30.0;
-  static const buttonPadding = EdgeInsets.all(10.0);
+  static const filtersPadding = 32.0;
 
   static const listPadding = 16.0;
 
@@ -66,6 +58,9 @@ class Dimens {
 
   static const smallIconSize = 14.0;
   static const smallIconSpacing = 4.0;
+
+  static const filterIconSize = 28.0;
+  static const filterIconSpacing = 8.0;
 
   static const dividerSmall = 16.0;
   static const dividerBig = 32.0;
@@ -101,21 +96,21 @@ class TextStyles {
     color: Colors.textFaded,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w300,
-    fontSize: 12.0
+    fontSize: 14.0
   );
 
   static const TextStyle inputText = const TextStyle(
       color: Colors.inputText,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
-      fontSize: 12.0
+      fontSize: 16.0
   );
 
   static const TextStyle inputHint = const TextStyle(
       color: Colors.inputHint,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
-      fontSize: 12.0
+      fontSize: 16.0
   );
 
   static const TextStyle listPlaceholder = const TextStyle(
@@ -139,10 +134,11 @@ class Strings {
 
   static const String appName = "Rafpored";
 
-  static const String inputUsername = "Korisničko ime";
-  static const String inputPassword = "Lozinka";
-
-  static const String actionLogin = "Prijava";
+  static const String inputEventType = "Tip";
+  static const String inputSubject = "Predmet";
+  static const String inputProfessor = "Profesor";
+  static const String inputClassroom = "Učionica";
+  static const String inputGroup = "Grupa";
 
   static const String alertWait = "Molimo sačekajte";
   static const String alertRequiredFields = "Popunite neophodna polja";

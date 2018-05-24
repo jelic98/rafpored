@@ -49,7 +49,7 @@ class _DetailsBodyState extends State<DetailsBody> {
                         ),
                         Container(width: Res.Dimens.smallIconSpacing),
                         Text(
-                          _event.getClassrooms(),
+                          _event.classroom,
                           style: Res.TextStyles.textFaded,
                         ),
                       ],
@@ -57,13 +57,13 @@ class _DetailsBodyState extends State<DetailsBody> {
                     Row(
                       children: <Widget>[
                         Icon(
-                          Icons.calendar_today,
+                          Icons.event,
                           size: Res.Dimens.smallIconSize,
                           color: Res.Colors.smallIcon,
                         ),
                         Container(width: Res.Dimens.smallIconSpacing),
                         Text(
-                          _event.getDateFrom()["date"],
+                          _event.getDate(),
                           style: Res.TextStyles.textFaded,
                         ),
                       ],
@@ -77,7 +77,7 @@ class _DetailsBodyState extends State<DetailsBody> {
                         ),
                         Container(width: Res.Dimens.smallIconSpacing),
                         Text(
-                          _event.getDateFrom()["time"],
+                          _event.getTimeStart(),
                           style: Res.TextStyles.textFaded,
                         ),
                       ],

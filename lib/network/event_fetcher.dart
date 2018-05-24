@@ -14,9 +14,13 @@ class EventFetcher {
   static Future<List<Event>> _asyncFetch() async {
     List<Event> events = List<Event>();
 
-    var response = JsonDecoder().convert((await Http.get(Config.getApiUrl("events.json"))).body);
+    var response = JsonDecoder().convert((await Http.get(Config.getApiUrl("raspored/json.php"))).body);
+
+    var id = 0;
 
     for(var event in response) {
+      event["id"] = (++id).toString();
+
       events.add(Event.fromJson(event));
     }
 
