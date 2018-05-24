@@ -6,19 +6,11 @@ import 'package:rafpored/model/event.dart';
 class EventList extends StatefulWidget {
 
   List<Event> events;
-  EventListState _state;
 
-  EventList(this.events) {
-    _state = EventListState(events);
-  }
+  EventList(this.events);
 
   @override
-  EventListState createState() => _state;
-
-  setEvents(List<Event> events) {
-    this.events = events;
-    _state.setEvents(events);
-  }
+  EventListState createState() => EventListState(events);
 }
 
 class EventListState extends State<EventList> {
@@ -31,6 +23,12 @@ class EventListState extends State<EventList> {
 
   @override
   Widget build(BuildContext context) {
+    if(events.isEmpty) {
+      return Center(
+        child: Text(Res.Strings.alertNoItems, style: Res.TextStyles.listPlaceholder),
+      );
+    }
+
     if(MediaQuery.of(context).orientation == Orientation.portrait || events.length == 1) {
       return ListView.builder(
         padding: EdgeInsets.only(top: Res.Dimens.listPadding),
@@ -133,10 +131,4 @@ class EventListState extends State<EventList> {
           ),
         ),
       );
-
-  setEvents(List<Event> events) {
-    setState(() {
-
-    });
-  }
 }

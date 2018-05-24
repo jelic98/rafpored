@@ -37,37 +37,29 @@ class ListBody extends StatefulWidget implements FilterListener {
   onFiltered(FilterCriteria criteria) {
     List<Event> events = _state.events;
 
-    events = _state.events.where((event) =>
-      criteria.eventType != null || event.type == criteria.eventType).toList();
+    events.removeWhere((event) =>
+        (criteria.eventType != null && event.type != criteria.eventType) ||
+        (criteria.subject != null && event.subject != criteria.subject) ||
+        (criteria.professor != null && event.professor != criteria.professor) ||
+        (criteria.classroom != null && event.classroom != criteria.classroom) ||
+        (criteria.group != null && !event.groups.contains(criteria.group)));
 
-    events = _state.events.where((event) =>
-      criteria.subject != null || event.subject == criteria.subject).toList();
-
-    events = _state.events.where((event) =>
-      criteria.professor != null || event.professor == criteria.professor).toList();
-
-    events = _state.events.where((event) =>
-      criteria.classroom != null || event.classroom == criteria.classroom).toList();
-
-    events = _state.events.where((event) =>
-      criteria.group != null || event.groups.contains(criteria.group)).toList();
-
-    _state.setEvents(events);
+    _state.eventList.state.onEventsFetched(events);
   }
 }
 
 class _ListBodyState extends State<ListBody> implements OnEventsFetchedListener {
 
   List<Event> events;
-  EventList _eventList;
+  RefreshEventList eventList;
 
   @override
   Widget build(BuildContext context) {
-    _eventList = RefreshEventList(null, this);
+    eventList = RefreshEventList(null, this);
 
     return Flexible(
       child: Container(
-        child: _eventList,
+        child: eventList,
       ),
     );
   }
@@ -75,10 +67,5 @@ class _ListBodyState extends State<ListBody> implements OnEventsFetchedListener 
   @override
   onEventsFetched(List<Event> events) {
     this.events = events;
-  }
-
-  setEvents(List<Event> events) {
-    this.events = events;
-    _eventList.setEvents(events);
   }
 }

@@ -4,8 +4,18 @@ import 'package:rafpored/core/res.dart' as Res;
 
 class Event {
 
-  static const String _dateFormat = "E dd.MM";
+  static const String _dateFormat = "dd.MM";
   static const String _timeFormat = "HH:mm";
+
+  static const Map<String, String> _days = {
+    "Mon" : "Pon",
+    "Tue" : "Uto",
+    "Wed" : "Sre",
+    "Thu" : "Cet",
+    "Fri" : "Pet",
+    "Sat" : "Sub",
+    "Sun" : "Ned",
+  };
 
   final String id;
   final String subject;
@@ -65,7 +75,7 @@ class Event {
     return buffer.toString();
   }
 
-  String getDate() => DateFormat(_dateFormat).format(date);
+  String getDate() => "${_days[DateFormat("E").format(date)]} ${DateFormat(_dateFormat).format(date)}";
 
   String getTimeStart() => DateFormat(_timeFormat).format(timeStart);
 
@@ -89,21 +99,11 @@ class Event {
       return DateTime.parse(date);
     }
 
-    Map<String, String> days = {
-      "Mon" : "PON",
-      "Tue" : "UTO",
-      "Wed" : "SRE",
-      "Thu" : "CET",
-      "Fri" : "PET",
-      "Sat" : "SUB",
-      "Sun" : "NED",
-    };
-
     day = day.replaceAll("?ET", "CET");
 
     DateTime today = DateTime.now();
 
-    while(days[DateFormat("E").format(today)] != day) {
+    while(_days[DateFormat("E").format(today)].toLowerCase() != day.toLowerCase()) {
       today = today.add(Duration(days: 1));
     }
 
