@@ -13,7 +13,6 @@ class DetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Scaffold(
-        backgroundColor: _event.type.color,
         body: Column(
           children: <Widget>[
             DetailsBar(Res.Strings.appName),

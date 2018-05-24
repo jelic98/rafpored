@@ -7,19 +7,27 @@ import 'package:rafpored/view/common/refresh_event_list.dart';
 import 'package:rafpored/model/event_extractor.dart';
 import 'package:rafpored/view/common/filter.dart';
 import 'package:rafpored/view/common/filter_listener.dart';
+import 'package:rafpored/view/page/list/list_bar.dart';
 
 class ListBody extends StatefulWidget implements FilterListener {
 
   RefreshEventList _eventList;
   EventExtractor _extractor;
+  Function _filterVisibility;
 
   @override
-  _ListBodyState createState() => _ListBodyState(_eventList = RefreshEventList(null));
+  _ListBodyState createState() {
+    _eventList = RefreshEventList(null);
+
+    _eventList.setFilterVisibiility(_filterVisibility);
+
+    return _ListBodyState(_eventList);
+  }
 
   @override
   onFilterShown(Filter filter) {
     if(_extractor == null) {
-      _extractor = EventExtractor(_eventList.events);
+      _extractor = EventExtractor(_eventList.backupEvents);
     }
 
     filter.eventTypes = _extractor.getEventTypes();
@@ -31,7 +39,7 @@ class ListBody extends StatefulWidget implements FilterListener {
 
   @override
   onFiltered(FilterCriteria criteria) {
-    List<Event> events = _eventList.events;
+    List<Event> events = _eventList.backupEvents;
 
     events.removeWhere((event) =>
         (criteria.eventType != null && event.type != criteria.eventType) ||
@@ -41,6 +49,10 @@ class ListBody extends StatefulWidget implements FilterListener {
         (criteria.group != null && !event.groups.contains(criteria.group)));
 
     _eventList.onEventsFetched(events);
+  }
+
+  setFilterVisibiility(Function filterVisibility) {
+    _filterVisibility = filterVisibility;
   }
 }
 

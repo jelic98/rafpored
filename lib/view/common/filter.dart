@@ -32,7 +32,6 @@ class _FilterState extends State<Filter> {
 
   _FilterState(this.filter) : _criteria = FilterCriteria();
 
-
   @override
   void initState() {
     super.initState();
@@ -43,8 +42,11 @@ class _FilterState extends State<Filter> {
   @override
   Widget build(BuildContext context) =>
       Container(
-        padding: EdgeInsets.all(Res.Dimens.filtersPadding),
+        padding: EdgeInsets.only(left: Res.Dimens.filtersPadding, right: Res.Dimens.filtersPadding, bottom: Res.Dimens.filtersPadding),
         child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             FixedDropdownButton<EventType>(
               hint: Text(
@@ -131,9 +133,28 @@ class _FilterState extends State<Filter> {
               )).toList(),
               onChanged: (group) => _criteria.setGroup(group, _filterList),
             ),
+            Container(
+              alignment: Alignment.center,
+              child: Material(
+                borderRadius: BorderRadius.circular(Res.Dimens.buttonRadius),
+                elevation: Res.Dimens.buttonElevation,
+                child: MaterialButton(
+                    onPressed: () => _resetFilters(),
+                    color: Res.Colors.primaryDark,
+                    child: Text(Res.Strings.actionReset, style: Res.TextStyles.textFull)
+                ),
+              ),
+            ),
           ],
         ),
       );
+
+  _resetFilters() {
+    // todo dispose filter and create new one instead of popping
+    Navigator.pop(context);
+
+    _filterList(FilterCriteria());
+  }
 
   _filterList(FilterCriteria criteria) {
     setState(() {

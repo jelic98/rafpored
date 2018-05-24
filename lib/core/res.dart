@@ -47,8 +47,9 @@ class Dimens {
 
   static const barElevation = 10.0;
   static const cardElevation = 7.0;
+  static const buttonElevation = 7.0;
 
-  static const filtersPadding = 32.0;
+  static const filtersPadding = 20.0;
 
   static const listPadding = 16.0;
 
@@ -56,11 +57,10 @@ class Dimens {
   static const cardPadding = 16.0;
   static const cardMargin = 16.0;
 
+  static const buttonRadius = 8.0;
+
   static const smallIconSize = 14.0;
   static const smallIconSpacing = 4.0;
-
-  static const filterIconSize = 28.0;
-  static const filterIconSpacing = 8.0;
 
   static const dividerSmall = 16.0;
   static const dividerBig = 32.0;
@@ -139,6 +139,8 @@ class Strings {
   static const String inputProfessor = "Profesor";
   static const String inputClassroom = "Učionica";
   static const String inputGroup = "Grupa";
+
+  static const String actionReset = "Poništi";
 
   static const String alertWait = "Molimo sačekajte";
   static const String alertRequiredFields = "Popunite neophodna polja";

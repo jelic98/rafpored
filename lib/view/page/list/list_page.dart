@@ -8,12 +8,15 @@ class ListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ListBody.ListBody body = ListBody.ListBody();
+    ListBar bar = ListBar(Res.Strings.appName, body);
+
+    body.setFilterVisibiility(bar.getFilterVisible());
 
     return Scaffold(
       backgroundColor: Res.Colors.pageBackground,
       body: Column(
         children: <Widget>[
-          ListBar(Res.Strings.appName, body),
+          bar,
           body
         ],
       ),

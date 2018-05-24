@@ -9,12 +9,14 @@ import 'package:rafpored/network/on_events_fetched_listener.dart';
 class RefreshEventList extends EventList implements OnEventsFetchedListener {
 
   _RefreshEventListState _state;
+  Function _filterVisibility;
 
   RefreshEventList(List<Event> events) : super(events);
 
   @override
   EventListState createState() {
     _state = _RefreshEventListState(super.events, this);
+    _state.setFilterVisibiility(_filterVisibility);
 
     return _state;
   }
@@ -23,11 +25,16 @@ class RefreshEventList extends EventList implements OnEventsFetchedListener {
   onEventsFetched(List<Event> events) {
     _state.onEventsFetched(events);
   }
+
+  setFilterVisibiility(Function filterVisibility) {
+    _filterVisibility = filterVisibility;
+  }
 }
 
 class _RefreshEventListState extends EventListState implements OnEventsFetchedListener {
 
   RefreshEventList list;
+  Function _filterVisibility;
   Widget _content;
 
   _RefreshEventListState(List<Event> events, this.list) : super(events);
@@ -55,6 +62,12 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
 
       list.events = events;
 
+      _filterVisibility(events.isNotEmpty);
+
+      if(list.backupEvents == null) {
+        list.backupEvents = events;
+      }
+
       _content = super.build(context);
   }
 
@@ -75,5 +88,9 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
     completer.complete();
 
     return completer.future;
+  }
+
+  setFilterVisibiility(Function filterVisibility) {
+    _filterVisibility = filterVisibility;
   }
 }
