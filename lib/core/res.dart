@@ -146,4 +146,29 @@ class Strings {
   static const String alertRequiredFields = "Popunite neophodna polja";
   static const String alertNoItems = "Nema stavki";
   static const String alertNoNotes = "Nema napomena";
+
+  static const Map<String, String> months = {
+    "01" : "Januar",
+    "02" : "Februar",
+    "03" : "Mart",
+    "04" : "April",
+    "05" : "Maj",
+    "06" : "Jun",
+    "07" : "Jul",
+    "08" : "Avgust",
+    "09" : "Septembar",
+    "10" : "Oktobar",
+    "11" : "Novembar",
+    "12" : "Decembar",
+  };
+
+  static const Map<String, String> days = {
+    "Mon" : "Pon",
+    "Tue" : "Uto",
+    "Wed" : "Sre",
+    "Thu" : "Cet",
+    "Fri" : "Pet",
+    "Sat" : "Sub",
+    "Sun" : "Ned",
+  };
 }

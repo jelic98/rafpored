@@ -7,16 +7,6 @@ class Event {
   static const String _dateFormat = "dd.MM";
   static const String _timeFormat = "HH:mm";
 
-  static const Map<String, String> _days = {
-    "Mon" : "Pon",
-    "Tue" : "Uto",
-    "Wed" : "Sre",
-    "Thu" : "Cet",
-    "Fri" : "Pet",
-    "Sat" : "Sub",
-    "Sun" : "Ned",
-  };
-
   final String id;
   final String subject;
   final String professor;
@@ -75,7 +65,7 @@ class Event {
     return buffer.toString();
   }
 
-  String getDate() => "${_days[DateFormat("E").format(date)]} ${DateFormat(_dateFormat).format(date)}";
+  String getDate() => "${Res.Strings.days[DateFormat("E").format(date)]} ${DateFormat(_dateFormat).format(date)}";
 
   String getTimeStart() => DateFormat(_timeFormat).format(timeStart);
 
@@ -103,7 +93,7 @@ class Event {
 
     DateTime today = DateTime.now();
 
-    while(_days[DateFormat("E").format(today)].toLowerCase() != day.toLowerCase()) {
+    while(Res.Strings.days[DateFormat("E").format(today)].toLowerCase() != day.toLowerCase()) {
       today = today.add(Duration(days: 1));
     }
 

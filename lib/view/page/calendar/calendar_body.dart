@@ -117,7 +117,7 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   }
 
   _updateCurrentMonth(DateTime date) =>
-      setState(() => _currentMonth = "${DateFormat("MMMM yyyy").format(date)}");
+      setState(() => _currentMonth = "${Res.Strings.months[DateFormat("MM").format(date)]} ${DateFormat("yyyy").format(date)}");
 
   String _getKey(DateTime date) => DateFormat(_keyFormat).format(date);
 
