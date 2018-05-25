@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
+import 'package:rafpored/view/common/concrete_filter_listener.dart';
 import 'package:rafpored/view/common/event_list.dart';
 import 'package:rafpored/view/common/filter.dart';
 import 'package:rafpored/view/common/filter_listener.dart';
@@ -22,14 +23,13 @@ class RefreshEventList extends EventList {
   }
 }
 
-class _RefreshEventListState extends EventListState
-    implements FetchListener, FilterListener {
+class _RefreshEventListState extends EventListState implements FetchListener {
 
   Filter _filter;
   Widget _content;
 
   _RefreshEventListState(List<Event> events, this._filter) : super(events) {
-    _filter.listener = this;
+    _filter.listener = ConcreteFilterListener(this);
   }
 
   @override
@@ -63,26 +63,6 @@ class _RefreshEventListState extends EventListState
     }
 
     _content = super.build(context);
-  }
-
-  @override
-  onFiltered(FilterCriteria criteria, Function setFilterVisible) {
-    List<Event> events = List<Event>();
-
-    EventFetcher.allEvents.forEach((event) => events.add(event));
-
-    events.removeWhere((event) =>
-    (criteria.eventType != null && event.type != criteria.eventType) ||
-        (criteria.subject != null && event.subject != criteria.subject) ||
-        (criteria.professor != null && event.professor != criteria.professor) ||
-        (criteria.classroom != null && event.classroom != criteria.classroom) ||
-        (criteria.group != null && !event.groups.contains(criteria.group)));
-
-    if(setFilterVisible != null) {
-      setFilterVisible(events.isNotEmpty);
-    }
-
-    onEventsFetched(events, true);
   }
 
   _getEvents() {

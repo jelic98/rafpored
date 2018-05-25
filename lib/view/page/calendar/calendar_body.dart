@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:rafpored/model/filter_criteria.dart';
+import 'package:rafpored/view/common/concrete_filter_listener.dart';
 import 'package:small_calendar/small_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
@@ -21,8 +22,7 @@ class CalendarBody extends StatefulWidget {
   _CalendarBodyState createState() => _state;
 }
 
-class _CalendarBodyState extends State<CalendarBody>
-    implements FetchListener, FilterListener {
+class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
 
   static final String _keyFormat = "dd-MM-yyyy";
 
@@ -33,7 +33,7 @@ class _CalendarBodyState extends State<CalendarBody>
   SmallCalendarPagerController _calendarController = SmallCalendarPagerController();
 
   _CalendarBodyState(this._filter) {
-    _filter.listener = this;
+    _filter.listener = ConcreteFilterListener(this);
     _events = {};
   }
 
@@ -122,26 +122,6 @@ class _CalendarBodyState extends State<CalendarBody>
     }
 
     build(context);
-  }
-
-  @override
-  onFiltered(FilterCriteria criteria, Function setFilterVisible) {
-    List<Event> events = List<Event>();
-
-    EventFetcher.allEvents.forEach((event) => events.add(event));
-
-    events.removeWhere((event) =>
-    (criteria.eventType != null && event.type != criteria.eventType) ||
-        (criteria.subject != null && event.subject != criteria.subject) ||
-        (criteria.professor != null && event.professor != criteria.professor) ||
-        (criteria.classroom != null && event.classroom != criteria.classroom) ||
-        (criteria.group != null && !event.groups.contains(criteria.group)));
-
-    if(setFilterVisible != null) {
-      setFilterVisible(events.isNotEmpty);
-    }
-
-    onEventsFetched(events, true);
   }
 
   _getEvents() {
