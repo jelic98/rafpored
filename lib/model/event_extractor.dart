@@ -9,6 +9,15 @@ class EventExtractor {
   List<String> groups = List<String>();
 
   EventExtractor(List<Event> events) {
+    _extractFilters(events);
+
+    _sortFilter(subjects);
+    _sortFilter(professors);
+    _sortFilter(classrooms);
+    _sortFilter(groups);
+  }
+
+  _extractFilters(List<Event> events) {
     for(Event event in events) {
       if(!eventTypes.contains(event.type)) {
         eventTypes.add(event.type);
@@ -32,5 +41,9 @@ class EventExtractor {
         }
       }
     }
+  }
+
+  _sortFilter(List<dynamic> filter) {
+    filter.sort((a, b) => a.compareTo(b));
   }
 }
