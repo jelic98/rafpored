@@ -74,10 +74,9 @@ class EventListState extends State<EventList> {
                   children: <Widget>[
                     FittedBox(
                         fit: BoxFit.scaleDown,
-                        child: Text(event.subject, style: Res.TextStyles.textFull)),
-                    FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(event.professor, style: Res.TextStyles.textFaded)),
+                        child: Text(event.subject, style: Res.TextStyles.textFull),
+                    ),
+                    Text(event.professor, style: Res.TextStyles.textFaded),
                     Container(height: Res.Dimens.dividerSmall),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

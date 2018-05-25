@@ -35,10 +35,9 @@ class _DetailsBodyState extends State<DetailsBody> {
                 children: <Widget>[
                   FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text(_event.subject, style: Res.TextStyles.textFull)),
-                  FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(_event.professor, style: Res.TextStyles.textFaded)),
+                      child: Text(_event.subject, style: Res.TextStyles.textFull),
+                  ),
+                  Text(_event.professor, style: Res.TextStyles.textFaded),
                   Container(height: Res.Dimens.dividerSmall),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,23 +56,22 @@ class _DetailsBodyState extends State<DetailsBody> {
                           ),
                         ],
                       ),
-                      Row(
-                        children: <Widget>[
-                          Icon(
-                            Icons.group,
-                            size: Res.Dimens.smallIconSize,
-                            color: Res.Colors.smallIcon,
-                          ),
-                          Container(width: Res.Dimens.smallIconSpacing),
-                          Text(
-                            _event.getGroups(),
-                            style: Res.TextStyles.textFaded,
-                          ),
-                        ],
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.group,
+                        size: Res.Dimens.smallIconSize,
+                        color: Res.Colors.smallIcon,
+                      ),
+                      Container(width: Res.Dimens.smallIconSpacing),
+                      Text(
+                        _event.getGroups(),
+                        style: Res.TextStyles.textFaded,
                       ),
                     ],
                   ),
-                  Container(height: Res.Dimens.dividerSmall),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
