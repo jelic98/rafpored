@@ -1,8 +1,8 @@
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
-import 'package:rafpored/network/event_fetcher.dart';
+import 'package:rafpored/controller/network/event_fetcher.dart';
 import 'package:rafpored/view/common/filter_listener.dart';
-import 'package:rafpored/network/fetch_listener.dart';
+import 'package:rafpored/controller/network/fetch_listener.dart';
 
 class ConcreteFilterListener implements FilterListener {
 

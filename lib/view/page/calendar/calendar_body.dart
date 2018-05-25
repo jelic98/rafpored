@@ -1,16 +1,15 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:rafpored/controller/filter/concrete_filter_listener.dart';
+import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/model/filter_criteria.dart';
-import 'package:rafpored/view/common/concrete_filter_listener.dart';
 import 'package:small_calendar/small_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/model/event.dart';
-import 'package:rafpored/view/common/filter.dart';
-import 'package:rafpored/view/common/filter_listener.dart';
 import 'package:rafpored/view/common/event_list.dart';
-import 'package:rafpored/network/event_fetcher.dart';
-import 'package:rafpored/network/fetch_listener.dart';
+import 'package:rafpored/controller/network/event_fetcher.dart';
+import 'package:rafpored/controller/network/fetch_listener.dart';
 
 class CalendarBody extends StatefulWidget {
 

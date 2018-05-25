@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
-import 'package:rafpored/view/common/filter.dart';
+import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
 import 'package:rafpored/view/common/fixed_dropdown.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/core/routes.dart';
-import 'package:rafpored/view/common/filter.dart';
+import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/view/common/filter_widget.dart';
 
 class ListBar extends StatefulWidget {

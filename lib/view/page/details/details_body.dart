@@ -45,13 +45,13 @@ class _DetailsBodyState extends State<DetailsBody> {
                       Row(
                         children: <Widget>[
                           Icon(
-                            Icons.location_on,
+                            Icons.group,
                             size: Res.Dimens.smallIconSize,
                             color: Res.Colors.smallIcon,
                           ),
                           Container(width: Res.Dimens.smallIconSpacing),
                           Text(
-                            _event.classroom,
+                            _event.getGroups(),
                             style: Res.TextStyles.textFaded,
                           ),
                         ],
@@ -61,13 +61,13 @@ class _DetailsBodyState extends State<DetailsBody> {
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.group,
+                        Icons.location_on,
                         size: Res.Dimens.smallIconSize,
                         color: Res.Colors.smallIcon,
                       ),
                       Container(width: Res.Dimens.smallIconSpacing),
                       Text(
-                        _event.getGroups(),
+                        _event.classroom,
                         style: Res.TextStyles.textFaded,
                       ),
                     ],

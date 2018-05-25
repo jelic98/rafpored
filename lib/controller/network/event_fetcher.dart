@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as Http;
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/core/config.dart';
-import 'package:rafpored/network/fetch_listener.dart';
+import 'package:rafpored/controller/network/fetch_listener.dart';
 
 class EventFetcher {
 
