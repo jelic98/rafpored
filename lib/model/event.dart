@@ -69,7 +69,7 @@ class Event {
 
   String getTimeStart() => DateFormat(_timeFormat).format(timeStart);
 
-  String getTimeEnd() => DateFormat(_timeFormat).format(timeStart);
+  String getTimeEnd() => DateFormat(_timeFormat).format(timeEnd);
 
   // Helpers
 

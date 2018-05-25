@@ -60,7 +60,27 @@ class _DetailsBodyState extends State<DetailsBody> {
                       Row(
                         children: <Widget>[
                           Icon(
-                            Icons.event,
+                            Icons.group,
+                            size: Res.Dimens.smallIconSize,
+                            color: Res.Colors.smallIcon,
+                          ),
+                          Container(width: Res.Dimens.smallIconSpacing),
+                          Text(
+                            _event.getGroups(),
+                            style: Res.TextStyles.textFaded,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Container(height: Res.Dimens.dividerSmall),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            Icons.access_time,
                             size: Res.Dimens.smallIconSize,
                             color: Res.Colors.smallIcon,
                           ),
@@ -74,31 +94,16 @@ class _DetailsBodyState extends State<DetailsBody> {
                       Row(
                         children: <Widget>[
                           Icon(
-                            Icons.access_time,
+                            Icons.event,
                             size: Res.Dimens.smallIconSize,
                             color: Res.Colors.smallIcon,
                           ),
                           Container(width: Res.Dimens.smallIconSpacing),
                           Text(
-                            _event.getTimeStart(),
+                            "${_event.getTimeStart()} - ${_event.getTimeEnd()}",
                             style: Res.TextStyles.textFaded,
                           ),
                         ],
-                      ),
-                    ],
-                  ),
-                  Container(height: Res.Dimens.dividerSmall),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.group,
-                        size: Res.Dimens.smallIconSize,
-                        color: Res.Colors.smallIcon,
-                      ),
-                      Container(width: Res.Dimens.smallIconSpacing),
-                      Text(
-                        _event.getGroups(),
-                        style: Res.TextStyles.textFaded,
                       ),
                     ],
                   ),
