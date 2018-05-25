@@ -2,42 +2,35 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/model/event.dart';
+import 'package:rafpored/model/filter_criteria.dart';
 import 'package:rafpored/view/common/event_list.dart';
+import 'package:rafpored/view/common/filter.dart';
+import 'package:rafpored/view/common/filter_listener.dart';
 import 'package:rafpored/network/event_fetcher.dart';
-import 'package:rafpored/network/on_events_fetched_listener.dart';
+import 'package:rafpored/network/fetch_listener.dart';
 
-class RefreshEventList extends EventList implements OnEventsFetchedListener {
+class RefreshEventList extends EventList {
 
-  _RefreshEventListState _state;
-  Function _filterVisibility;
+  final _RefreshEventListState _state;
 
-  RefreshEventList(List<Event> events) : super(events);
+  RefreshEventList(List<Event> events, Filter filter) :
+        _state = _RefreshEventListState(events, filter), super(events);
 
   @override
   EventListState createState() {
-    _state = _RefreshEventListState(super.events, this);
-    _state.setFilterVisibiility(_filterVisibility);
-
     return _state;
-  }
-
-  @override
-  onEventsFetched(List<Event> events) {
-    _state.onEventsFetched(events);
-  }
-
-  setFilterVisibiility(Function filterVisibility) {
-    _filterVisibility = filterVisibility;
   }
 }
 
-class _RefreshEventListState extends EventListState implements OnEventsFetchedListener {
+class _RefreshEventListState extends EventListState
+    implements FetchListener, FilterListener {
 
-  RefreshEventList list;
-  Function _filterVisibility;
+  Filter _filter;
   Widget _content;
 
-  _RefreshEventListState(List<Event> events, this.list) : super(events);
+  _RefreshEventListState(List<Event> events, this._filter) : super(events) {
+    _filter.listener = this;
+  }
 
   @override
   void initState() {
@@ -60,15 +53,25 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
         super.events = events;
       });
 
-      list.events = events;
-
-      _filterVisibility(events.isNotEmpty);
-
-      if(list.backupEvents == null) {
-        list.backupEvents = events;
-      }
+      _filter.extract(events);
 
       _content = super.build(context);
+  }
+
+  @override
+  onFiltered(FilterCriteria criteria, Function setFilterVisible) {
+    List<Event> events = super.events;
+
+    events.removeWhere((event) =>
+    (criteria.eventType != null && event.type != criteria.eventType) ||
+        (criteria.subject != null && event.subject != criteria.subject) ||
+        (criteria.professor != null && event.professor != criteria.professor) ||
+        (criteria.classroom != null && event.classroom != criteria.classroom) ||
+        (criteria.group != null && !event.groups.contains(criteria.group)));
+
+    setFilterVisible(events.isNotEmpty);
+
+    onEventsFetched(events);
   }
 
   _getEvents() {
@@ -88,9 +91,5 @@ class _RefreshEventListState extends EventListState implements OnEventsFetchedLi
     completer.complete();
 
     return completer.future;
-  }
-
-  setFilterVisibiility(Function filterVisibility) {
-    _filterVisibility = filterVisibility;
   }
 }

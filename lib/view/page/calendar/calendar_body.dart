@@ -6,7 +6,7 @@ import 'package:small_calendar/small_calendar.dart';
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/view/common/event_list.dart';
 import 'package:rafpored/network/event_fetcher.dart';
-import 'package:rafpored/network/on_events_fetched_listener.dart';
+import 'package:rafpored/network/fetch_listener.dart';
 
 class CalendarBody extends StatefulWidget {
 
@@ -14,7 +14,7 @@ class CalendarBody extends StatefulWidget {
   _CalendarBodyState createState() => _CalendarBodyState();
 }
 
-class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedListener {
+class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
 
   static final String _keyFormat = "dd-MM-yyyy";
 
@@ -134,6 +134,10 @@ class _CalendarBodyState extends State<CalendarBody> implements OnEventsFetchedL
 
   @override
   onEventsFetched(List<Event> events) {
+    if(!mounted) {
+      return;
+    }
+
     setState(() => events.forEach((event) {
       String key = _getKey(event.date);
 

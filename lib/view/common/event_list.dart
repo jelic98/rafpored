@@ -6,12 +6,9 @@ import 'package:rafpored/model/event.dart';
 class EventList extends StatefulWidget {
 
   List<Event> events;
-  List<Event> backupEvents;
-  Function filterVisibility;
 
   EventList(List<Event> events) {
     this.events = events;
-    backupEvents = events;
   }
 
   @override

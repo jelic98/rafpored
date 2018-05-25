@@ -1,6 +1,6 @@
 import 'package:rafpored/model/event.dart';
 
-abstract class OnEventsFetchedListener {
+abstract class FetchListener {
 
   onEventsFetched(List<Event> events);
 }

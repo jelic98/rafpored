@@ -2,35 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/core/routes.dart';
 import 'package:rafpored/view/common/filter.dart';
+import 'package:rafpored/view/common/filter_widget.dart';
 
 class ListBar extends StatefulWidget {
 
   final _ListBarState _state;
 
-  ListBar(title, listener) : _state = _ListBarState(title, listener);
+  ListBar(String title, Filter filter) : _state = _ListBarState(title, filter);
 
   @override
   _ListBarState createState() => _state;
-
-  Function getFilterVisible() {
-    return _state.getFilterVisible();
-  }
 }
 
 class _ListBarState extends State<ListBar> {
 
-  final String _title;
-  final Filter _filter;
-
+  String _title;
+  Filter _filter;
   Widget _filterButton;
 
-  _ListBarState(this._title, listener) : _filter = Filter(listener);
-
+  _ListBarState(this._title, this._filter);
 
   @override
   void initState() {
     super.initState();
-    _setFilterVisible(false);
+    _updateButton(true);
   }
 
   @override
@@ -71,28 +66,26 @@ class _ListBarState extends State<ListBar> {
 
   _setFilterVisible(bool visible) {
     setState(() {
-      _filterButton = Opacity(
-        // I'm here only to center the title
-        opacity: (visible) ? 1.0 : 0.0,
-        child: IconButton(
-          onPressed: (visible) ? () => buildFilters(context) : () => null,
-          icon: Icon(Icons.search),
-          color: Res.Colors.barIcon,
-        ),
-      );
+      _updateButton(visible);
     });
   }
 
-  buildFilters(BuildContext context) {
-    _filter.listener.onFilterShown(_filter);
-
-    showModalBottomSheet<void>(
-      context: context,
-      builder: (context) => _filter,
+  _updateButton(bool visible) {
+    _filterButton = Opacity(
+      // I'm here only to center the title
+      opacity: (visible) ? 1.0 : 0.0,
+      child: IconButton(
+        onPressed: (visible) ? () => _buildFilters(context) : () => null,
+        icon: Icon(Icons.search),
+        color: Res.Colors.barIcon,
+      ),
     );
   }
 
-  Function getFilterVisible() {
-    return _setFilterVisible;
+  _buildFilters(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (context) => FilterWidget(_filter, _setFilterVisible),
+    );
   }
 }

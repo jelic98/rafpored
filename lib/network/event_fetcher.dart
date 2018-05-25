@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as Http;
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/core/config.dart';
-import 'package:rafpored/network/on_events_fetched_listener.dart';
+import 'package:rafpored/network/fetch_listener.dart';
 
 class EventFetcher {
 
-  static fetchEvents(OnEventsFetchedListener listener) {
+  static fetchEvents(FetchListener listener) {
     _asyncFetch().then((events) => listener.onEventsFetched(events));
   }
 
