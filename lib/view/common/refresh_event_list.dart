@@ -48,17 +48,21 @@ class _RefreshEventListState extends EventListState
 
   @override
   onEventsFetched(List<Event> events, [bool filtered]) {
-      setState(() {
-        super.events = events;
-      });
+    if(!mounted) {
+      return;
+    }
 
-      _filter.extract(events);
+    setState(() {
+      super.events = events;
+    });
 
-      if(filtered == null || !filtered) {
-        _filter.loadCriteria(FilterCriteria());
-      }
+    _filter.extract(events);
 
-      _content = super.build(context);
+    if(filtered == null || !filtered) {
+      _filter.loadCriteria(FilterCriteria());
+    }
+
+    _content = super.build(context);
   }
 
   @override

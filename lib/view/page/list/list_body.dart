@@ -9,9 +9,7 @@ class ListBody extends StatefulWidget {
   ListBody(Filter filter) : _state = _ListBodyState(RefreshEventList(null, filter));
 
   @override
-  _ListBodyState createState() {
-    return _state;
-  }
+  _ListBodyState createState() => _state;
 }
 
 class _ListBodyState extends State<ListBody> {

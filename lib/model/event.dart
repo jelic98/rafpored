@@ -4,6 +4,8 @@ import 'package:rafpored/core/res.dart' as Res;
 
 class Event {
 
+  // todo sort groups, subjects, professors, classrooms
+
   static const String _dateFormat = "dd.MM";
   static const String _timeFormat = "HH:mm";
 

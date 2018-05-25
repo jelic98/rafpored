@@ -1,45 +1,46 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
+import 'package:rafpored/model/filter_criteria.dart';
+import 'package:small_calendar/small_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
-import 'package:small_calendar/small_calendar.dart';
 import 'package:rafpored/model/event.dart';
+import 'package:rafpored/view/common/filter.dart';
+import 'package:rafpored/view/common/filter_listener.dart';
 import 'package:rafpored/view/common/event_list.dart';
 import 'package:rafpored/network/event_fetcher.dart';
 import 'package:rafpored/network/fetch_listener.dart';
 
 class CalendarBody extends StatefulWidget {
 
+  final _CalendarBodyState _state;
+
+  CalendarBody(Filter filter) : _state = _CalendarBodyState(filter);
+
   @override
-  _CalendarBodyState createState() => _CalendarBodyState();
+  _CalendarBodyState createState() => _state;
 }
 
-class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
+class _CalendarBodyState extends State<CalendarBody>
+    implements FetchListener, FilterListener {
 
   static final String _keyFormat = "dd-MM-yyyy";
 
+  Filter _filter;
   String _currentMonth;
   Map<String, List<Event>> _events;
 
   SmallCalendarPagerController _calendarController = SmallCalendarPagerController();
 
+  _CalendarBodyState(this._filter) {
+    _filter.listener = this;
+    _events = {};
+  }
+
   @override
   void initState() {
     super.initState();
-
-    _events = {};
-
-    EventFetcher.fetchEvents(this);
-
-    DateTime currentMonth = DateTime.now();
-
-    _calendarController = SmallCalendarPagerController(
-      initialMonth: currentMonth,
-      minimumMonth: DateTime(currentMonth.year - 1, currentMonth.month),
-      maximumMonth: DateTime(currentMonth.year + 1, currentMonth.month),
-    );
-
-    _updateCurrentMonth(currentMonth);
+    _getEvents();
   }
 
   @override
@@ -85,6 +86,80 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
         ],
       );
 
+  _showList(DateTime date) {
+    String key = _getKey(date);
+
+    if(_events.containsKey(key)) {
+      showModalBottomSheet<void>(
+          context: context,
+          builder: (context) => EventList(_events[key]),
+      );
+    }
+  }
+
+  @override
+  onEventsFetched(List<Event> events, [bool filtered]) {
+    if(!mounted) {
+      return;
+    }
+
+    _events.clear();
+
+    setState(() => events.forEach((event) {
+      String key = _getKey(event.date);
+
+      if(_events.containsKey(key)) {
+        _events[key].add(event);
+      }else {
+        _events[key] = [event];
+      }
+    }));
+
+    _filter.extract(events);
+
+    if(filtered == null || !filtered) {
+      _filter.loadCriteria(FilterCriteria());
+    }
+
+    build(context);
+  }
+
+  @override
+  onFiltered(FilterCriteria criteria, Function setFilterVisible) {
+    List<Event> events = List<Event>();
+
+    EventFetcher.allEvents.forEach((event) => events.add(event));
+
+    events.removeWhere((event) =>
+    (criteria.eventType != null && event.type != criteria.eventType) ||
+        (criteria.subject != null && event.subject != criteria.subject) ||
+        (criteria.professor != null && event.professor != criteria.professor) ||
+        (criteria.classroom != null && event.classroom != criteria.classroom) ||
+        (criteria.group != null && !event.groups.contains(criteria.group)));
+
+    if(setFilterVisible != null) {
+      setFilterVisible(events.isNotEmpty);
+    }
+
+    onEventsFetched(events, true);
+  }
+
+  _getEvents() {
+    EventFetcher.fetchEvents(this);
+
+    DateTime currentMonth = DateTime.now();
+
+    _calendarController = SmallCalendarPagerController(
+      initialMonth: currentMonth,
+      minimumMonth: DateTime(currentMonth.year - 1, currentMonth.month),
+      maximumMonth: DateTime(currentMonth.year + 1, currentMonth.month),
+    );
+
+    _updateCurrentMonth(currentMonth);
+  }
+
+  // Calendar methods
+
   Future<bool> _isTodayCallback(DateTime date) async {
     DateTime now = DateTime.now();
 
@@ -94,13 +169,13 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   }
 
   Future<bool> _examTickCallback(DateTime date) async
-    => _checkDateForEvents(date, EventType.exam);
+  => _checkDateForEvents(date, EventType.exam);
 
   Future<bool> _colloquiumTickCallback(DateTime date) async
-    => _checkDateForEvents(date, EventType.colloquium);
+  => _checkDateForEvents(date, EventType.colloquium);
 
   Future<bool> _lectureTickCallback(DateTime date) async
-    => _checkDateForEvents(date, EventType.lecture);
+  => _checkDateForEvents(date, EventType.lecture);
 
   bool _checkDateForEvents(DateTime date, EventType type) {
     String key = _getKey(date);
@@ -120,32 +195,4 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
       setState(() => _currentMonth = "${Res.Strings.months[DateFormat("MM").format(date)]} ${DateFormat("yyyy").format(date)}");
 
   String _getKey(DateTime date) => DateFormat(_keyFormat).format(date);
-
-  _showList(DateTime date) {
-    String key = _getKey(date);
-
-    if(_events.containsKey(key)) {
-      showModalBottomSheet<void>(
-          context: context,
-          builder: (context) => EventList(_events[key]),
-      );
-    }
-  }
-
-  @override
-  onEventsFetched(List<Event> events, [bool filtered]) {
-    if(!mounted) {
-      return;
-    }
-
-    setState(() => events.forEach((event) {
-      String key = _getKey(event.date);
-
-      if(_events.containsKey(key)) {
-        _events[key].add(event);
-      }else {
-        _events[key] = [event];
-      }
-    }));
-  }
 }
