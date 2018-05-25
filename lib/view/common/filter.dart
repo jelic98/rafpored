@@ -29,7 +29,9 @@ class Filter {
   }
 
   extract(List<Event> events) {
-    extractor = EventExtractor(events);
+    if(extractor == null) {
+      extractor = EventExtractor(events);
+    }
   }
 
   _saveFilters(SharedPreferences prefs, FilterCriteria criteria) {
