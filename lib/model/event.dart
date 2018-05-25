@@ -81,7 +81,7 @@ class Event {
 
   String getTimeEnd() => DateFormat(_timeFormat).format(timeStart);
 
-  // Factory methods
+  // Helpers
 
   static EventType _getType(String type) {
     return (type.toString().toLowerCase() == "ispit") ? EventType.exam
@@ -116,6 +116,10 @@ class Event {
 
   static DateTime _getTimeEnd(String time) {
     return DateFormat("HH:mm").parseStrict("${time.substring(time.indexOf("-") + 1)}:00");
+  }
+
+  static bool sameDate(Event a, Event b) {
+    return a.getDate() == b.getDate();
   }
 }
 

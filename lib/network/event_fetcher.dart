@@ -24,6 +24,16 @@ class EventFetcher {
       events.add(Event.fromJson(event));
     }
 
+    events.sort((a, b) => _sortEvents(a, b));
+
     return events;
+  }
+
+  static int _sortEvents(Event a, Event b) {
+    if(Event.sameDate(a, b)) {
+      return a.timeStart.compareTo(b.timeStart);
+    }else {
+      return a.date.compareTo(b.date);
+    }
   }
 }
