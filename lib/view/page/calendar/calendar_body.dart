@@ -133,7 +133,7 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   }
 
   @override
-  onEventsFetched(List<Event> events) {
+  onEventsFetched(List<Event> events, [bool filtered]) {
     if(!mounted) {
       return;
     }

@@ -24,14 +24,13 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   _FilterWidgetState(this._filter, Function setFilterVisible) {
     _filter.setFilterVisible = setFilterVisible;
-
-    _criteria = FilterCriteria();
   }
+
 
   @override
   void initState() {
     super.initState();
-    _filter.loadCriteria(_criteria);
+    _filter.loadCriteria(_criteria = FilterCriteria());
   }
 
   @override

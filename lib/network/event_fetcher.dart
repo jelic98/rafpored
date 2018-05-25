@@ -7,8 +7,10 @@ import 'package:rafpored/network/fetch_listener.dart';
 
 class EventFetcher {
 
+  static List<Event> allEvents;
+
   static fetchEvents(FetchListener listener) {
-    _asyncFetch().then((events) => listener.onEventsFetched(events));
+    _asyncFetch().then((events) => _onSuccess(events, listener));
   }
 
   static Future<List<Event>> _asyncFetch() async {
@@ -27,6 +29,11 @@ class EventFetcher {
     events.sort((a, b) => _sortEvents(a, b));
 
     return events;
+  }
+
+  static _onSuccess(List<Event> events, FetchListener listener) {
+    allEvents = events;
+    listener.onEventsFetched(events);
   }
 
   static int _sortEvents(Event a, Event b) {

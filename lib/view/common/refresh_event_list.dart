@@ -35,7 +35,6 @@ class _RefreshEventListState extends EventListState
   @override
   void initState() {
     super.initState();
-
     _getEvents();
   }
 
@@ -48,19 +47,25 @@ class _RefreshEventListState extends EventListState
       );
 
   @override
-  onEventsFetched(List<Event> events) {
+  onEventsFetched(List<Event> events, [bool filtered]) {
       setState(() {
         super.events = events;
       });
 
       _filter.extract(events);
 
+      if(filtered == null || !filtered) {
+        _filter.loadCriteria(FilterCriteria());
+      }
+
       _content = super.build(context);
   }
 
   @override
   onFiltered(FilterCriteria criteria, Function setFilterVisible) {
-    List<Event> events = super.events;
+    List<Event> events = List<Event>();
+
+    EventFetcher.allEvents.forEach((event) => events.add(event));
 
     events.removeWhere((event) =>
     (criteria.eventType != null && event.type != criteria.eventType) ||
@@ -69,9 +74,11 @@ class _RefreshEventListState extends EventListState
         (criteria.classroom != null && event.classroom != criteria.classroom) ||
         (criteria.group != null && !event.groups.contains(criteria.group)));
 
-    setFilterVisible(events.isNotEmpty);
+    if(setFilterVisible != null) {
+      setFilterVisible(events.isNotEmpty);
+    }
 
-    onEventsFetched(events);
+    onEventsFetched(events, true);
   }
 
   _getEvents() {
