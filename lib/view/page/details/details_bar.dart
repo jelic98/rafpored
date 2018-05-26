@@ -10,7 +10,7 @@ class DetailsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double statusbarHeight = MediaQuery
+    final double statusHeight = MediaQuery
         .of(context)
         .padding
         .top;
@@ -18,8 +18,8 @@ class DetailsBar extends StatelessWidget {
     return Material(
       elevation: Res.Dimens.barElevation,
       child:Container(
-        padding: EdgeInsets.only(top: statusbarHeight),
-        height: statusbarHeight + Res.Dimens.barHeight,
+        padding: EdgeInsets.only(top: statusHeight),
+        height: statusHeight + Res.Dimens.barHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[

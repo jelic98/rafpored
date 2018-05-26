@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
-import 'package:rafpored/controller/filter/concrete_filter_listener.dart';
-import 'package:rafpored/view/common/event_list.dart';
+import 'package:rafpored/controller/filter/filter_listener.dart';
+import 'package:rafpored/view/common/list/event_list.dart';
 import 'package:rafpored/controller/filter/filter.dart';
-import 'package:rafpored/view/common/filter_listener.dart';
 import 'package:rafpored/controller/network/event_fetcher.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
 
@@ -29,7 +28,7 @@ class _RefreshEventListState extends EventListState implements FetchListener {
   Widget _content;
 
   _RefreshEventListState(List<Event> events, this._filter) : super(events) {
-    _filter.listener = ConcreteFilterListener(this);
+    _filter.listener = FilterListener(this);
   }
 
   @override

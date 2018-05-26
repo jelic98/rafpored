@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rafpored/model/event_extractor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rafpored/model/event.dart';
-import 'package:rafpored/view/common/filter_listener.dart';
+import 'package:rafpored/controller/filter/filter_listener.dart';
 import 'package:rafpored/model/filter_criteria.dart';
 
 class Filter {
@@ -22,8 +22,10 @@ class Filter {
     _prefs.then((prefs) => criteria = _loadFilters(prefs, criteria));
   }
 
-  resetCriteria(BuildContext context) {
-    Navigator.pop(context);
+  resetCriteria(BuildContext context, [bool pop]) {
+    if(pop != null && pop) {
+      Navigator.pop(context);
+    }
 
     saveCriteria(FilterCriteria());
   }

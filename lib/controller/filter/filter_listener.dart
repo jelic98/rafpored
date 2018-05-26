@@ -1,16 +1,15 @@
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
 import 'package:rafpored/controller/network/event_fetcher.dart';
-import 'package:rafpored/view/common/filter_listener.dart';
+import 'package:rafpored/controller/filter/filter_listener.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
 
-class ConcreteFilterListener implements FilterListener {
+class FilterListener {
 
   FetchListener _fetcher;
 
-  ConcreteFilterListener(this._fetcher);
+  FilterListener(this._fetcher);
 
-  @override
   onFiltered(FilterCriteria criteria, Function setFilterVisible) {
     List<Event> events = List<Event>();
 
