@@ -13,6 +13,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "rs.raf.rafpored"
         minSdkVersion 16
@@ -36,9 +37,19 @@ android {
             debuggable false
             signingConfig signingConfigs.release
         }
+
+        debug {
+            debuggable true
+        }
     }
     lintOptions {
         disable 'InvalidPackage'
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
     }
 }
 
