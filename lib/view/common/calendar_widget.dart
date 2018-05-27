@@ -8,7 +8,7 @@ import 'package:rafpored/view/common/list/event_list.dart';
 
 class CalendarWidget extends StatefulWidget {
 
-  static final String _keyFormat = "dd-MM-yyyy";
+  static const String _keyFormat = "dd-MM-yyyy";
 
   final _CalendarWidgetState _state;
 

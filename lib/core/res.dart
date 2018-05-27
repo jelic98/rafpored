@@ -33,6 +33,7 @@ class Colors {
   static const Color calendarToday = const Color(0xFF74B9FF);
 
   static const Color smallIcon = const Color(0x99FFFFFF);
+  static const Color smallIconDark = const Color(0x66000000);
 
   static const Color filterIcon = const Color(0xFF0984E3);
 }
@@ -61,6 +62,8 @@ class Dimens {
 
   static const smallIconSize = 14.0;
   static const smallIconSpacing = 4.0;
+
+  static const bigIconSize = 36.0;
 
   static const dividerSmall = 16.0;
   static const dividerBig = 32.0;
@@ -146,6 +149,7 @@ class Strings {
   static const String alertRequiredFields = "Popunite neophodna polja";
   static const String alertNoItems = "Nema stavki";
   static const String alertNoNotes = "Nema napomena";
+  static const String alertNoNetwork = "Nema internet konekcije";
 
   static const Map<String, String> months = {
     "01" : "Januar",

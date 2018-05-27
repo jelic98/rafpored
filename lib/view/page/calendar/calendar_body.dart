@@ -79,7 +79,7 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   }
 
   _getEvents() {
-    EventFetcher.fetchEvents(this);
+    EventFetcher.fetchEvents(context, this);
 
     _calendarWidget.init();
   }

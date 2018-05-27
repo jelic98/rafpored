@@ -38,12 +38,24 @@ class _RefreshEventListState extends EventListState implements FetchListener {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      RefreshIndicator(
-        color: Res.Colors.primaryLight,
-        onRefresh: _handleRefresh,
-        child: _content ?? super.build(context),
+  Widget build(BuildContext context) {
+    if(events.isEmpty) {
+      return Center(
+        child: IconButton(
+          onPressed: () => _getEvents(),
+          icon: Icon(Icons.refresh),
+          color: Res.Colors.smallIconDark,
+          iconSize: Res.Dimens.bigIconSize,
+        ),
       );
+    }
+
+    return RefreshIndicator(
+      color: Res.Colors.primaryLight,
+      onRefresh: _handleRefresh,
+      child: _content ?? super.build(context),
+    );
+  }
 
   @override
   onEventsFetched(List<Event> events, [bool filtered]) {
@@ -71,7 +83,7 @@ class _RefreshEventListState extends EventListState implements FetchListener {
       );
     });
 
-    EventFetcher.fetchEvents(this);
+    EventFetcher.fetchEvents(context, this);
   }
 
   Future<Null> _handleRefresh() {
