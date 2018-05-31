@@ -25,7 +25,7 @@ android {
         release {
             keyAlias 'Rafpored'
             keyPassword 'Hq68jWGJZm'
-            storeFile file('/Users/Lazar/FlutterProjects/rafpored/keystore.jks')
+            storeFile file('/Users/Lazar/Documents/rafpored/keystore.jks')
             storePassword 'Hq68jWGJZm'
         }
     }
