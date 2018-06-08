@@ -8,12 +8,14 @@ class News {
   final String id;
   final String title;
   final String text;
+  final int update;
   final DateTime date;
 
   News({
 	  this.id,
 	  this.title,
 	  this.text,
+    this.update,
 	  this.date,
   });
 
@@ -22,6 +24,7 @@ class News {
         id: response["id"],
         title: response["title"],
         text: response["text"],
+        update: response["update"],
         date: DateTime.parse(response["date"]),
       );
 

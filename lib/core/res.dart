@@ -179,4 +179,12 @@ class Strings {
     "Sat" : "Sub",
     "Sun" : "Ned",
   };
+
+  static const List<String> updates = [
+    "",
+    "Ispiti i kolokvijumi",
+    "Predavanja",
+    "Kalendar",
+    "Konsultacije",
+  ];
 }
