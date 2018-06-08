@@ -6,7 +6,6 @@ import 'package:rafpored/controller/filter/filter_listener.dart';
 import 'package:rafpored/view/common/list/list_item_factory.dart';
 import 'package:rafpored/view/common/list/list_widget.dart';
 import 'package:rafpored/controller/filter/filter.dart';
-import 'package:rafpored/controller/network/event_fetcher.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
 
 class RefreshListWidget extends ListWidget {
@@ -27,7 +26,9 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
 
   _RefreshListWidgetState(List<dynamic> items, ListItemFactory factory, this._filter)
       : super(items, factory) {
-    _filter.listener = FilterListener(this);
+    if(_filter != null) {
+      _filter.listener = FilterListener(this);
+    }
   }
 
   @override
@@ -57,7 +58,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
   }
 
   @override
-  onEventsFetched(List<dynamic> items, [bool filtered]) {
+  onFetched(List<dynamic> items, [bool filtered]) {
     if(!mounted) {
       return;
     }
@@ -66,10 +67,12 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       super.items = items;
     });
 
-    _filter.extract(items);
+    if(_filter != null) {
+      _filter.extract(items);
 
-    if(filtered == null || !filtered) {
-      _filter.loadCriteria(FilterCriteria());
+      if(filtered == null || !filtered) {
+        _filter.loadCriteria(FilterCriteria());
+      }
     }
 
     _content = super.build(context);
@@ -82,7 +85,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       );
     });
 
-    EventFetcher.fetchEvents(context, this);
+    itemFactory.fetcher.fetch(context, this);
   }
 
   Future<Null> _handleRefresh() {

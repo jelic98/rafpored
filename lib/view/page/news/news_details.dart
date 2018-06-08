@@ -13,7 +13,7 @@ class NewsDetails extends DetailsBodyState {
           child: Hero(
             tag: "hero-news-" + item.id,
             child: Material(
-              color: item.type.color,
+              color: Res.Colors.newsColor,
               child: Padding(
                 padding: EdgeInsets.all(Res.Dimens.cardPadding),
                 child: Column(
@@ -40,7 +40,7 @@ class NewsDetails extends DetailsBodyState {
                       ],
                     ),
                     Container(height: Res.Dimens.dividerSmall),
-                    Text(item.professor, style: Res.TextStyles.textFaded),
+                    Text(item.text, style: Res.TextStyles.textFaded),
                   ],
                 ),
               ),

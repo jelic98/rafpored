@@ -16,9 +16,9 @@ class ListWidget extends StatefulWidget {
 class ListWidgetState extends State<ListWidget> {
 
   List<dynamic> items;
-  ListItemFactory _itemFactory;
+  ListItemFactory itemFactory;
 
-  ListWidgetState(List<dynamic> items, this._itemFactory) {
+  ListWidgetState(List<dynamic> items, this.itemFactory) {
     this.items = items ?? List<dynamic>();
   }
 
@@ -35,7 +35,7 @@ class ListWidgetState extends State<ListWidget> {
         padding: EdgeInsets.only(top: Res.Dimens.listPadding),
         shrinkWrap: true,
         itemCount: items.length,
-        itemBuilder: (context, index) => _itemFactory.getItem(context, items[index]),
+        itemBuilder: (context, index) => itemFactory.getItem(context, items[index]),
       );
     }else {
       return GridView.count(
@@ -43,7 +43,7 @@ class ListWidgetState extends State<ListWidget> {
         shrinkWrap: true,
         crossAxisCount: 2,
         childAspectRatio: 2.2,
-        children: items.map((item) => _itemFactory.getItem(context, item)).toList(),
+        children: items.map((item) => itemFactory.getItem(context, item)).toList(),
       );
     }
   }

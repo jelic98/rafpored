@@ -1,6 +1,4 @@
-import 'package:rafpored/model/event.dart';
-
 abstract class FetchListener {
 
-  onEventsFetched(List<Event> events, [bool filtered]);
+  onFetched(List<dynamic> items, [bool filtered]);
 }

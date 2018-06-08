@@ -1,6 +1,6 @@
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
-import 'package:rafpored/controller/network/event_fetcher.dart';
+import 'package:rafpored/controller/network/fetcher.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
 
 class FilterListener {
@@ -12,7 +12,7 @@ class FilterListener {
   onFiltered(FilterCriteria criteria, Function setFilterVisible) {
     List<Event> events = List<Event>();
 
-    EventFetcher.allEvents.forEach((event) => events.add(event));
+    Fetcher.allItems.forEach((event) => events.add(event));
 
     events.removeWhere((event) =>
     (criteria.eventType != null && event.type != criteria.eventType) ||
@@ -25,6 +25,6 @@ class FilterListener {
       setFilterVisible(events.isNotEmpty);
     }
 
-    _fetcher.onEventsFetched(events, true);
+    _fetcher.onFetched(events, true);
   }
 }

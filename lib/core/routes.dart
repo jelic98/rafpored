@@ -2,6 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/view/page/list/events_page.dart';
 import 'package:rafpored/view/page/calendar/calendar_page.dart';
+import 'package:rafpored/view/page/news/news_page.dart';
 import 'package:rafpored/view/page/details/details_page.dart';
 import 'package:rafpored/view/page/list/event_details.dart';
 import 'package:rafpored/view/page/news/news_details.dart';
@@ -33,7 +34,7 @@ class Routes {
         "/news",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-              return EventsPage();
+              return NewsPage();
             })
     );
 

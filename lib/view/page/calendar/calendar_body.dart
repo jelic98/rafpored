@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:rafpored/controller/filter/filter_listener.dart';
 import 'package:rafpored/controller/filter/filter.dart';
+import 'package:rafpored/controller/network/fetcher.dart';
 import 'package:rafpored/model/filter_criteria.dart';
 import 'package:rafpored/view/common/calendar_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,14 @@ class CalendarBody extends StatefulWidget {
 
 class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
 
+  Fetcher _fetcher;
   Filter _filter;
   String _currentMonth;
   Map<String, List<Event>> _events;
   CalendarWidget _calendarWidget;
 
   _CalendarBodyState(this._filter) {
+    _fetcher = EventFetcher();
     _filter.listener = FilterListener(this);
     _calendarWidget = CalendarWidget(_events = {}, _updateMonth);
   }
@@ -52,24 +55,24 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
       );
 
   @override
-  onEventsFetched(List<Event> events, [bool filtered]) {
+  onFetched(List<dynamic> items, [bool filtered]) {
     if(!mounted) {
       return;
     }
 
     _events.clear();
 
-    setState(() => events.forEach((event) {
-      String key = CalendarWidget.getKey(event.date);
+    setState(() => items.forEach((item) {
+      String key = CalendarWidget.getKey(item.date);
 
       if(_events.containsKey(key)) {
-        _events[key].add(event);
+        _events[key].add(item);
       }else {
-        _events[key] = [event];
+        _events[key] = [item];
       }
     }));
 
-    _filter.extract(events);
+    _filter.extract(items);
 
     if(filtered == null || !filtered) {
       _filter.loadCriteria(FilterCriteria());
@@ -79,7 +82,7 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   }
 
   _getEvents() {
-    EventFetcher.fetchEvents(context, this);
+    _fetcher.fetch(context, this);
 
     _calendarWidget.init();
   }

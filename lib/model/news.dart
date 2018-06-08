@@ -3,7 +3,7 @@ import 'package:rafpored/core/res.dart' as Res;
 
 class News {
 
-  static DateFormat _dateFormat = DateFormat("dd.MM.yyyy");
+  static DateFormat _dateFormat = DateFormat("dd.MM");
 
   final String id;
   final String title;
@@ -22,7 +22,7 @@ class News {
         id: response["id"],
         title: response["title"],
         text: response["text"],
-        date: _dateFormat.parse(response["date"]),
+        date: DateTime.parse(response["date"]),
       );
 
   String getDate() => "${Res.Strings.days[DateFormat("E").format(date)]} ${_dateFormat.format(date)}";
