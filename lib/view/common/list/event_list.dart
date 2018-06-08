@@ -27,7 +27,7 @@ class EventListState extends State<EventList> {
   Widget build(BuildContext context) {
     if(events.isEmpty) {
       return Center(
-        child: Text(Res.Strings.alertNoItems, style: Res.TextStyles.listPlaceholder),
+        child: Text(Res.Strings.captionNoItems, style: Res.TextStyles.listPlaceholder),
       );
     }
 

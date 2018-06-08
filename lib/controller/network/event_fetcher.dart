@@ -13,6 +13,11 @@ import 'package:rafpored/controller/network/fetch_listener.dart';
 class EventFetcher {
 
   static const int _cacheTimeout = 60 * 6; // minutes
+  static const List<String> endpoints = [
+    "exams",
+    "classes",
+    "consultations",
+  ];
 
   static final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
@@ -51,27 +56,29 @@ class EventFetcher {
   static Future<List<Event>> _asyncFetch([String data]) async {
     List<Event> events = List<Event>();
 
-    var response;
+    for(String endpoint in endpoints) {
+      var response;
 
-    if(data != null &&  data.isNotEmpty) {
-      response = data;
-    }else {
-      response = (await Http.get(Config.getApiUrl("raspored/json.php"))).body;
+      if(data != null &&  data.isNotEmpty) {
+        response = data;
+      }else {
+        response = (await Http.get(Config.getApiUrl(endpoint), headers: {"apikey" : Config.apiKey})).body;
+      }
+
+      await _prefs.then((prefs) => prefs.setString("lastFetchData", response));
+
+      response = JsonDecoder().convert(response)["schedule"];
+
+      var id = 0;
+
+      for(var event in response) {
+        event["id"] = (++id).toString();
+
+        events.add(Event.fromJson(event));
+      }
+
+      events.sort((a, b) => _sortEvents(a, b));
     }
-
-    await _prefs.then((prefs) => prefs.setString("lastFetchData", response));
-
-    response = JsonDecoder().convert(response);
-
-    var id = 0;
-
-    for(var event in response) {
-      event["id"] = (++id).toString();
-
-      events.add(Event.fromJson(event));
-    }
-
-    events.sort((a, b) => _sortEvents(a, b));
 
     return events;
   }

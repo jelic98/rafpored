@@ -4,8 +4,8 @@ import 'package:rafpored/core/res.dart' as Res;
 
 class Event {
 
-  static const String _dateFormat = "dd.MM";
-  static const String _timeFormat = "HH:mm";
+  static DateFormat _dateFormat = DateFormat("dd.MM");
+  static DateFormat _timeFormat = DateFormat("HH:mm");
 
   final String id;
   final String subject;
@@ -34,21 +34,40 @@ class Event {
   });
 
   factory Event.fromJson(Map<String, dynamic> response) {
+    response = _formatJson(response);
+
     Event event =  Event(
         id: response["id"],
-        subject: response["predmet"],
-        professor: response["nastavnik"],
-        classroom: response["ucionica"],
-        groups: response["grupe"].toString().split(", "),
-        date: _getDate(response["datum"], response["dan"]),
-        timeStart: _getTimeStart(response["termin"]),
-        timeEnd: _getTimeEnd(response["termin"]),
-        type: _getType(response["tip"]),
+        subject: response["class_name"],
+        professor: response["professor"],
+        classroom: response["classroom"],
+        groups: response["student_groups"].toString().split(", "),
+        date: _getDate(response["date"], response["day_of_week"]),
+        timeStart: _getTimeStart(response["time"]),
+        timeEnd: _getTimeEnd(response["time"]),
+        type: _getType(response["type"]),
         notes: _getNotes(response["notes"]),
-        repeatsWeekly: _getType(response["tip"]) == EventType.lecture
+        repeatsWeekly: _getRepeatsWeekly(_getType(response["type"])),
     );
 
     return event;
+  }
+
+  static Map<String, dynamic> _formatJson(Map<String, dynamic> response) {
+    response["day_of_week"] ??= response["day"];
+    response["professor"] ??= response["lecturer"];
+    response["class_name"] ??= response["test_name"];
+    response["type"] ??= "CONSULTATIONS";
+    response["student_groups"] ??= "";
+
+    String dateTime = response["date_and_time"];
+
+    if(dateTime != null && dateTime.isNotEmpty) {
+      response["date"] = dateTime.substring(0, dateTime.indexOf("|"));
+      response["time"] = dateTime.substring(dateTime.indexOf("|") + 1);
+    }
+
+    return response;
   }
 
   String getGroups() {
@@ -65,47 +84,71 @@ class Event {
     return buffer.toString();
   }
 
-  String getDate() => "${Res.Strings.days[DateFormat("E").format(date)]} ${DateFormat(_dateFormat).format(date)}";
+  String getDate() => "${Res.Strings.days[DateFormat("E").format(date)]} ${_dateFormat.format(date)}";
 
-  String getTimeStart() => DateFormat(_timeFormat).format(timeStart);
+  String getTimeStart() => _timeFormat.format(timeStart);
 
-  String getTimeEnd() => DateFormat(_timeFormat).format(timeEnd);
+  String getTimeEnd() => _timeFormat.format(timeEnd);
 
   // Helpers
 
   static EventType _getType(String type) {
-    return (type.toString().toLowerCase() == "ispit") ? EventType.exam
-        : (type.toString().toLowerCase() == "kolokvijum") ?
-    EventType.colloquium : EventType.lecture;
+    if(type.toString().toUpperCase() == "EXAM") {
+      return EventType.exam;
+    }
+
+    if(type.toString().toUpperCase() == "CURRICULUM") {
+      return EventType.curriculum;
+    }
+
+    if(type.toString().toUpperCase() == "CONSULTATIONS") {
+      return EventType.consultations;
+    }
+
+    return EventType.lecture;
+  }
+
+  static bool _getRepeatsWeekly(EventType type) {
+    return type == EventType.lecture || type == EventType.consultations;
   }
 
   static String _getNotes(String notes) {
     return (notes != null && notes.isNotEmpty)
-        ? notes : Res.Strings.alertNoNotes;
+        ? notes : Res.Strings.captionNoNotes;
   }
 
   static DateTime _getDate(String date, String day) {
+    DateTime result;
+
     if(date != null && date.isNotEmpty) {
-      return DateTime.parse(date);
+      result = _dateFormat.parse(date);
+
+      return DateTime(DateTime.now().year, result.month, result.day);
     }
 
-    day = day.replaceAll("?ET", "CET");
+    result = DateTime.now();
 
-    DateTime today = DateTime.now();
+    day = day.toUpperCase().replaceAll("?ET", "ČET").substring(0, 3);
 
-    while(Res.Strings.days[DateFormat("E").format(today)].toLowerCase() != day.toLowerCase()) {
-      today = today.add(Duration(days: 1));
+    while(Res.Strings.days[DateFormat("E").format(result)].toUpperCase() != day) {
+      result = result.add(Duration(days: 1));
     }
 
-    return today;
+    return result;
   }
 
   static DateTime _getTimeStart(String time) {
-    return DateFormat("HH:mm").parseStrict(time.substring(0, time.indexOf("-")));
+    time = time.substring(0, time.indexOf("-"));
+    time += (time.length == 2) ? ":00" : "";
+
+    return _timeFormat.parseStrict(time);
   }
 
   static DateTime _getTimeEnd(String time) {
-    return DateFormat("HH:mm").parseStrict("${time.substring(time.indexOf("-") + 1)}:00");
+    time = time.substring(time.indexOf("-") + 1);
+    time += (time.length == 2) ? ":00" : "";
+
+    return _timeFormat.parseStrict(time);
   }
 
   static bool sameDate(Event a, Event b) {
@@ -121,6 +164,7 @@ class EventType {
   const EventType(this.name, this.color);
 
   static const EventType exam = const EventType("Ispit", Res.Colors.eventExam);
-  static const EventType colloquium = const EventType("Kolokvijum", Res.Colors.eventColloquium);
+  static const EventType curriculum = const EventType("Kolokvijum", Res.Colors.eventCurriculum);
   static const EventType lecture = const EventType("Predavanje", Res.Colors.eventLecture);
+  static const EventType consultations = const EventType("Konsultacije", Res.Colors.eventConsultations);
 }

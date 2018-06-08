@@ -11,8 +11,9 @@ class Colors {
   static const Color primaryDark = const Color(0xFF0984E3);
 
   static const Color eventExam = const Color(0xFFEB3B5A);
-  static const Color eventColloquium = const Color(0xFFFA983A);
+  static const Color eventCurriculum = const Color(0xFFFA983A);
   static const Color eventLecture = const Color(0xFF2ED573);
+  static const Color eventConsultations = const Color(0xFF9B59B6);
 
   static const Color pageBackground = const Color(0xFFFFFFFF);
 
@@ -147,9 +148,10 @@ class Strings {
 
   static const String alertWait = "Molimo sačekajte";
   static const String alertRequiredFields = "Popunite neophodna polja";
-  static const String alertNoItems = "Nema stavki";
-  static const String alertNoNotes = "Nema napomena";
   static const String alertNoNetwork = "Nema internet konekcije";
+
+  static const String captionNoItems = "Nema stavki";
+  static const String captionNoNotes = "Nema napomena";
 
   static const Map<String, String> months = {
     "01" : "Januar",
@@ -170,7 +172,7 @@ class Strings {
     "Mon" : "Pon",
     "Tue" : "Uto",
     "Wed" : "Sre",
-    "Thu" : "Cet",
+    "Thu" : "Čet",
     "Fri" : "Pet",
     "Sat" : "Sub",
     "Sun" : "Ned",

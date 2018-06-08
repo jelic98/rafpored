@@ -49,7 +49,7 @@ class Filter {
   _loadFilters(SharedPreferences prefs, FilterCriteria criteria) {
     String savedType = prefs.getString("eventType");
 
-    for(EventType type in [EventType.lecture, EventType.colloquium, EventType.exam]) {
+    for(EventType type in [EventType.lecture, EventType.curriculum, EventType.exam]) {
       if(savedType == type.name) {
         criteria.eventType = type;
         break;

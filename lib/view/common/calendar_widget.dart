@@ -44,7 +44,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         firstWeekday: DateTime.monday,
         isTodayCallback: _isTodayCallback,
         hasTick1Callback: _examTickCallback,
-        hasTick2Callback: _colloquiumTickCallback,
+        hasTick2Callback: _curriculumTickCallback,
         hasTick3Callback: _lectureTickCallback,
         controller: SmallCalendarDataController(),
         child: SmallCalendarStyle(
@@ -52,7 +52,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             showTicks: true,
             todayColor: Res.Colors.calendarToday,
             tick1Color: Res.Colors.eventExam,
-            tick2Color: Res.Colors.eventColloquium,
+            tick2Color: Res.Colors.eventCurriculum,
             tick3Color: Res.Colors.eventLecture,
           ),
           weekdayIndicationStyle: WeekdayIndicationStyle(
@@ -111,8 +111,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Future<bool> _examTickCallback(DateTime date) async
   => _checkDateForEvents(date, EventType.exam);
 
-  Future<bool> _colloquiumTickCallback(DateTime date) async
-  => _checkDateForEvents(date, EventType.colloquium);
+  Future<bool> _curriculumTickCallback(DateTime date) async
+  => _checkDateForEvents(date, EventType.curriculum);
 
   Future<bool> _lectureTickCallback(DateTime date) async
   => _checkDateForEvents(date, EventType.lecture);
