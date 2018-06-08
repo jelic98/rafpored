@@ -1,8 +1,10 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:rafpored/view/page/list/list_page.dart';
+import 'package:rafpored/view/page/list/events_page.dart';
 import 'package:rafpored/view/page/calendar/calendar_page.dart';
 import 'package:rafpored/view/page/details/details_page.dart';
+import 'package:rafpored/view/page/list/event_details.dart';
+import 'package:rafpored/view/page/news/news_details.dart';
 
 class Routes {
 
@@ -12,10 +14,10 @@ class Routes {
 
   static initRoutes() {
     _router.define(
-        "/list",
+        "/events",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-              return ListPage();
+              return EventsPage();
             })
     );
 
@@ -28,10 +30,26 @@ class Routes {
     );
 
     _router.define(
-        "/details",
+        "/news",
         handler: Handler(
             handlerFunc: (BuildContext context, Map<String, dynamic> params) {
-              return DetailsPage(_bundle);
+              return EventsPage();
+            })
+    );
+
+    _router.define(
+        "/details-event",
+        handler: Handler(
+            handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+              return DetailsPage(EventDetails(_bundle));
+            })
+    );
+
+    _router.define(
+        "/details-news",
+        handler: Handler(
+            handlerFunc: (BuildContext context, Map<String, dynamic> params) {
+              return DetailsPage(NewsDetails(_bundle));
             })
     );
   }

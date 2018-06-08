@@ -15,6 +15,8 @@ class Colors {
   static const Color eventLecture = const Color(0xFF2ED573);
   static const Color eventConsultations = const Color(0xFF9B59B6);
 
+  static const Color newsColor = const Color(0xFF54A0FF);
+
   static const Color pageBackground = const Color(0xFFFFFFFF);
 
   static const Color textFull = const Color(0xFFFFFFFF);

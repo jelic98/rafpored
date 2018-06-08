@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/view/common/back_bar.dart';
-import 'package:rafpored/view/page/details/details_body.dart';
+import 'package:rafpored/view/page/news/news_body.dart';
 
-class DetailsPage extends StatelessWidget {
-
-  final DetailsBodyState _state;
-
-  DetailsPage(this._state);
+class NewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) =>
@@ -15,7 +11,7 @@ class DetailsPage extends StatelessWidget {
         body: Column(
           children: <Widget>[
             BackBar(Res.Strings.appName),
-            DetailsBody(_state),
+            NewsBody(),
           ],
         ),
       );

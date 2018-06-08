@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 
-class DetailsBar extends StatelessWidget {
+class BackBar extends StatelessWidget {
 
   final String _title;
 
-  DetailsBar(this._title);
+  BackBar(this._title);
 
   @override
   Widget build(BuildContext context) {

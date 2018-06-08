@@ -1,33 +1,32 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
-import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/filter_criteria.dart';
 import 'package:rafpored/controller/filter/filter_listener.dart';
-import 'package:rafpored/view/common/list/event_list.dart';
+import 'package:rafpored/view/common/list/list_item_factory.dart';
+import 'package:rafpored/view/common/list/list_widget.dart';
 import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/controller/network/event_fetcher.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
 
-class RefreshEventList extends EventList {
+class RefreshListWidget extends ListWidget {
 
-  final _RefreshEventListState _state;
+  final _RefreshListWidgetState _state;
 
-  RefreshEventList(List<Event> events, Filter filter) :
-        _state = _RefreshEventListState(events, filter), super(events);
+  RefreshListWidget(List<dynamic> items, ListItemFactory factory, Filter filter) :
+        _state = _RefreshListWidgetState(items, factory, filter), super(items, factory);
 
   @override
-  EventListState createState() {
-    return _state;
-  }
+  ListWidgetState createState() => _state;
 }
 
-class _RefreshEventListState extends EventListState implements FetchListener {
+class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
 
   Filter _filter;
   Widget _content;
 
-  _RefreshEventListState(List<Event> events, this._filter) : super(events) {
+  _RefreshListWidgetState(List<dynamic> items, ListItemFactory factory, this._filter)
+      : super(items, factory) {
     _filter.listener = FilterListener(this);
   }
 
@@ -39,7 +38,7 @@ class _RefreshEventListState extends EventListState implements FetchListener {
 
   @override
   Widget build(BuildContext context) {
-    if(events.isEmpty) {
+    if(items.isEmpty) {
       return Center(
         child: IconButton(
           onPressed: () => _getEvents(),
@@ -58,16 +57,16 @@ class _RefreshEventListState extends EventListState implements FetchListener {
   }
 
   @override
-  onEventsFetched(List<Event> events, [bool filtered]) {
+  onEventsFetched(List<dynamic> items, [bool filtered]) {
     if(!mounted) {
       return;
     }
 
     setState(() {
-      super.events = events;
+      super.items = items;
     });
 
-    _filter.extract(events);
+    _filter.extract(items);
 
     if(filtered == null || !filtered) {
       _filter.loadCriteria(FilterCriteria());

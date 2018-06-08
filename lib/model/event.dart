@@ -36,7 +36,7 @@ class Event {
   factory Event.fromJson(Map<String, dynamic> response) {
     response = _formatJson(response);
 
-    Event event =  Event(
+    return Event(
         id: response["id"],
         subject: response["class_name"],
         professor: response["professor"],
@@ -49,8 +49,6 @@ class Event {
         notes: _getNotes(response["notes"]),
         repeatsWeekly: _getRepeatsWeekly(_getType(response["type"])),
     );
-
-    return event;
   }
 
   static Map<String, dynamic> _formatJson(Map<String, dynamic> response) {

@@ -56,6 +56,8 @@ class EventFetcher {
   static Future<List<Event>> _asyncFetch([String data]) async {
     List<Event> events = List<Event>();
 
+    var id = 0;
+
     for(String endpoint in endpoints) {
       var response;
 
@@ -68,8 +70,6 @@ class EventFetcher {
       await _prefs.then((prefs) => prefs.setString("lastFetchData", response));
 
       response = JsonDecoder().convert(response)["schedule"];
-
-      var id = 0;
 
       for(var event in response) {
         event["id"] = (++id).toString();

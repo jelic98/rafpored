@@ -4,7 +4,8 @@ import 'package:small_calendar/small_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/model/event.dart';
-import 'package:rafpored/view/common/list/event_list.dart';
+import 'package:rafpored/view/common/list/list_widget.dart';
+import 'package:rafpored/view/page/list/event_item_factory.dart';
 
 class CalendarWidget extends StatefulWidget {
 
@@ -43,17 +44,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       SmallCalendarData(
         firstWeekday: DateTime.monday,
         isTodayCallback: _isTodayCallback,
-        hasTick1Callback: _examTickCallback,
-        hasTick2Callback: _curriculumTickCallback,
-        hasTick3Callback: _lectureTickCallback,
+        hasTick1Callback: _consultationsTickCallback,
         controller: SmallCalendarDataController(),
         child: SmallCalendarStyle(
           dayStyle: DayStyle(
             showTicks: true,
             todayColor: Res.Colors.calendarToday,
-            tick1Color: Res.Colors.eventExam,
-            tick2Color: Res.Colors.eventCurriculum,
-            tick3Color: Res.Colors.eventLecture,
+            tick1Color: Res.Colors.eventConsultations,
           ),
           weekdayIndicationStyle: WeekdayIndicationStyle(
             backgroundColor: Res.Colors.calendarHeader,
@@ -95,7 +92,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     if(_events.containsKey(key)) {
       showModalBottomSheet<void>(
           context: context,
-          builder: (context) => EventList(_events[key]),
+          builder: (context) => ListWidget(_events[key], EventItemFactory()),
       );
     }
   }
@@ -108,14 +105,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         now.day == date.day;
   }
 
-  Future<bool> _examTickCallback(DateTime date) async
-  => _checkDateForEvents(date, EventType.exam);
-
-  Future<bool> _curriculumTickCallback(DateTime date) async
-  => _checkDateForEvents(date, EventType.curriculum);
-
-  Future<bool> _lectureTickCallback(DateTime date) async
-  => _checkDateForEvents(date, EventType.lecture);
+  Future<bool> _consultationsTickCallback(DateTime date) async
+  => _checkDateForEvents(date, EventType.consultations);
 
   bool _checkDateForEvents(DateTime date, EventType type) {
     String key = CalendarWidget.getKey(date);
