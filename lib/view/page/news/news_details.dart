@@ -56,7 +56,11 @@ class NewsDetails extends DetailsBodyState {
                       ],
                     ) : Container(height: 0.0),
                     Container(height: Res.Dimens.dividerSmall),
-                    Text(item.text, style: Res.TextStyles.textFaded),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(item.text, style: Res.TextStyles.textFaded),
+                      ),
+                    ),
                   ],
                 ),
               ),

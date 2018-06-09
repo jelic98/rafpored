@@ -34,7 +34,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
   @override
   void initState() {
     super.initState();
-    _getEvents();
+    _getItems();
   }
 
   @override
@@ -42,7 +42,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
     if(items.isEmpty) {
       return Center(
         child: IconButton(
-          onPressed: () => _getEvents(),
+          onPressed: () => _getItems(),
           icon: Icon(Icons.refresh),
           color: Res.Colors.smallIconDark,
           iconSize: Res.Dimens.bigIconSize,
@@ -78,7 +78,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
     _content = super.build(context);
   }
 
-  _getEvents() {
+  _getItems() {
     setState(() {
       _content = Center(
         child: Image(image: AssetImage("assets/img/loading.gif")),
@@ -89,7 +89,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
   }
 
   Future<Null> _handleRefresh() {
-    _getEvents();
+    _getItems();
 
     Completer<Null> completer = Completer<Null>();
     completer.complete();

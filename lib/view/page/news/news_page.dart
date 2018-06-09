@@ -8,6 +8,7 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Scaffold(
+        backgroundColor: Res.Colors.pageBackground,
         body: Column(
           children: <Widget>[
             BackBar(Res.Strings.appName),

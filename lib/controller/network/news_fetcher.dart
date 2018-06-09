@@ -1,27 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as Http;
 import 'package:rafpored/controller/network/fetcher.dart';
 import 'package:rafpored/model/news.dart';
-import 'package:rafpored/core/config.dart';
 
 class NewsFetcher extends Fetcher {
 
+  static const String _endpoint = "news";
+
   @override
-  Future<List<dynamic>> asyncFetch([String data]) async {
+  Future<List<dynamic>> asyncFetch() async {
     List<News> items = List<News>();
 
-    var response;
-
-    if(data != null &&  data.isNotEmpty) {
-      response = data;
-    }else {
-      response = (await Http.get(Config.getApiUrl("news"), headers: {"apikey" : Config.apiKey})).body;
-    }
-
-    await Fetcher.prefs.then((prefs) => prefs.setString("lastFetchData", response));
-
-    response = JsonDecoder().convert(response)["news"];
+    var response = JsonDecoder().convert(await getResponse(_endpoint))["news"];
 
     var id = 0;
 
@@ -38,6 +28,6 @@ class NewsFetcher extends Fetcher {
 
   @override
   int sort(a, b) {
-    return a.date.compareTo(b.date);
+    return b.date.compareTo(a.date);
   }
 }

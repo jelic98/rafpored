@@ -1,36 +1,24 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:http/http.dart' as Http;
 import 'package:rafpored/controller/network/fetcher.dart';
 import 'package:rafpored/model/event.dart';
-import 'package:rafpored/core/config.dart';
 
 class EventFetcher extends Fetcher {
 
-  static const List<String> endpoints = [
+  static const List<String> _endpoints = [
     "exams",
     "classes",
     "consultations",
   ];
 
   @override
-  Future<List<dynamic>> asyncFetch([String data]) async {
+  Future<List<dynamic>> asyncFetch() async {
     List<Event> items = List<Event>();
 
     var id = 0;
 
-    for(String endpoint in endpoints) {
-      var response;
-
-      if(data != null &&  data.isNotEmpty) {
-        response = data;
-      }else {
-        response = (await Http.get(Config.getApiUrl(endpoint), headers: {"apikey" : Config.apiKey})).body;
-      }
-
-      await Fetcher.prefs.then((prefs) => prefs.setString("lastFetchData", response));
-
-      response = JsonDecoder().convert(response)["schedule"];
+    for(String endpoint in _endpoints) {
+      var response = JsonDecoder().convert(await getResponse(endpoint))["schedule"];
 
       for(var event in response) {
         event["id"] = (++id).toString();
