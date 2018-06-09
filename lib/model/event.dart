@@ -150,8 +150,24 @@ class Event implements Filterable {
     return _timeFormat.parse(time);
   }
 
-  static bool sameDate(Event a, Event b) {
-    return a.getDate() == b.getDate();
+  static bool sameDate(Event a, dynamic b) {
+    if(b is Event) {
+      return a.getDate() == b.getDate();
+    }
+
+    if(a.repeatsWeekly) {
+      return DateFormat("E").format(a.date) == DateFormat("E").format(b);
+    }
+
+    // todo check periods
+    // PeriodType.semester => EventType.lecture & EventType.consultation
+    // PeriodType.exams => EventType.exam
+    // PeriodType.curriculums => EventType.curriculum
+    // PeriodType.holiday => /
+
+    return a.date.year == b.year &&
+        a.date.month == b.month &&
+        a.date.day == b.day;
   }
 }
 

@@ -18,8 +18,6 @@ class CalendarBody extends StatefulWidget {
 
   CalendarBody(Filter filter) : _state = _CalendarBodyState(filter);
 
-
-
   @override
   _CalendarBodyState createState() => _state;
 }
@@ -30,24 +28,23 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   Fetcher _periodFetcher;
   Filter _filter;
   String _currentMonth;
-  Map<String, List<Event>> _events;
+  List<Event> _events;
   CalendarWidget _calendarWidget;
 
   _CalendarBodyState(this._filter) {
     _eventFetcher = EventFetcher();
     _periodFetcher = PeriodFetcher();
     _filter.listener = FilterListener(this);
-    _calendarWidget = CalendarWidget(_events = {}, _updateMonth);
+    _calendarWidget = CalendarWidget(_events = List<Event>(), _updateMonth);
   }
 
   @override
   void initState() {
     super.initState();
 
-    _eventFetcher.fetch(context, this);
     _periodFetcher.fetch(context, this);
 
-    _calendarWidget.init();
+    _updateMonth(DateTime.now());
   }
 
   @override
@@ -72,20 +69,13 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
 
     if(items is List<Period>) {
       _calendarWidget.updatePeriods(items);
+      _eventFetcher.fetch(context, this);
       return;
     }
 
     _events.clear();
 
-    setState(() => items.forEach((item) {
-      String key = CalendarWidget.getKey(item.date);
-
-      if(_events.containsKey(key)) {
-        _events[key].add(item);
-      }else {
-        _events[key] = [item];
-      }
-    }));
+    setState(() => items.forEach((item) => _events.add(item)));
 
     _filter.extract(items);
 
