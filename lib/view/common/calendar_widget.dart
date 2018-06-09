@@ -82,16 +82,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 
   init([bool updateMonth = true]) {
-    DateTime currentMonth = DateTime.now();
+    DateTime current = DateTime.now();
 
     _calendarController = SmallCalendarPagerController(
-      initialMonth: currentMonth,
-      minimumMonth: _getMinDate(),
-      maximumMonth: _getMaxDate(),
+      initialMonth: current,
+      minimumMonth: _getMinDate(current),
+      maximumMonth: _getMaxDate(current),
     );
 
     if(updateMonth) {
-      _monthUpdater(currentMonth);
+      _monthUpdater(current);
     }
   }
 
@@ -119,36 +119,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     }
   }
 
-  DateTime _getMinDate() {
-    DateTime min = DateTime.now();
-
+  DateTime _getMinDate(DateTime current) {
     if(_periods == null) {
-      return min.subtract(Duration(days: Config.maxPeriodDuration));
+      return current.subtract(Duration(days: Config.maxPeriodDuration));
     }
 
     for(Period period in _periods) {
-      if(period.start.isBefore(min)) {
-        min = period.start;
+      if(period.start.isBefore(current)) {
+        current = period.start;
       }
     }
 
-    return min;
+    return current;
   }
 
-  DateTime _getMaxDate() {
-    DateTime max = DateTime.now();
-
+  DateTime _getMaxDate(DateTime current) {
     if(_periods == null) {
-      return max.add(Duration(days: Config.maxPeriodDuration));
+      return current.add(Duration(days: Config.maxPeriodDuration));
     }
 
     for(Period period in _periods) {
-      if(period.end.isAfter(max)) {
-        max = period.end;
+      if(period.end.isAfter(current)) {
+        current = period.end;
       }
     }
 
-    return max;
+    return current;
   }
 
   Future<bool> _isTodayCallback(DateTime date) async {

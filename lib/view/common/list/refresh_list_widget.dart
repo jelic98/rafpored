@@ -23,12 +23,15 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
 
   Filter _filter;
   Widget _content;
+  bool _fetched;
 
   _RefreshListWidgetState(List<dynamic> items, ListItemFactory factory, this._filter)
       : super(items, factory) {
     if(_filter != null) {
       _filter.listener = FilterListener(this);
     }
+
+    _fetched = false;
   }
 
   @override
@@ -39,7 +42,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
 
   @override
   Widget build(BuildContext context) {
-    if(items.isEmpty) {
+    if(items.isEmpty && _fetched) {
       return Center(
         child: IconButton(
           onPressed: () => _getItems(),
@@ -50,11 +53,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       );
     }
 
-    return RefreshIndicator(
-      color: Res.Colors.primaryLight,
-      onRefresh: _handleRefresh,
-      child: _content ?? super.build(context),
-    );
+    return _content;
   }
 
   @override
@@ -62,6 +61,8 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
     if(!mounted) {
       return;
     }
+
+    _fetched = true;
 
     setState(() {
       super.items = items;
@@ -75,14 +76,25 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       }
     }
 
-    _content = super.build(context);
+    _content = RefreshIndicator(
+      color: Res.Colors.primaryLight,
+      onRefresh: _handleRefresh,
+      child: super.build(context),
+    );
   }
 
-  _getItems() {
-    setState(() {
-      _content = Center(
-        child: Image(image: AssetImage("assets/img/loading.gif")),
+  _getProgressIndicator() =>
+      Center(
+        child: Image(
+            image: AssetImage("assets/img/loading.gif"),
+        ),
       );
+
+  _getItems() {
+    _fetched = false;
+
+    setState(() {
+      _content = _getProgressIndicator();
     });
 
     itemFactory.fetcher.fetch(context, this);
