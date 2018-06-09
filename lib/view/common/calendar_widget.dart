@@ -91,7 +91,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     List<Event> eventsOnDate = List<Event>();
 
     for(Event event in _events) {
-      if(Event.sameDate(event, date)) {
+      if(Event.sameDate(event, date, _periods)) {
         eventsOnDate.add(event);
       }
     }
@@ -114,7 +114,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   Future<bool> _tickCallback(DateTime date) async {
     for(Event event in _events) {
-      if(Event.sameDate(event, date)) {
+      if(Event.sameDate(event, date, _periods)) {
         return true;
       }  
     }

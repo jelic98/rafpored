@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/controller/filter/filterable.dart';
+import 'package:rafpored/model/period.dart';
 
 class Event implements Filterable {
 
@@ -150,20 +151,28 @@ class Event implements Filterable {
     return _timeFormat.parse(time);
   }
 
-  static bool sameDate(Event a, dynamic b) {
+  static bool sameDate(Event a, dynamic b, [List<Period> periods]) {
     if(b is Event) {
       return a.getDate() == b.getDate();
+    }
+
+    if(periods != null) {
+      bool periodFound = false;
+
+      for(Period period in periods) {
+        if(period.containsDate(b) && period.type.eventTypes.contains(a.type)) {
+          periodFound = true;
+        }
+      }
+
+      if(!periodFound) {
+        return false;
+      }
     }
 
     if(a.repeatsWeekly) {
       return DateFormat("E").format(a.date) == DateFormat("E").format(b);
     }
-
-    // todo check periods
-    // PeriodType.semester => EventType.lecture & EventType.consultation
-    // PeriodType.exams => EventType.exam
-    // PeriodType.curriculums => EventType.curriculum
-    // PeriodType.holiday => /
 
     return a.date.year == b.year &&
         a.date.month == b.month &&

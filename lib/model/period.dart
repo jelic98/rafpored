@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/model/event.dart';
 
 class Period {
 
@@ -58,12 +59,14 @@ class Period {
 }
 
 class PeriodType {
+
   final Color color;
+  final List<EventType> eventTypes;
 
-  const PeriodType(this.color);
+  const PeriodType(this.color, this.eventTypes);
 
-  static const PeriodType exams = const PeriodType(Res.Colors.periodExams);
-  static const PeriodType curriculums = const PeriodType(Res.Colors.periodCurriculums);
-  static const PeriodType semester = const PeriodType(Res.Colors.periodSemester);
-  static const PeriodType holiday = const PeriodType(Res.Colors.periodHoliday);
+  static const PeriodType exams = const PeriodType(Res.Colors.periodExams, [EventType.exam]);
+  static const PeriodType curriculums = const PeriodType(Res.Colors.periodCurriculums, [EventType.curriculum]);
+  static const PeriodType semester = const PeriodType(Res.Colors.periodSemester, [EventType.lecture, EventType.consultations]);
+  static const PeriodType holiday = const PeriodType(Res.Colors.periodHoliday, []);
 }
