@@ -53,15 +53,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     return SmallCalendarData(
       firstWeekday: DateTime.monday,
       isTodayCallback: _isTodayCallback,
-      hasTick1Callback: _consultationsTickCallback,
+      hasTick1Callback: _tickCallback,
       controller: SmallCalendarDataController(),
       child: SmallCalendarStyle(
         dayStyle: DayStyle(
           dayTextStyle: Res.TextStyles.dayNumber,
           extendedDayTextStyle: Res.TextStyles.dayNumberExtended,
           showTicks: true,
+          margin: EdgeInsets.all(0.0),
+          marginNumber: EdgeInsets.only(top: 5.0),
+          marginTick: EdgeInsets.only(bottom: 5.0),
+          textTickSeparation: 5.0,
           todayColor: Res.Colors.calendarToday,
-          tick1Color: Res.Colors.eventConsultations,
+          tick1Color: Res.Colors.calendarTick,
           shadeCallback: _dayShade,
         ),
         weekdayIndicationStyle: WeekdayIndicationStyle(
@@ -155,21 +159,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         now.day == date.day;
   }
 
-  Future<bool> _consultationsTickCallback(DateTime date) async
-  => _checkDateForEvents(date, EventType.consultations);
+  Future<bool> _tickCallback(DateTime date) async =>
+      _dateHasEvents(date);
 
-  bool _checkDateForEvents(DateTime date, EventType type) {
+  bool _dateHasEvents(DateTime date) {
     String key = CalendarWidget.getKey(date);
 
-    if(_events.containsKey(key)) {
-      for(Event event in _events[key]) {
-        if(event.type == type) {
-          return true;
-        }
-      }
-    }
-
-    return false;
+    return _events.containsKey(key) && _events[key].isNotEmpty;
   }
 
   Color _dayShade(DateTime date) {

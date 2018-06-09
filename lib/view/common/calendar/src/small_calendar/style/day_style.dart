@@ -8,7 +8,7 @@ class DayStyle {
   DayStyle.raw({
     @required this.dayTextStyle,
     @required this.extendedDayTextStyle,
-    this.shadeCallback,
+    @required this.shadeCallback,
     @required this.todayColor,
     @required this.selectedColor,
     @required this.showTicks,
@@ -16,9 +16,12 @@ class DayStyle {
     @required this.tick2Color,
     @required this.tick3Color,
     @required this.margin,
+    @required this.marginNumber,
+    @required this.marginTick,
     @required this.textTickSeparation,
   })  : assert(dayTextStyle != null),
         assert(extendedDayTextStyle != null),
+        assert(shadeCallback != null),
         assert(todayColor != null),
         assert(selectedColor != null),
         assert(showTicks != null),
@@ -26,6 +29,8 @@ class DayStyle {
         assert(tick2Color != null),
         assert(tick3Color != null),
         assert(margin != null),
+        assert(marginNumber != null),
+        assert(marginTick != null),
         assert(textTickSeparation != null);
 
   /// Creates a day style.
@@ -41,8 +46,9 @@ class DayStyle {
     Color tick1Color,
     Color tick2Color,
     Color tick3Color,
-    EdgeInsetsGeometry margin =
-        const EdgeInsets.symmetric(vertical: 4.0, horizontal: 2.0),
+    EdgeInsetsGeometry margin = const EdgeInsets.symmetric(vertical: 4.0, horizontal: 2.0),
+    EdgeInsetsGeometry marginNumber = const EdgeInsets.all(0.0),
+    EdgeInsetsGeometry marginTick = const EdgeInsets.all(0.0),
     double textTickSeparation = 2.0,
   }) {
     return new DayStyle.raw(
@@ -57,6 +63,8 @@ class DayStyle {
       tick2Color: tick2Color ?? Colors.green,
       tick3Color: tick3Color ?? Colors.blue,
       margin: margin,
+      marginNumber: marginNumber,
+      marginTick: marginTick,
       textTickSeparation: textTickSeparation,
     );
   }
@@ -92,6 +100,12 @@ class DayStyle {
   /// Margin of day widget.
   final EdgeInsetsGeometry margin;
 
+  /// Margin of day number.
+  final EdgeInsetsGeometry marginNumber;
+
+  /// Margin of day tick.
+  final EdgeInsetsGeometry marginTick;
+
   /// Height of separation between day of month text and ticks.
   final double textTickSeparation;
 
@@ -106,6 +120,8 @@ class DayStyle {
     Color tick2Color,
     Color tick3Color,
     EdgeInsetsGeometry margin,
+    EdgeInsetsGeometry marginNumber,
+    EdgeInsetsGeometry marginTick,
     double textTickSeparation,
   }) {
     return new DayStyle.raw(
@@ -119,6 +135,8 @@ class DayStyle {
       tick2Color: tick2Color ?? this.tick2Color,
       tick3Color: tick3Color ?? this.tick3Color,
       margin: margin ?? this.margin,
+      marginNumber: marginNumber ?? this.marginNumber,
+      marginTick: marginTick ?? this.marginTick,
       textTickSeparation: textTickSeparation ?? this.textTickSeparation,
     );
   }

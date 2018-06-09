@@ -42,6 +42,7 @@ class Colors {
 
   static const Color calendarHeader = const Color(0xFFF1F2F6);
   static const Color calendarToday = const Color(0xFF74B9FF);
+  static const Color calendarTick = const Color(0xFFFFFFFF);
 
   static const Color smallIcon = const Color(0x99FFFFFF);
   static const Color smallIconDark = const Color(0x66000000);

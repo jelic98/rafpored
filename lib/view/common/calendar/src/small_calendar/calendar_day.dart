@@ -40,7 +40,10 @@ class CalendarDay extends StatelessWidget {
     columnItems.add(
       new Expanded(
         flex: 3,
-        child: _buildDayNumber(context),
+        child: new Container(
+          margin: style.marginNumber,
+          child: _buildDayNumber(context),
+        ),
       ),
     );
 
@@ -54,7 +57,10 @@ class CalendarDay extends StatelessWidget {
       columnItems.add(
         new Expanded(
           flex: 1,
-          child: _buildTicks(),
+          child: new Container(
+            margin: style.marginTick,
+            child: _buildTicks(),
+          ),
         ),
       );
     }
