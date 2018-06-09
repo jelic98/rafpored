@@ -15,9 +15,17 @@ class Colors {
   static const Color eventLecture = const Color(0xFF2ED573);
   static const Color eventConsultations = const Color(0xFF9B59B6);
 
+  static const Color periodExams = const Color(0xDDEB3B5A);
+  static const Color periodCurriculums = const Color(0xDDFA983A);
+  static const Color periodSemester = const Color(0xDD2ED573);
+  static const Color periodHoliday = const Color(0x44000000);
+
   static const Color newsColor = const Color(0xFF70A1FF);
 
   static const Color pageBackground = const Color(0xFFFFFFFF);
+
+  static const Color dayNumber = const Color(0xFFFFFFFF);
+  static const Color dayNumberExtended = const Color(0x99FFFFFF);
 
   static const Color textFull = const Color(0xFFFFFFFF);
   static const Color textFullDark = const Color(0x99000000);
@@ -81,56 +89,64 @@ class TextStyles {
     color: Colors.barTitle,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
-    fontSize: 32.0
+    fontSize: 32.0,
   );
 
   static const TextStyle textFull = const TextStyle(
     color: Colors.textFull,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w600,
-    fontSize: 24.0
+    fontSize: 24.0,
   );
 
   static const TextStyle textFullDark = const TextStyle(
       color: Colors.textFullDark,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
-      fontSize: 24.0
+      fontSize: 24.0,
   );
 
   static const TextStyle textFaded = const TextStyle(
     color: Colors.textFaded,
     fontFamily: 'Poppins',
     fontWeight: FontWeight.w300,
-    fontSize: 14.0
+    fontSize: 14.0,
   );
 
   static const TextStyle inputText = const TextStyle(
       color: Colors.inputText,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
-      fontSize: 16.0
+      fontSize: 16.0,
   );
 
   static const TextStyle inputHint = const TextStyle(
       color: Colors.inputHint,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
-      fontSize: 16.0
+      fontSize: 16.0,
   );
 
   static const TextStyle listPlaceholder = const TextStyle(
       color: Colors.listPlaceholder,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w600,
-      fontSize: 18.0
+      fontSize: 18.0,
   );
 
   static const TextStyle snackbar = const TextStyle(
       color: Colors.snackbarText,
       fontFamily: 'Poppins',
       fontWeight: FontWeight.w300,
-      fontSize: 14.0
+      fontSize: 14.0,
+  );
+
+  static const TextStyle dayNumber = const TextStyle(
+    color: Colors.dayNumber,
+  );
+
+  static const TextStyle dayNumberExtended = const TextStyle(
+      color: Colors.dayNumberExtended,
   );
 }
 

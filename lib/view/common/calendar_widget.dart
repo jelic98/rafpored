@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:intl/intl.dart';
-import 'package:small_calendar/small_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/view/common/calendar/small_calendar.dart';
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/view/common/list/list_widget.dart';
 import 'package:rafpored/view/page/list/event_item_factory.dart';
@@ -48,9 +48,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         controller: SmallCalendarDataController(),
         child: SmallCalendarStyle(
           dayStyle: DayStyle(
+            dayTextStyle: Res.TextStyles.dayNumber,
+            extendedDayTextStyle: Res.TextStyles.dayNumberExtended,
             showTicks: true,
             todayColor: Res.Colors.calendarToday,
             tick1Color: Res.Colors.eventConsultations,
+            shadeCallback: _dayShade,
           ),
           weekdayIndicationStyle: WeekdayIndicationStyle(
             backgroundColor: Res.Colors.calendarHeader,
@@ -120,5 +123,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     }
 
     return false;
+  }
+
+  Color _dayShade(DateTime date) {
+    return Res.Colors.periodSemester;
   }
 }
