@@ -33,7 +33,7 @@ class EventFetcher extends Fetcher {
   }
 
   @override
-  int sort(a, b) {
+  int sort(dynamic a, dynamic b) {
     if(Event.sameDate(a, b)) {
       return a.timeStart.compareTo(b.timeStart);
     }else {

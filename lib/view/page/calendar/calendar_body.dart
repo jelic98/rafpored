@@ -1,14 +1,16 @@
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/controller/filter/filter_listener.dart';
 import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/controller/network/fetcher.dart';
-import 'package:rafpored/model/filter_criteria.dart';
-import 'package:rafpored/view/common/calendar_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:rafpored/core/res.dart' as Res;
-import 'package:rafpored/model/event.dart';
 import 'package:rafpored/controller/network/event_fetcher.dart';
+import 'package:rafpored/controller/network/period_fetcher.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
+import 'package:rafpored/view/common/calendar_widget.dart';
+import 'package:rafpored/model/filter_criteria.dart';
+import 'package:rafpored/model/event.dart';
+import 'package:rafpored/model/period.dart';
 
 class CalendarBody extends StatefulWidget {
 
@@ -16,20 +18,24 @@ class CalendarBody extends StatefulWidget {
 
   CalendarBody(Filter filter) : _state = _CalendarBodyState(filter);
 
+
+
   @override
   _CalendarBodyState createState() => _state;
 }
 
 class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
 
-  Fetcher _fetcher;
+  Fetcher _eventFetcher;
+  Fetcher _periodFetcher;
   Filter _filter;
   String _currentMonth;
   Map<String, List<Event>> _events;
   CalendarWidget _calendarWidget;
 
   _CalendarBodyState(this._filter) {
-    _fetcher = EventFetcher();
+    _eventFetcher = EventFetcher();
+    _periodFetcher = PeriodFetcher();
     _filter.listener = FilterListener(this);
     _calendarWidget = CalendarWidget(_events = {}, _updateMonth);
   }
@@ -37,7 +43,11 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
   @override
   void initState() {
     super.initState();
-    _getEvents();
+
+    _eventFetcher.fetch(context, this);
+    _periodFetcher.fetch(context, this);
+
+    _calendarWidget.init();
   }
 
   @override
@@ -60,6 +70,11 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
       return;
     }
 
+    if(items is List<Period>) {
+      _calendarWidget.updatePeriods(items);
+      return;
+    }
+
     _events.clear();
 
     setState(() => items.forEach((item) {
@@ -79,12 +94,6 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
     }
 
     _calendarWidget.updateEvents(_events);
-  }
-
-  _getEvents() {
-    _fetcher.fetch(context, this);
-
-    _calendarWidget.init();
   }
 
   _updateMonth(DateTime date) =>

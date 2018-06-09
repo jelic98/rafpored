@@ -2,8 +2,10 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
-import 'package:rafpored/view/common/calendar/small_calendar.dart';
+import 'package:rafpored/core/config.dart';
 import 'package:rafpored/model/event.dart';
+import 'package:rafpored/model/period.dart';
+import 'package:rafpored/view/common/calendar/small_calendar.dart';
 import 'package:rafpored/view/common/list/list_widget.dart';
 import 'package:rafpored/view/page/list/event_item_factory.dart';
 
@@ -27,11 +29,16 @@ class CalendarWidget extends StatefulWidget {
     _state.updateEvents(events);
   }
 
+  updatePeriods(List<Period> periods) {
+    _state.updatePeriods(periods);
+  }
+
   static String getKey(DateTime date) => DateFormat(_keyFormat).format(date);
 }
 
 class _CalendarWidgetState extends State<CalendarWidget> {
 
+  List<Period> _periods;
   Map<String, List<Event>> _events;
   Function _monthUpdater;
 
@@ -40,52 +47,64 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   _CalendarWidgetState(this._events, this._monthUpdater);
 
   @override
-  Widget build(BuildContext context) =>
-      SmallCalendarData(
-        firstWeekday: DateTime.monday,
-        isTodayCallback: _isTodayCallback,
-        hasTick1Callback: _consultationsTickCallback,
-        controller: SmallCalendarDataController(),
-        child: SmallCalendarStyle(
-          dayStyle: DayStyle(
-            dayTextStyle: Res.TextStyles.dayNumber,
-            extendedDayTextStyle: Res.TextStyles.dayNumberExtended,
-            showTicks: true,
-            todayColor: Res.Colors.calendarToday,
-            tick1Color: Res.Colors.eventConsultations,
-            shadeCallback: _dayShade,
-          ),
-          weekdayIndicationStyle: WeekdayIndicationStyle(
-            backgroundColor: Res.Colors.calendarHeader,
-          ),
-          child: SmallCalendarPager(
-            controller: _calendarController,
-            onMonthChanged: (month) => _monthUpdater(month),
-            pageBuilder: (BuildContext context, DateTime month) {
-              return SmallCalendar(
-                month: month,
-                onDayTap: (day) => _showList(day),
-              );
-            },
-          ),
-        ),
-      );
+  Widget build(BuildContext context) {
+    init(false);
 
-  init() {
+    return SmallCalendarData(
+      firstWeekday: DateTime.monday,
+      isTodayCallback: _isTodayCallback,
+      hasTick1Callback: _consultationsTickCallback,
+      controller: SmallCalendarDataController(),
+      child: SmallCalendarStyle(
+        dayStyle: DayStyle(
+          dayTextStyle: Res.TextStyles.dayNumber,
+          extendedDayTextStyle: Res.TextStyles.dayNumberExtended,
+          showTicks: true,
+          todayColor: Res.Colors.calendarToday,
+          tick1Color: Res.Colors.eventConsultations,
+          shadeCallback: _dayShade,
+        ),
+        weekdayIndicationStyle: WeekdayIndicationStyle(
+          backgroundColor: Res.Colors.calendarHeader,
+        ),
+        child: SmallCalendarPager(
+          controller: _calendarController,
+          onMonthChanged: (month) => _monthUpdater(month),
+          pageBuilder: (BuildContext context, DateTime month) {
+            return SmallCalendar(
+              month: month,
+              onDayTap: (day) => _showList(day),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  init([bool updateMonth = true]) {
     DateTime currentMonth = DateTime.now();
 
     _calendarController = SmallCalendarPagerController(
       initialMonth: currentMonth,
-      minimumMonth: DateTime(currentMonth.year - 1, currentMonth.month),
-      maximumMonth: DateTime(currentMonth.year + 1, currentMonth.month),
+      minimumMonth: _getMinDate(),
+      maximumMonth: _getMaxDate(),
     );
 
-    _monthUpdater(currentMonth);
+    if(updateMonth) {
+      _monthUpdater(currentMonth);
+    }
   }
 
   updateEvents(Map<String, List<Event>> events) {
     setState(() {
       _events = events;
+    });
+  }
+
+  updatePeriods(List<Period> periods) {
+    setState(() {
+      _periods = periods;
+      build(context);
     });
   }
 
@@ -98,6 +117,38 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           builder: (context) => ListWidget(_events[key], EventItemFactory()),
       );
     }
+  }
+
+  DateTime _getMinDate() {
+    DateTime min = DateTime.now();
+
+    if(_periods == null) {
+      return min.subtract(Duration(days: Config.maxPeriodDuration));
+    }
+
+    for(Period period in _periods) {
+      if(period.start.isBefore(min)) {
+        min = period.start;
+      }
+    }
+
+    return min;
+  }
+
+  DateTime _getMaxDate() {
+    DateTime max = DateTime.now();
+
+    if(_periods == null) {
+      return max.add(Duration(days: Config.maxPeriodDuration));
+    }
+
+    for(Period period in _periods) {
+      if(period.end.isAfter(max)) {
+        max = period.end;
+      }
+    }
+
+    return max;
   }
 
   Future<bool> _isTodayCallback(DateTime date) async {
@@ -126,6 +177,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   }
 
   Color _dayShade(DateTime date) {
-    return Res.Colors.periodSemester;
+    if(_periods == null) {
+      return Res.Colors.periodHoliday;
+    }
+
+    for(Period period in _periods) {
+      if(period.containsDate(date)) {
+        return period.type.color;
+      }
+    }
+
+    return Res.Colors.periodHoliday;
   }
 }

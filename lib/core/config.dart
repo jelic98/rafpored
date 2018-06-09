@@ -1,6 +1,7 @@
 class Config {
 
   static const apiKey = "API KEY";
+  static const int maxPeriodDuration = 365;
 
   const Config();
 

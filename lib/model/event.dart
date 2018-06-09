@@ -1,8 +1,9 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/controller/filter/filterable.dart';
 
-class Event {
+class Event implements Filterable {
 
   static DateFormat _dateFormat = DateFormat("dd.MM");
   static DateFormat _timeFormat = DateFormat("HH:mm");
@@ -139,14 +140,14 @@ class Event {
     time = time.substring(0, time.indexOf("-"));
     time += (time.length == 2) ? ":00" : "";
 
-    return _timeFormat.parseStrict(time);
+    return _timeFormat.parse(time);
   }
 
   static DateTime _getTimeEnd(String time) {
     time = time.substring(time.indexOf("-") + 1);
     time += (time.length == 2) ? ":00" : "";
 
-    return _timeFormat.parseStrict(time);
+    return _timeFormat.parse(time);
   }
 
   static bool sameDate(Event a, Event b) {

@@ -15,9 +15,9 @@ class Colors {
   static const Color eventLecture = const Color(0xFF2ED573);
   static const Color eventConsultations = const Color(0xFF9B59B6);
 
-  static const Color periodExams = const Color(0xDDEB3B5A);
-  static const Color periodCurriculums = const Color(0xDDFA983A);
-  static const Color periodSemester = const Color(0xDD2ED573);
+  static const Color periodExams = const Color(0xCCEB3B5A);
+  static const Color periodCurriculums = const Color(0xCCFA983A);
+  static const Color periodSemester = const Color(0xCC2ED573);
   static const Color periodHoliday = const Color(0x44000000);
 
   static const Color newsColor = const Color(0xFF70A1FF);

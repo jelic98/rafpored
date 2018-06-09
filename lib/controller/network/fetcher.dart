@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart' as Http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/core/config.dart';
 import 'package:rafpored/core/utils.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:rafpored/controller/network/fetch_listener.dart';
+import 'package:rafpored/controller/filter/filterable.dart';
 
 abstract class Fetcher {
 
@@ -60,7 +61,10 @@ abstract class Fetcher {
   }
 
   _onSuccess(List<dynamic> items, FetchListener listener) {
-    allItems = items;
+    if(items.isNotEmpty && items[0] is Filterable) {
+      allItems = items;
+    }
+
     listener.onFetched(items);
   }
 

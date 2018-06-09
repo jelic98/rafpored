@@ -27,7 +27,7 @@ class NewsFetcher extends Fetcher {
   }
 
   @override
-  int sort(a, b) {
+  int sort(dynamic a, dynamic b) {
     return b.date.compareTo(a.date);
   }
 }
