@@ -16,21 +16,31 @@ abstract class Fetcher {
 
   static List<dynamic> allItems;
 
+  BuildContext _context;
+  FetchListener _listener;
+
   fetch(BuildContext context, FetchListener listener) async {
-    _hasNetwork().then((ok) =>
-    (ok) ? asyncFetch().then((items)
-    => _onSuccess(items, listener)) :
-    _onError(context, Res.Strings.alertNoNetwork, listener));
+    _context = context;
+    _listener = listener;
+
+    asyncFetch().then((items) => _onSuccess(items));
   }
 
   Future<String> getResponse(String endpoint) async {
     String response = await _getCache(endpoint);
 
     if(response == null || response.isNotEmpty) {
-      return (await Http.get(Config.getApiUrl(endpoint), headers: {"apikey" : Config.apiKey})).body;
+      if(await _hasNetwork()) {
+        setCache(endpoint,
+            response = (await Http.get(Config.getApiUrl(endpoint),
+                headers: {"apikey" : Config.apiKey})).body);
+      }else {
+        if(response == null || response.isEmpty || response == "null") {
+          _onError(Res.Strings.alertNoNetwork);
+          return "{}";
+        }
+      }
     }
-
-    setCache(endpoint, response);
 
     return response;
   }
@@ -60,17 +70,17 @@ abstract class Fetcher {
     Fetcher.prefs.then((prefs) => prefs.setString("lastFetchTime-$endpoint", DateTime.now().toString()));
   }
 
-  _onSuccess(List<dynamic> items, FetchListener listener) {
+  _onSuccess(List<dynamic> items) {
     if(items.isNotEmpty && items[0] is Filterable) {
       allItems = items;
     }
 
-    listener.onFetched(items);
+    _listener.onFetched(items);
   }
 
-  _onError(BuildContext context, String message, FetchListener listener) {
-    Utils.showMessage(context, message);
-    _onSuccess([], listener);
+  _onError(String message) {
+    Utils.showMessage(_context, message);
+    _onSuccess([]);
   }
 
   Future<bool> _hasNetwork() async {

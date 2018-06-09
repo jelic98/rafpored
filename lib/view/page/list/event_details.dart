@@ -66,7 +66,7 @@ class EventDetails extends DetailsBodyState {
                         Row(
                           children: <Widget>[
                             Icon(
-                              Icons.access_time,
+                              Icons.event,
                               size: Res.Dimens.smallIconSize,
                               color: Res.Colors.smallIcon,
                             ),
@@ -80,7 +80,7 @@ class EventDetails extends DetailsBodyState {
                         Row(
                           children: <Widget>[
                             Icon(
-                              Icons.event,
+                              Icons.access_time,
                               size: Res.Dimens.smallIconSize,
                               color: Res.Colors.smallIcon,
                             ),

@@ -14,6 +14,10 @@ class PeriodFetcher extends Fetcher {
 
     var response = JsonDecoder().convert(await getResponse(_endpoint))["schedule"];
 
+    if(response == null) {
+      return items;
+    }
+
     var id = 0;
 
     for(var period in response) {

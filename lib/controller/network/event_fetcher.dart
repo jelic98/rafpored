@@ -20,6 +20,10 @@ class EventFetcher extends Fetcher {
     for(String endpoint in _endpoints) {
       var response = JsonDecoder().convert(await getResponse(endpoint))["schedule"];
 
+      if(response == null) {
+        continue;
+      }
+
       for(var event in response) {
         event["id"] = (++id).toString();
 

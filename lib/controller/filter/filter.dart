@@ -30,8 +30,8 @@ class Filter {
     saveCriteria(FilterCriteria());
   }
 
-  extract(List<Event> events) {
-    if(extractor == null) {
+  extract(List<dynamic> events) {
+    if(events.isNotEmpty && events[0] is Event && extractor == null) {
       extractor = EventExtractor(events);
     }
   }

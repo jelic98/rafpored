@@ -84,7 +84,15 @@ class Event implements Filterable {
     return buffer.toString();
   }
 
-  String getDate() => "${Res.Strings.days[DateFormat("E").format(date)]} ${_dateFormat.format(date)}";
+  String getDate() {
+    String formatted = "${Res.Strings.days[DateFormat("E").format(date)]}";
+
+    if(!repeatsWeekly) {
+      formatted += " ${_dateFormat.format(date)}";
+    }
+
+    return formatted;
+  }
 
   String getTimeStart() => _timeFormat.format(timeStart);
 

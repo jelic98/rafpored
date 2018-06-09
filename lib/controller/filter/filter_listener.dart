@@ -12,7 +12,9 @@ class FilterListener {
   onFiltered(FilterCriteria criteria, Function setFilterVisible) {
     List<Event> events = List<Event>();
 
-    Fetcher.allItems.forEach((event) => events.add(event));
+    if(Fetcher.allItems != null) {
+      Fetcher.allItems.forEach((event) => events.add(event));
+    }
 
     events.removeWhere((event) =>
     (criteria.eventType != null && event.type != criteria.eventType) ||
