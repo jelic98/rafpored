@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/core/config.dart';
 import 'package:rafpored/core/routes.dart';
+import 'package:rafpored/controller/notifier/notifier_page.dart';
 import 'package:rafpored/controller/filter/filter.dart';
 import 'package:rafpored/view/common/filter/filter_bar.dart';
 import 'package:rafpored/view/page/calendar/calendar_body.dart';
 
-class CalendarPage extends StatelessWidget {
+class CalendarPage extends NotifierPage {
+
+  @override
+  NotifierPageState createState() => CalendarPageState();
+}
+
+class CalendarPageState extends NotifierPageState {
 
   final Filter _filter = Filter();
 

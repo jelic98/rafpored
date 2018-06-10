@@ -32,6 +32,12 @@ class Notifier {
     _channel.stream.listen((snapshot) => _onNotificationReceived(snapshot));
   }
 
+  static closeNotifier() {
+    if(_channel != null) {
+      _channel.sink.close();
+    }
+  }
+
   static _notify(String title, String body) {
     _plugin.show(0, title, body,
         NotificationDetails(NotificationDetailsAndroid(

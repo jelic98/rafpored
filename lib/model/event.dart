@@ -165,6 +165,7 @@ class Event implements Filterable {
     }
 
     if(periods != null) {
+      // todo [FIX] Holiday contains events
       bool periodFound = false;
 
       for(Period period in periods) {
