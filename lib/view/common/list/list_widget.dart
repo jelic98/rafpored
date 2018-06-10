@@ -32,14 +32,14 @@ class ListWidgetState extends State<ListWidget> {
 
     if(MediaQuery.of(context).orientation == Orientation.portrait || items.length == 1) {
       return ListView.builder(
-        padding: EdgeInsets.only(top: Res.Dimens.listPadding),
+        padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
         shrinkWrap: true,
         itemCount: items.length,
         itemBuilder: (context, index) => itemFactory.getItem(context, items[index]),
       );
     }else {
       return GridView.count(
-        padding: EdgeInsets.only(top: Res.Dimens.listPadding),
+        padding: EdgeInsets.only(top: Res.Dimens.listPadding, bottom: Res.Dimens.listPadding),
         shrinkWrap: true,
         crossAxisCount: 2,
         childAspectRatio: 2.2,

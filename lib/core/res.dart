@@ -172,6 +172,11 @@ class Strings {
   static const String captionNoItems = "Nema stavki";
   static const String captionNoNotes = "Nema napomena";
 
+  static const String eventExam = "Ispit";
+  static const String eventCurriculum = "Kolokvijum";
+  static const String eventLecture = "Predavanje";
+  static const String eventConsultations = "Konsultacije";
+
   static const Map<String, String> months = {
     "01" : "Januar",
     "02" : "Februar",

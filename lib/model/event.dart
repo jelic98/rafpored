@@ -165,17 +165,12 @@ class Event implements Filterable {
     }
 
     if(periods != null) {
-      // todo [FIX] Holiday contains events
-      bool periodFound = false;
-
       for(Period period in periods) {
-        if(period.containsDate(b) && period.type.eventTypes.contains(a.type)) {
-          periodFound = true;
+        if(period.containsDate(b)) {
+          if(!period.type.eventTypes.contains(a.type)) {
+            return false;
+          }
         }
-      }
-
-      if(!periodFound) {
-        return false;
       }
     }
 
@@ -196,8 +191,8 @@ class EventType {
 
   const EventType(this.name, this.color);
 
-  static const EventType exam = const EventType("Ispit", Res.Colors.eventExam);
-  static const EventType curriculum = const EventType("Kolokvijum", Res.Colors.eventCurriculum);
-  static const EventType lecture = const EventType("Predavanje", Res.Colors.eventLecture);
-  static const EventType consultations = const EventType("Konsultacije", Res.Colors.eventConsultations);
+  static const EventType exam = const EventType(Res.Strings.eventExam, Res.Colors.eventExam);
+  static const EventType curriculum = const EventType(Res.Strings.eventCurriculum, Res.Colors.eventCurriculum);
+  static const EventType lecture = const EventType(Res.Strings.eventLecture, Res.Colors.eventLecture);
+  static const EventType consultations = const EventType(Res.Strings.eventConsultations, Res.Colors.eventConsultations);
 }
