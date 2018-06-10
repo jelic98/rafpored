@@ -155,8 +155,6 @@ class Strings {
 
   const Strings();
 
-  static const String appName = "Rafpored";
-
   static const String inputEventType = "Tip";
   static const String inputSubject = "Predmet";
   static const String inputProfessor = "Profesor";
@@ -164,11 +162,13 @@ class Strings {
   static const String inputGroup = "Grupa";
 
   static const String actionReset = "Poništi";
+  static const String actionOpenNews = "Pogledaj sve vesti";
 
   static const String alertWait = "Molimo sačekajte";
   static const String alertRequiredFields = "Popunite neophodna polja";
   static const String alertNoNetwork = "Nema internet konekcije";
 
+  static const String captionNewsReceived = "Nova vest";
   static const String captionNoItems = "Nema stavki";
   static const String captionNoNotes = "Nema napomena";
 

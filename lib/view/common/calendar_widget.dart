@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:rafpored/core/config.dart';
 import 'package:rafpored/core/res.dart' as Res;
+import 'package:rafpored/core/config.dart';
 import 'package:rafpored/model/event.dart';
 import 'package:rafpored/model/period.dart';
 import 'package:rafpored/view/common/calendar/small_calendar.dart';

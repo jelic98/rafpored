@@ -11,7 +11,6 @@ import 'package:rafpored/controller/filter/filterable.dart';
 
 abstract class Fetcher {
 
-  static const int _cacheTimeout = 60 * 6; // minutes
   static final Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
   static List<dynamic> allItems;
@@ -57,7 +56,7 @@ abstract class Fetcher {
         lastFetchData != null && lastFetchData.isNotEmpty) {
       DateTime lastFetch = DateTime.parse(lastFetchTime);
 
-      if(now.difference(lastFetch).inMinutes < _cacheTimeout) {
+      if(now.difference(lastFetch).inMinutes < Config.cacheTimeout) {
         return lastFetchData;
       }
     }
