@@ -19,7 +19,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "0.1.0"
+        versionName "1.0.0"
     }
     signingConfigs {
         release {
@@ -31,10 +31,11 @@ android {
     }
     buildTypes {
         release {
-            shrinkResources false
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
+            shrinkResources true
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
 
