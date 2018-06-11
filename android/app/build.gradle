@@ -13,13 +13,13 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+	buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "rs.raf.rafpored"
         minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
-        versionName "1.0.0"
+        versionName "0.1.0"
     }
     signingConfigs {
         release {
@@ -32,25 +32,13 @@ android {
     buildTypes {
         release {
             debuggable false
-            shrinkResources true
-            minifyEnabled true
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-
-        debug {
-            debuggable true
-        }
     }
     lintOptions {
         disable 'InvalidPackage'
-    }
-}
-
-buildscript {
-    repositories {
-        jcenter()
     }
 }
 
