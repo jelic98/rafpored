@@ -23,7 +23,7 @@ class _FilterBarState extends State<FilterBar> {
   Widget _filterButton;
 
   _FilterBarState(this._title, this._action, this._filter) {
-    _filter.setFilterVisible = _updateButton;
+    _filter.buttonUpdater = _updateButton;
   }
 
 

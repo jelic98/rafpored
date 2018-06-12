@@ -9,7 +9,7 @@ class FilterListener {
 
   FilterListener(this._fetcher);
 
-  onFiltered(FilterCriteria criteria, Function setFilterVisible) {
+  onFiltered(FilterCriteria criteria) {
     List<Event> events = List<Event>();
 
     if(Fetcher.allItems != null) {
@@ -22,10 +22,6 @@ class FilterListener {
         (criteria.professor != null && event.professor != criteria.professor) ||
         (criteria.classroom != null && event.classroom != criteria.classroom) ||
         (criteria.group != null && !event.groups.contains(criteria.group)));
-
-    if(setFilterVisible != null) {
-      setFilterVisible(events.isNotEmpty);
-    }
 
     _fetcher.onFetched(events, true);
   }

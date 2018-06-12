@@ -62,21 +62,13 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       return;
     }
 
-    _fetched = true;
+    _filter.extract(items, filtered);
 
     setState(() {
       super.items = items;
     });
 
-    if(_filter != null) {
-      _filter.extract(items);
-
-      if(filtered == null || !filtered) {
-        _filter.loadCriteria(FilterCriteria());
-      }
-
-      _filter.setFilterVisible(items.isNotEmpty);
-    }
+    _fetched = true;
 
     _content = RefreshIndicator(
       color: Res.Colors.primaryLight,

@@ -73,15 +73,11 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
       return;
     }
 
-    _events.clear();
+    _filter.extract(items, filtered);
 
-    setState(() => items.forEach((item) => _events.add(item)));
-
-    _filter.extract(items);
-
-    if(filtered == null || !filtered) {
-      _filter.loadCriteria(FilterCriteria());
-    }
+    setState(() {
+      _events = items;
+    });
 
     _calendarWidget.updateEvents(_events);
   }

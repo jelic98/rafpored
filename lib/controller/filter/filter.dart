@@ -12,7 +12,7 @@ class Filter {
 
   FilterListener listener;
   EventExtractor extractor;
-  Function setFilterVisible;
+  Function buttonUpdater;
 
   saveCriteria(FilterCriteria criteria) {
     _prefs.then((prefs) => _saveFilters(prefs, criteria));
@@ -30,10 +30,16 @@ class Filter {
     saveCriteria(FilterCriteria());
   }
 
-  extract(List<dynamic> events) {
+  extract(List<dynamic> events, [bool filtered]) {
     if(events.isNotEmpty && events[0] is Event && extractor == null) {
       extractor = EventExtractor(events);
     }
+
+    if(filtered != null && !filtered) {
+      loadCriteria(FilterCriteria());
+    }
+
+    buttonUpdater(events.isNotEmpty);
   }
 
   _saveFilters(SharedPreferences prefs, FilterCriteria criteria) {
@@ -43,7 +49,7 @@ class Filter {
     prefs.setString("classroom", criteria.classroom);
     prefs.setString("group", criteria.group);
 
-    listener.onFiltered(criteria, setFilterVisible);
+    listener.onFiltered(criteria);
   }
 
   _loadFilters(SharedPreferences prefs, FilterCriteria criteria) {
@@ -61,6 +67,6 @@ class Filter {
     criteria.classroom = prefs.getString("classroom") ?? null;
     criteria.group = prefs.getString("group") ?? null;
 
-    listener.onFiltered(criteria, setFilterVisible);
+    listener.onFiltered(criteria);
   }
 }
