@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafpored/core/res.dart' as Res;
 import 'package:rafpored/controller/filter/filter.dart';
-import 'package:rafpored/controller/filter/filter_button_provider.dart';
+import 'package:rafpored/view/common/filter/filter_widget.dart';
 
 class FilterBar extends StatefulWidget {
 
@@ -18,18 +18,19 @@ class _FilterBarState extends State<FilterBar> {
 
   final String _title;
   final IconButton _action;
+  final Filter _filter;
 
-  FilterButtonProvider _provider;
   Widget _filterButton;
 
-  _FilterBarState(this._title, this._action, Filter filter) {
-    _provider = FilterButtonProvider(filter, _updateButton);
+  _FilterBarState(this._title, this._action, this._filter) {
+    _filter.setFilterVisible = _updateButton;
   }
+
 
   @override
   void initState() {
     super.initState();
-    _filterButton = _provider.init(context, true);
+    _filterButton = _getButton(false);
   }
 
   @override
@@ -60,13 +61,28 @@ class _FilterBarState extends State<FilterBar> {
               colors: [Res.Colors.primaryDark, Res.Colors.primaryLight],
             ),
           ),
-        )
+        ),
     );
   }
 
-  _updateButton(Widget filterButton) {
+  _updateButton(bool visible) {
     setState(() {
-      _filterButton = filterButton;
+      _filterButton = _getButton(visible);
     });
+  }
+
+  _getButton(bool visible) {
+    return IconButton(
+      onPressed: () => (visible) ? _buildFilterWidget(context) : _filter.resetCriteria(context),
+      icon: Icon((visible) ? Icons.search : Icons.refresh),
+      color: Res.Colors.barIcon,
+    );
+  }
+
+  _buildFilterWidget(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (context) => FilterWidget(_filter),
+    );
   }
 }

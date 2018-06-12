@@ -9,8 +9,8 @@ class FilterWidget extends StatefulWidget {
 
   final _FilterWidgetState _state;
 
-  FilterWidget(Filter filter, Function setFilterVisible) :
-        _state = _FilterWidgetState(filter, setFilterVisible);
+  FilterWidget(Filter filter) :
+        _state = _FilterWidgetState(filter);
 
   @override
   _FilterWidgetState createState() => _state;
@@ -22,9 +22,7 @@ class _FilterWidgetState extends State<FilterWidget> {
 
   FilterCriteria _criteria;
 
-  _FilterWidgetState(this._filter, Function setFilterVisible) {
-    _filter.setFilterVisible = setFilterVisible;
-  }
+  _FilterWidgetState(this._filter);
 
   @override
   void initState() {

@@ -74,6 +74,8 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       if(filtered == null || !filtered) {
         _filter.loadCriteria(FilterCriteria());
       }
+
+      _filter.setFilterVisible(items.isNotEmpty);
     }
 
     _content = RefreshIndicator(
