@@ -73,7 +73,7 @@ class _CalendarBodyState extends State<CalendarBody> implements FetchListener {
       return;
     }
 
-    _filter.extract(items, filtered);
+    _filter?.extract(items, filtered);
 
     setState(() {
       _events = items;

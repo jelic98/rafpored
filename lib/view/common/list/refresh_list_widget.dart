@@ -62,7 +62,7 @@ class _RefreshListWidgetState extends ListWidgetState implements FetchListener {
       return;
     }
 
-    _filter.extract(items, filtered);
+    _filter?.extract(items, filtered);
 
     setState(() {
       super.items = items;

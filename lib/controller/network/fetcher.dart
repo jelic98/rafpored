@@ -29,11 +29,11 @@ abstract class Fetcher {
     String response = await _getCache(endpoint);
 
     if(response == null || response.isNotEmpty) {
-      if(await _hasNetwork()) {
+      try {
         setCache(endpoint,
             response = (await Http.get(Config.getApiUrl(endpoint),
                 headers: {"apikey" : Config.apiKey})).body);
-      }else {
+      }on SocketException catch(_) {
         if(response == null || response.isEmpty || response == "null") {
           _onError(Res.Strings.alertNoNetwork);
           return "{}";
@@ -80,16 +80,6 @@ abstract class Fetcher {
   _onError(String message) {
     Utils.showMessage(_context, message);
     _onSuccess([]);
-  }
-
-  Future<bool> _hasNetwork() async {
-    try {
-      final result = await InternetAddress.lookup("google.com");
-
-      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
-    }on SocketException catch(_) {
-      return false;
-    }
   }
 
   int sort(dynamic a, dynamic b);
