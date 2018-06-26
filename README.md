@@ -6,6 +6,8 @@ Naziv aplikacije: Rafpored
 
 Kratak opis aplikacije: Aplikacija za brzo informisanje studenata o rasporedu događaja na fakultetu
 
+Podržane platforme: iOS, Android
+
 ### Dug opis aplikacije
 
 Svi znamo osećaj kada se bliži ispit, a mi ne znamo u koliko sati počinje? U takvim kritičnim trenucima, klasičan student umesto da posveti vreme knjizi (ili prezentacijama) odlazi na materijale i skida ceo PDF sa rasporedom svih ispita kod svih profesora za sve 4 godine.
